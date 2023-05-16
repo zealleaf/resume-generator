@@ -1,4 +1,8 @@
-import { JetBrains_Mono as FontMono, Inter as FontSans } from "next/font/google"
+import {
+  Bungee_Spice,
+  JetBrains_Mono as FontMono,
+  Inter as FontSans,
+} from "next/font/google"
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -8,4 +12,10 @@ export const fontSans = FontSans({
 export const fontMono = FontMono({
   subsets: ["latin"],
   variable: "--font-mono",
+})
+
+export const bungeeSpice = Bungee_Spice({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--bungee-spice",
 })
