@@ -1,47 +1,41 @@
-import * as React from "react"
-import Link from "next/link"
+"use client"
 
-import { NavItem } from "@/types/nav"
+import { useState } from "react"
+import Link from "next/link"
+import { TypeAnimation } from "react-type-animation"
+
 import { siteConfig } from "@/config/site"
 import { bungeeSpice } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
 
-interface MainNavProps {
-  items?: NavItem[]
-}
+export function MainNav() {
+  const [finishStatus, setFinishStatus] = useState(false)
 
-export function MainNav({ items }: MainNavProps) {
   return (
-    <div className="flex gap-6 md:gap-10">
-      <Link href="/" className="hidden items-center space-x-2 md:flex">
-        <span
-          className={cn(
-            "hidden text-lg font-bold sm:inline-block",
-            bungeeSpice.className
-          )}
-        >
-          {siteConfig.name}
-        </span>
+    <div className="flex gap-6">
+      <Link href="/" className="flex items-center">
+        {finishStatus ? (
+          <span className={cn("text-lg font-bold", bungeeSpice.className)}>
+            {siteConfig.name}
+          </span>
+        ) : (
+          <TypeAnimation
+            sequence={[
+              "resume",
+              1000,
+              siteConfig.name,
+              1000,
+              () => {
+                setFinishStatus(true)
+              },
+            ]}
+            wrapper="span"
+            cursor={!finishStatus}
+            repeat={1}
+            className={cn("text-lg font-bold", bungeeSpice.className)}
+          />
+        )}
       </Link>
-      {items?.length ? (
-        <nav className="flex gap-6">
-          {items?.map(
-            (item, index) =>
-              item.href && (
-                <Link
-                  key={index}
-                  href={item.href}
-                  className={cn(
-                    "flex items-center text-lg font-semibold text-muted-foreground sm:text-sm",
-                    item.disabled && "cursor-not-allowed opacity-80"
-                  )}
-                >
-                  {item.title}
-                </Link>
-              )
-          )}
-        </nav>
-      ) : null}
     </div>
   )
 }

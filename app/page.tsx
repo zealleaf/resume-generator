@@ -1,3 +1,5 @@
+import Terminal from "@/components/terminal"
+
 export default function IndexPage() {
-  return <div>TODO</div>
+  return <Terminal />
 }
