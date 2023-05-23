@@ -15,7 +15,12 @@ export function MainNav() {
     <div className="flex gap-6">
       <Link href="/" className="flex items-center">
         {finishStatus ? (
-          <span className={cn("text-lg font-bold", bungeeSpice.className)}>
+          <span
+            className={cn(
+              "text-lg font-bold animate-in fade-in zoom-in duration-500",
+              bungeeSpice.className
+            )}
+          >
             {siteConfig.name}
           </span>
         ) : (
@@ -32,7 +37,10 @@ export function MainNav() {
             wrapper="span"
             cursor={!finishStatus}
             repeat={1}
-            className={cn("text-lg font-bold", bungeeSpice.className)}
+            className={cn(
+              "text-base font-bold sm:text-lg",
+              bungeeSpice.className
+            )}
           />
         )}
       </Link>

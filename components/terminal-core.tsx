@@ -32,6 +32,7 @@ const initOutPutItemList: outPutItem[] = [
 
 export type TCommand = (params: {
   setOutPutItemList: Dispatch<SetStateAction<outPutItem[]>>
+  next: () => void
 }) => any
 
 export type TCommandMap = Record<string, TCommand>
@@ -53,8 +54,33 @@ export default function TerminalCore({ commandMap }: ITerminal) {
   const commandHandler = (value: string) => {
     let handledvalue = value.trim()
 
+    const next = () => {
+      setOutPutItemList((oldData) => {
+        return [
+          ...oldData,
+          {
+            prefix: "$",
+            code: "",
+          },
+        ]
+      })
+
+      setInputValue("")
+
+      clearTimeout(t)
+
+      t = setTimeout(() => {
+        if (codeContainerRef.current) {
+          codeContainerRef.current.scrollTo({
+            top: codeContainerRef.current.scrollHeight,
+            behavior: "smooth",
+          })
+        }
+      }, 0)
+    }
+
     if (typeof commandMap[handledvalue] === "function") {
-      commandMap[handledvalue]({ setOutPutItemList })
+      commandMap[handledvalue]({ setOutPutItemList, next: next })
     } else {
       switch (value) {
         case "":
@@ -76,30 +102,8 @@ export default function TerminalCore({ commandMap }: ITerminal) {
           })
           break
       }
+      next()
     }
-
-    setOutPutItemList((oldData) => {
-      return [
-        ...oldData,
-        {
-          prefix: "$",
-          code: "",
-        },
-      ]
-    })
-
-    setInputValue("")
-
-    clearTimeout(t)
-
-    t = setTimeout(() => {
-      if (codeContainerRef.current) {
-        codeContainerRef.current.scrollTo({
-          top: codeContainerRef.current.scrollHeight,
-          behavior: "smooth",
-        })
-      }
-    }, 0)
   }
 
   const onInputChange = (e: any) => {
@@ -149,31 +153,31 @@ export default function TerminalCore({ commandMap }: ITerminal) {
   return (
     <div className="wrapper">
       <div
-        className="mockup-code bg-[#373b47] text-white md:w-1/2 2xl:w-1/3"
+        className="mockup-code bg-[#373b47] text-white"
         onClick={inputfocusHandler}
       >
         <div
           ref={codeContainerRef}
-          className="scrollbar-hidden max-h-96 overflow-auto"
+          className="scrollbar-hidden max-h-32 overflow-auto md:max-h-96"
         >
           {outPutItemList.map((outPutItem, index) => {
             return (
-              <div style={outPutItem.style}>
+              <div style={outPutItem.style} key={index}>
                 {(() => {
                   if (outPutItem.prefix === "$") {
                     if (index === outPutItemList.length - 1) {
                       return (
-                        <pre data-prefix="$" key={index} className="relative">
+                        <pre data-prefix="$" className="relative">
                           <code>{outPutItem.code}</code>
                           {isInputFocus ? (
-                            <span className="cursor-blink absolute top-[6px] ml-1 inline-block h-[13px] w-1 bg-white" />
+                            <span className="cursor-blink absolute top-[2px] ml-1 inline-block h-[12px] w-1 bg-white md:top-[4px] md:h-[13px] lg:top-[6px]" />
                           ) : null}
                         </pre>
                       )
                     }
 
                     return (
-                      <pre data-prefix="$" key={index}>
+                      <pre data-prefix="$">
                         <code>{outPutItem.code}</code>
                       </pre>
                     )
@@ -181,14 +185,14 @@ export default function TerminalCore({ commandMap }: ITerminal) {
 
                   if (outPutItem.prefix === ">") {
                     return (
-                      <pre data-prefix=">" key={index}>
+                      <pre data-prefix=">">
                         <code>{outPutItem.code}</code>
                       </pre>
                     )
                   }
 
                   return (
-                    <pre key={index}>
+                    <pre>
                       <code>{outPutItem.code}</code>
                     </pre>
                   )
