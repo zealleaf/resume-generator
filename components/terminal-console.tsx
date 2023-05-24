@@ -1,6 +1,6 @@
 "use client"
 
-import { generatePDF } from "@/lib/pdf-handler"
+import { generatePDF } from "@/lib/utils"
 import TerminalCore, { TCommand, TCommandMap } from "@/components/terminal-core"
 
 const help: TCommand = ({ setOutPutItemList, next }) => {
