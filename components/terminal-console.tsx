@@ -3,6 +3,8 @@
 import { generatePDF } from "@/lib/utils"
 import TerminalCore, { TCommand, TCommandMap } from "@/components/terminal-core"
 
+import { atom_resume_core } from "./resume-core"
+
 const help: TCommand = ({ setOutPutItemList, next }) => {
   setOutPutItemList((oldData) => {
     return [
@@ -54,16 +56,25 @@ const generate: TCommand = ({ setOutPutItemList, next }) => {
   })
 }
 
+const template: TCommand = ({ setOutPutItemList, next }) => {
+  atom_resume_core.show = true
+  atom_resume_core.template = "one"
+
+  next()
+}
+
 const commandMap: TCommandMap = {
   "rg --help": help,
   "rg -h": help,
   "rg g": generate,
   "rg generate": generate,
+  "rg t": template,
+  "rg template": template,
 }
 
 export default function TerminalConsole() {
   return (
-    <div className="text-xs md:text-sm lg:text-base">
+    <div>
       <TerminalCore commandMap={commandMap} />
     </div>
   )

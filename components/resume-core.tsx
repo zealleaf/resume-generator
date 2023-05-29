@@ -5,13 +5,22 @@ import { subscribeKey } from "valtio/utils"
 
 import { resetValtioState } from "@/lib/utils"
 
+import ResumeTemplates from "./resume-templates"
+
 const initObj = {
   show: false,
-  userData: {},
-  templateData: {},
+  userData: {} as TUserData,
+  template: "one" as TTemplate,
 }
 
-export const atom_resume_core = proxy(initObj)
+export type TUserData = Record<string, any>
+export type TTemplate = "one"
+
+export const atom_resume_core = proxy<{
+  show: boolean
+  userData: TUserData
+  template: TTemplate
+}>(initObj)
 
 subscribeKey(atom_resume_core, "show", (v) => {
   if (v === false) {
@@ -28,7 +37,10 @@ export default function ResumeCore() {
 
   return (
     <div className="resume-core">
-      <p className="text-sm">你好</p>
+      <ResumeTemplates
+        template={atom_snapshot_resume_core.template}
+        userData={atom_snapshot_resume_core.userData}
+      />
     </div>
   )
 }
