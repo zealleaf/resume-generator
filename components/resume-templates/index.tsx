@@ -1,13 +1,13 @@
-import { template, userData } from "../resume-core"
+import { TTemplate, TUserData } from "../resume-core"
 import One from "./one"
 
 interface IResumeTemplates {
-  template: template
-  userData: userData
+  template: TTemplate
+  userData: TUserData
 }
 
 const templateMap = {
-  one: (props: userData) => {
+  one: (props: TUserData) => {
     return <One {...props} />
   },
 }
