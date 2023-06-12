@@ -1,19 +1,8 @@
 "use client"
 
-import {
-  CSSProperties,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from "react"
+import { useEffect, useRef, useState } from "react"
 
-interface outPutItem {
-  prefix: "$" | ">" | null
-  code: string
-  style?: CSSProperties
-}
+import { ITerminal, outPutItem } from "@/types/terminal-core"
 
 const initOutPutItemList: outPutItem[] = [
   {
@@ -29,17 +18,6 @@ const initOutPutItemList: outPutItem[] = [
     code: "",
   },
 ]
-
-export type TCommand = (params: {
-  setOutPutItemList: Dispatch<SetStateAction<outPutItem[]>>
-  next: () => void
-}) => any
-
-export type TCommandMap = Record<string, TCommand>
-
-interface ITerminal {
-  commandMap: TCommandMap
-}
 
 let t: NodeJS.Timeout
 
@@ -151,7 +129,7 @@ export default function TerminalCore({ commandMap }: ITerminal) {
   }, [])
 
   return (
-    <div className="wrapper">
+    <div id="termimal-core">
       <div
         className="mockup-code bg-[#373b47] text-white"
         onClick={inputfocusHandler}

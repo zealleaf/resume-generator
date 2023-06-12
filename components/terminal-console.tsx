@@ -1,7 +1,8 @@
 "use client"
 
+import { TCommand, TCommandMap } from "@/types/terminal-core"
 import { generatePDF } from "@/lib/utils"
-import TerminalCore, { TCommand, TCommandMap } from "@/components/terminal-core"
+import TerminalCore from "@/components/terminal-core"
 
 import { atom_resume_core } from "./resume-core"
 
