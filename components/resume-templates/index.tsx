@@ -18,13 +18,14 @@ export default function ResumeTemplates({
   template,
   userData,
 }: IResumeTemplates) {
-  // TODO 移动端字体比例问题
   return (
     <section
       className={cn(
-        "m-auto box-border h-[424px] w-[300px] bg-white p-4 text-black transition-all duration-500",
-        "sm:h-[730px] sm:w-[516px] sm:scale-[0.95]",
-        "md:scale-[0.85] lg:scale-[1]"
+        "box-border bg-white p-4 text-black transition-all duration-500",
+        "ml-[calc(-516px/2+100vw/2-24px)] mt-[-135px] h-[730px] w-[516px] scale-[0.6]",
+        "sm:m-auto sm:scale-[0.95]",
+        "md:scale-[0.85]",
+        "lg:scale-[1]"
       )}
     >
       {templateMap[template](userData)}
