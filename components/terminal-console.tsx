@@ -1,7 +1,6 @@
 "use client"
 
 import { TCommand, TCommandMap } from "@/types/terminal-core"
-import { generatePDF } from "@/lib/utils"
 import TerminalCore from "@/components/terminal-core"
 
 import { atom_resume_core } from "./resume-core"
@@ -42,19 +41,17 @@ const generate: TCommand = ({ setOutPutItemList, next }) => {
     ]
   })
 
-  generatePDF(() => {
-    setOutPutItemList((oldData) => {
-      return [
-        ...oldData,
-        {
-          prefix: ">",
-          code: "generated!",
-        },
-      ]
-    })
-
-    next()
+  setOutPutItemList((oldData) => {
+    return [
+      ...oldData,
+      {
+        prefix: ">",
+        code: "generated!",
+      },
+    ]
   })
+
+  next()
 }
 
 const template: TCommand = ({ setOutPutItemList, next }) => {

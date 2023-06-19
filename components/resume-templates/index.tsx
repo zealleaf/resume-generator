@@ -19,19 +19,14 @@ export default function ResumeTemplates({
   userData,
 }: IResumeTemplates) {
   return (
-    <div
+    <section
       className={cn(
-        "absolute",
-        "p-8",
-        "bg-white  text-black",
-        "h-[1169px] w-[827px]",
-        "left-[-73%] top-[-67%] scale-[0.39]",
-        "md:left-[-40%] md:top-[-40%] md:scale-50",
-        "lg:left-[-25%] lg:top-[-25%] lg:scale-[0.65]",
-        "2xl:left-auto 2xl:top-auto 2xl:scale-100"
+        "m-auto box-border h-[424px] w-[300px] bg-red-700 p-4 transition-all duration-500",
+        "sm:h-[730px] sm:w-[516px] sm:scale-[0.95]",
+        "md:scale-[0.85] lg:scale-[1]"
       )}
     >
       {templateMap[template](userData)}
-    </div>
+    </section>
   )
 }

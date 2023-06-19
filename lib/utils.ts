@@ -12,7 +12,3 @@ export function resetValtioState(atom: any, initialObj: any) {
     ;(atom as any)[key] = (resetObj as any)[key]
   })
 }
-
-export function generatePDF(cb: () => void) {
-  cb()
-}

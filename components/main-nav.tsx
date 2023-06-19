@@ -12,7 +12,7 @@ export function MainNav() {
       <Link href="/" className="flex items-center">
         <span
           className={cn(
-            "text-lg font-bold animate-in fade-in zoom-in duration-500",
+            "text-lg font-bold animate-in fade-in zoom-in-95 duration-500",
             bungeeSpice.className
           )}
         >

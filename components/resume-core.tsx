@@ -4,7 +4,7 @@ import { proxy, useSnapshot } from "valtio"
 import { subscribeKey } from "valtio/utils"
 
 import { TTemplate, TUserData } from "@/types/resume-core"
-import { cn, resetValtioState } from "@/lib/utils"
+import { resetValtioState } from "@/lib/utils"
 
 import ResumeTemplates from "./resume-templates"
 
@@ -46,19 +46,10 @@ export default function ResumeCore() {
   //   return null
   // }
 
+  // TODO 提供生成resume功能函数
+
   return (
-    <div
-      id="resume-core"
-      className={cn(
-        "relative",
-        "overflow-x-hidden",
-        "m-auto",
-        "h-[500px] w-[335px]",
-        "md:h-[650px] md:w-[460px]",
-        "lg:h-[780px] lg:w-[552px]",
-        "2xl:h-[1169px] 2xl:w-[827px]"
-      )}
-    >
+    <div id="resume-core">
       <ResumeTemplates
         template={atom_snapshot_resume_core.template}
         userData={atom_snapshot_resume_core.userData as TUserData}

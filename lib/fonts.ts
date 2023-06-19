@@ -17,5 +17,4 @@ export const fontMono = FontMono({
 export const bungeeSpice = Bungee_Spice({
   subsets: ["latin"],
   weight: "400",
-  variable: "--bungee-spice",
 })
