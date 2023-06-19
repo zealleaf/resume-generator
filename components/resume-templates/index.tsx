@@ -21,7 +21,7 @@ export default function ResumeTemplates({
   return (
     <section
       className={cn(
-        "m-auto box-border h-[424px] w-[300px] bg-red-700 p-4 transition-all duration-500",
+        "m-auto box-border h-[424px] w-[300px] bg-white p-4 text-black transition-all duration-500",
         "sm:h-[730px] sm:w-[516px] sm:scale-[0.95]",
         "md:scale-[0.85] lg:scale-[1]"
       )}
