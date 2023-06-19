@@ -18,6 +18,7 @@ export default function ResumeTemplates({
   template,
   userData,
 }: IResumeTemplates) {
+  // TODO 移动端字体比例问题
   return (
     <section
       className={cn(
