@@ -136,7 +136,7 @@ export default function TerminalCore({ commandMap }: ITerminal) {
       >
         <div
           ref={codeContainerRef}
-          className="scrollbar-hidden max-h-32 overflow-auto md:max-h-96"
+          className="scrollbar-hidden max-h-32 overflow-auto lg:max-h-96"
         >
           {outPutItemList.map((outPutItem, index) => {
             return (
@@ -148,7 +148,7 @@ export default function TerminalCore({ commandMap }: ITerminal) {
                         <pre data-prefix="$" className="relative">
                           <code>{outPutItem.code}</code>
                           {isInputFocus ? (
-                            <span className="cursor-blink absolute top-[2px] ml-1 inline-block h-[12px] w-1 bg-white md:top-[4px] md:h-[13px] lg:top-[6px]" />
+                            <span className="cursor-blink absolute top-[2px] ml-1 inline-block h-[12px] w-1 bg-white md:top-[6px] md:h-[13px]" />
                           ) : null}
                         </pre>
                       )

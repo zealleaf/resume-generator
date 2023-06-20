@@ -41,6 +41,8 @@ const generate: TCommand = ({ setOutPutItemList, next }) => {
     ]
   })
 
+  atom_resume_core.printResume()
+
   setOutPutItemList((oldData) => {
     return [
       ...oldData,
