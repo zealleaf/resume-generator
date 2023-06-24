@@ -1,14 +1,14 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useCallback, useRef } from "react"
 import { useReactToPrint } from "react-to-print"
 import { proxy, useSnapshot } from "valtio"
 import { subscribeKey } from "valtio/utils"
 
-import { TTemplate, TUserData } from "@/types/resume-core"
 import { cn, resetValtioState } from "@/lib/utils"
 
-import ResumeTemplates from "./resume-templates"
+import Templates from "./templates"
+import { TTemplate, TUserData } from "./type"
 
 const initObj: any = {
   show: false,
@@ -20,7 +20,7 @@ const initObj: any = {
       phone: "",
       location: "",
     },
-    works: [{}],
+    experience: [{}],
     skills: [{}],
     projects: [{}],
     awards: [{}],
@@ -30,22 +30,22 @@ const initObj: any = {
   printResume: () => {},
 }
 
-export const atom_resume_core = proxy<{
+export const core_atom = proxy<{
   show: boolean
   userData: TUserData
   template: TTemplate
   printResume: () => void
 }>(initObj)
 
-subscribeKey(atom_resume_core, "show", (v) => {
+subscribeKey(core_atom, "show", (v) => {
   if (v === false) {
-    resetValtioState(atom_resume_core, initObj)
+    resetValtioState(core_atom, initObj)
   }
 })
 
-export default function ResumeCore() {
+export const Core = () => {
   const resumeRef = useRef(null)
-  const atom_snapshot_resume_core = useSnapshot(atom_resume_core)
+  const core_atom_snapshot = useSnapshot(core_atom)
 
   // if (!atom_snapshot_resume_core.show) {
   //   return null
@@ -55,8 +55,8 @@ export default function ResumeCore() {
     content: () => resumeRef.current,
   })
 
-  useEffect(() => {
-    atom_resume_core.printResume = handlePrint
+  core_atom.printResume = useCallback(() => {
+    handlePrint()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -72,9 +72,9 @@ export default function ResumeCore() {
         )}
       >
         <div ref={resumeRef} className="p-4">
-          <ResumeTemplates
-            template={atom_snapshot_resume_core.template}
-            userData={atom_snapshot_resume_core.userData as TUserData}
+          <Templates
+            template={core_atom_snapshot.template}
+            userData={core_atom_snapshot.userData as TUserData}
           />
         </div>
       </div>

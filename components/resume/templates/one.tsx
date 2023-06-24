@@ -1,5 +1,6 @@
-import { TUserData } from "@/types/resume-core"
 import { cn } from "@/lib/utils"
+
+import { TUserData } from "../type"
 
 const style_sort_title = cn(
   "border-b-[3px] border-b-black text-base font-extrabold uppercase"

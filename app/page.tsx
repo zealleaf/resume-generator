@@ -1,5 +1,6 @@
-import ResumePreview from "@/components/resume-preview"
-import TerminalConsole from "@/components/terminal-console"
+import CommandController from "@/components/command-controller"
+import { Resume } from "@/components/resume"
+import TerminalConsole from "@/components/terminal"
 
 export default function IndexPage() {
   return (
@@ -8,7 +9,12 @@ export default function IndexPage() {
         <TerminalConsole />
       </div>
       <div className="grow overflow-hidden">
-        <ResumePreview />
+        <Resume.Display>
+          <Resume.Core />
+        </Resume.Display>
+      </div>
+      <div className="absolute">
+        <CommandController />
       </div>
     </div>
   )

@@ -3,7 +3,7 @@ export type TTemplate = "one"
 export interface TUserData {
   profile: profile
   projects: project[]
-  works: work[]
+  experience: experience[]
   awards: award[]
   skills: skill[]
   education: education[]
@@ -19,7 +19,7 @@ interface profile {
 
 interface project {}
 
-interface work {}
+interface experience {}
 
 interface award {}
 
