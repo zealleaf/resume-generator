@@ -1,8 +1,7 @@
 "use client"
 
-import { command_controller_atom } from "../command-controller"
+import { $CommandController } from "../command-controller"
 import { Resume } from "../resume"
-import TerminalCore from "./core"
 import { TCommand, TCommandMap } from "./type"
 
 const help: TCommand = ({ setOutPutItemList, next }) => {
@@ -17,7 +16,7 @@ const help: TCommand = ({ setOutPutItemList, next }) => {
 
   Commands:
     t, template    Select a resume template
-    s, start       start writing
+    o, open        open the command controller
     g, generate    Generate a resume
 
   Options:
@@ -32,15 +31,25 @@ const help: TCommand = ({ setOutPutItemList, next }) => {
 }
 
 const template: TCommand = ({ setOutPutItemList, next }) => {
-  Resume.atom_core.show = true
-  Resume.atom_core.template = "one"
+  Resume.$Core.show = true
+  Resume.$Core.template = "one"
 
   next()
 }
 
-const start: TCommand = ({ setOutPutItemList, next }) => {
-  console.log(111)
-  command_controller_atom.show = true
+const open: TCommand = ({ setOutPutItemList, next }) => {
+  $CommandController.show = true
+
+  setOutPutItemList((oldData) => {
+    return [
+      ...oldData,
+      {
+        prefix: ">",
+        code: "opened!",
+      },
+    ]
+  })
+
   next()
 }
 
@@ -55,7 +64,7 @@ const generate: TCommand = ({ setOutPutItemList, next }) => {
     ]
   })
 
-  Resume.atom_core.printResume()
+  Resume.$Core.printResume()
 
   setOutPutItemList((oldData) => {
     return [
@@ -70,21 +79,13 @@ const generate: TCommand = ({ setOutPutItemList, next }) => {
   next()
 }
 
-const commandMap: TCommandMap = {
+export const commandMap: TCommandMap = {
   "rg --help": help,
   "rg -h": help,
   "rg t": template,
   "rg template": template,
-  "rg s": start,
-  "rg start": start,
+  "rg o": open,
+  "rg open": open,
   "rg g": generate,
   "rg generate": generate,
-}
-
-export default function TerminalConsole() {
-  return (
-    <div>
-      <TerminalCore commandMap={commandMap} />
-    </div>
-  )
 }

@@ -30,22 +30,22 @@ const initObj: any = {
   printResume: () => {},
 }
 
-export const core_atom = proxy<{
+export const $Core = proxy<{
   show: boolean
   userData: TUserData
   template: TTemplate
   printResume: () => void
 }>(initObj)
 
-subscribeKey(core_atom, "show", (v) => {
+subscribeKey($Core, "show", (v) => {
   if (v === false) {
-    resetValtioState(core_atom, initObj)
+    resetValtioState($Core, initObj)
   }
 })
 
 export const Core = () => {
   const resumeRef = useRef(null)
-  const core_atom_snapshot = useSnapshot(core_atom)
+  const $Core_ = useSnapshot($Core)
 
   // if (!atom_snapshot_resume_core.show) {
   //   return null
@@ -55,7 +55,7 @@ export const Core = () => {
     content: () => resumeRef.current,
   })
 
-  core_atom.printResume = useCallback(() => {
+  $Core.printResume = useCallback(() => {
     handlePrint()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -68,13 +68,14 @@ export const Core = () => {
           "ml-[calc(-794px/2+100vw/2-24px)] mt-[-335px] h-[1123px] w-[794px] scale-[0.4]",
           "sm:mt-[-205px] sm:scale-[0.6]",
           "md:m-auto md:scale-[0.95]",
-          "lg:scale-[1]"
+          "lg:scale-[0.9]",
+          "xl:scale-[1]"
         )}
       >
         <div ref={resumeRef} className="p-4">
           <Templates
-            template={core_atom_snapshot.template}
-            userData={core_atom_snapshot.userData as TUserData}
+            template={$Core_.template}
+            userData={$Core_.userData as TUserData}
           />
         </div>
       </div>

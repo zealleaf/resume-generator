@@ -21,7 +21,7 @@ const initOutPutItemList: outPutItem[] = [
 
 let t: NodeJS.Timeout
 
-export default function TerminalCore({ commandMap }: ITerminal) {
+export const Core = ({ commandMap }: ITerminal) => {
   const [isInputFocus, setIsInputFocus] = useState(true)
   const [inputValue, setInputValue] = useState("")
   const [outPutItemList, setOutPutItemList] =
