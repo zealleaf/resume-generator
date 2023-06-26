@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils"
 
 import { TUserData } from "../type"
+import styles from "./one.module.css"
 
 const style_sort_title = cn(
   "border-b-[3px] border-b-black text-base font-extrabold uppercase"
@@ -11,16 +12,32 @@ export default function One(props: TUserData) {
     <div className="space-y-2">
       <section className="profile-area space-y-2">
         <p className="text-end text-3xl font-bold">{props.profile.name}</p>
-        <div className="flex justify-end space-x-2 text-sm">
-          <a href={props.profile.link} target="_blank" rel="noreferrer">
+        <div
+          className={cn(
+            "flex w-full justify-end text-sm",
+            styles.separator_container
+          )}
+        >
+          <a
+            className={cn(props.profile.link && styles.separator)}
+            href={props.profile.link}
+            target="_blank"
+            rel="noreferrer"
+          >
             {props.profile.link}
           </a>
-          <span>|</span>
-          <a href={"mailto:" + props.profile.email}>{props.profile.email}</a>
-          <span>|</span>
-          <span>{props.profile.phone}</span>
-          <span>|</span>
-          <span>{props.profile.location}</span>
+          <a
+            className={cn(props.profile.link && styles.separator)}
+            href={"mailto:" + props.profile.email}
+          >
+            {props.profile.email}
+          </a>
+          <span className={cn(props.profile.link && styles.separator)}>
+            {props.profile.phone}
+          </span>
+          <span className={cn(props.profile.link && styles.separator)}>
+            {props.profile.location}
+          </span>
         </div>
       </section>
       <section>

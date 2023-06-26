@@ -73,7 +73,10 @@ export default function CommandController() {
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Forms">
-          <CommandItem onSelect={callbackBaseInfoShow}>
+          <CommandItem
+            className="cursor-pointer"
+            onSelect={callbackBaseInfoShow}
+          >
             <User className="mr-2 h-4 w-4" />
             <span>Base info</span>
             <CommandShortcut>ctrl+b</CommandShortcut>
@@ -81,12 +84,18 @@ export default function CommandController() {
         </CommandGroup>
         <CommandSeparator />
         <CommandGroup heading="Options">
-          <CommandItem onSelect={callbackPrintResume}>
+          <CommandItem
+            className="cursor-pointer"
+            onSelect={callbackPrintResume}
+          >
             <Printer className="mr-2 h-4 w-4" />
             <span>Generate resume</span>
             <CommandShortcut>ctrl+g</CommandShortcut>
           </CommandItem>
-          <CommandItem onSelect={callbackTerminalShow}>
+          <CommandItem
+            className="cursor-pointer"
+            onSelect={callbackTerminalShow}
+          >
             <Terminal className="mr-2 h-4 w-4" />
             <span>Terminal mode(wip)</span>
             <CommandShortcut>ctrl+t</CommandShortcut>

@@ -11,7 +11,7 @@ import Templates from "./templates"
 import { TTemplate, TUserData } from "./type"
 
 const initObj: any = {
-  show: false,
+  show: true, // TEMP
   userData: {
     profile: {
       name: "",
@@ -46,10 +46,6 @@ subscribeKey($Core, "show", (v) => {
 export const Core = () => {
   const resumeRef = useRef(null)
   const $Core_ = useSnapshot($Core)
-
-  // if (!atom_snapshot_resume_core.show) {
-  //   return null
-  // }
 
   const handlePrint = useReactToPrint({
     content: () => resumeRef.current,

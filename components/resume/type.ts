@@ -12,9 +12,9 @@ export interface TUserData {
 interface profile {
   name: string
   email: string
-  phone: string
-  location: string
-  link: string
+  phone?: string
+  location?: string
+  link?: string
 }
 
 interface project {}

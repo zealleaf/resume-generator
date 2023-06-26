@@ -1,0 +1,8 @@
+.separator::after {
+  content: "|";
+  margin: 0 2px;
+}
+
+.separator_container > *:last-child::after {
+  content: none;
+}
