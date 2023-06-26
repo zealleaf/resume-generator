@@ -2,6 +2,7 @@
 
 import { useCallback, useRef } from "react"
 import { useReactToPrint } from "react-to-print"
+import shortid from "shortid"
 import { proxy, useSnapshot } from "valtio"
 import { subscribeKey } from "valtio/utils"
 
@@ -20,7 +21,11 @@ const initObj: any = {
       phone: "",
       location: "",
     },
-    experience: [{}],
+    experience: [
+      {
+        _id: shortid.generate(),
+      },
+    ],
     skills: [{}],
     projects: [{}],
     awards: [{}],

@@ -2,8 +2,8 @@ export type TTemplate = "one"
 
 export interface TUserData {
   profile: profile
-  projects: project[]
   experience: experience[]
+  projects: project[]
   awards: award[]
   skills: skill[]
   education: education[]
@@ -17,9 +17,18 @@ interface profile {
   link?: string
 }
 
-interface project {}
+interface experience {
+  _id: string
+  section_heading: string
+  company_name: string
+  job_title: string
+  job_location: string
+  start_date: string
+  end_date: string
+  job_responsibilities: string[]
+}
 
-interface experience {}
+interface project {}
 
 interface award {}
 

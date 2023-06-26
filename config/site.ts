@@ -1,7 +1,7 @@
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: "resume generator",
+  name: "RESUME GENERATOR",
   description: "a simple resume generator",
   mainNav: [],
   links: {
