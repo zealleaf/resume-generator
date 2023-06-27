@@ -42,26 +42,26 @@ export default function One(props: TUserData) {
       </section>
       <section>
         <h3 className={style_sort_title}>experience</h3>
-        <div>
+        <div className="mt-2 space-y-2">
           {props.experience.map((experienceItem) => {
             return (
               <div className="space-y-1">
                 <section>
                   <div className="flex justify-between">
                     <b>{experienceItem.job_title}</b>
-                    <div>
+                    <div className="bg-black px-1 text-white">
                       <span>{experienceItem.start_date}</span>
-                      {experienceItem.start_date ? " - " : null}
+                      {experienceItem.start_date ? " -- " : null}
                       <span>{experienceItem.end_date}</span>
                     </div>
                   </div>
                   <i>
                     {experienceItem.company_name}
-                    {experienceItem.company_name ? "," : null}
+                    {experienceItem.company_name ? ", " : null}
                     {experienceItem.job_location}
                   </i>
                 </section>
-                <section>
+                <section className="ml-3">
                   {experienceItem.job_responsibilities
                     ?.split("\n")
                     .map((item) => {
