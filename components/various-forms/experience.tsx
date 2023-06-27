@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import shortid from "shortid"
@@ -26,8 +26,9 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form"
+import { Separator } from "../ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
-import { toast } from "../ui/use-toast"
+import { Textarea } from "../ui/textarea"
 
 const FormSchema = z.object({
   _id: z.string().nonempty(),
@@ -36,7 +37,7 @@ const FormSchema = z.object({
   job_location: z.string().optional(),
   start_date: z.string().optional(),
   end_date: z.string().optional(),
-  job_responsibilities: z.array(z.string().optional()).optional(),
+  job_responsibilities: z.string().optional(),
 })
 
 type TExperienceItem = z.infer<typeof FormSchema>
@@ -46,6 +47,7 @@ type TReadonlyExperienceItem = Readonly<z.infer<typeof FormSchema>>
 export const $Experience = proxy({
   show: false,
   newTabId: "",
+  activeTab: "",
   list: [] as TExperienceItem[],
 })
 
@@ -60,37 +62,35 @@ export const ExperienceItem = ({
     values,
   })
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  const saveJob = (data: z.infer<typeof FormSchema>) => {
     for (const [i, v] of ($Experience_.list as any).entries()) {
-      if (!!values.company_name && values._id === (v as TExperienceItem)._id) {
+      if (values._id === (v as TExperienceItem)._id) {
         $Experience.list[i] = data
-        break
-      }
-
-      if (Object.keys(v).length === 1) {
-        const _id = shortid.generate()
-        $Experience.list[i] = data
-        $Experience.list.push({ _id } as TExperienceItem)
-        $Experience.newTabId = _id
         break
       }
     }
-
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">
-            {JSON.stringify($Experience.list, null, 2)}
-          </code>
-        </pre>
-      ),
-    })
   }
+
+  const callbackAddJob = useCallback(() => {
+    const _id = shortid.generate()
+    $Experience.list.push({ _id } as TExperienceItem)
+    $Experience.newTabId = _id
+  }, [])
+
+  const callbackRemoveJob = useCallback(() => {
+    if ($Experience_.list.length === 1) return
+
+    const newList = $Experience_.list.filter((item) => {
+      return item._id !== $Experience_.activeTab
+    })
+
+    $Experience.list = newList as TExperienceItem[]
+    $Experience.activeTab = newList[0]._id
+  }, [$Experience_.activeTab, $Experience_.list])
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(saveJob)} className="space-y-6">
         <FormField
           control={form.control}
           name="company_name"
@@ -106,72 +106,105 @@ export const ExperienceItem = ({
             </FormItem>
           )}
         />
+        <div className="flex space-x-2">
+          <FormField
+            control={form.control}
+            name="start_date"
+            render={({ field }) => (
+              <FormItem className="grow">
+                <FormLabel className="inline-block w-full text-start">
+                  Start Date
+                </FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="end_date"
+            render={({ field }) => (
+              <FormItem className="grow">
+                <FormLabel className="inline-block w-full text-start">
+                  End Date
+                </FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="flex space-x-2">
+          <FormField
+            control={form.control}
+            name="job_title"
+            render={({ field }) => (
+              <FormItem className="grow">
+                <FormLabel className="inline-block w-full text-start">
+                  Job Title
+                </FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="job_location"
+            render={({ field }) => (
+              <FormItem className="grow">
+                <FormLabel className="inline-block w-full text-start">
+                  Job Location
+                </FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <FormField
           control={form.control}
-          name="job_title"
+          name="job_responsibilities"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="grow">
               <FormLabel className="inline-block w-full text-start">
-                Job Title
+                Job Responsibilities
               </FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Textarea className="min-h-[8rem]" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="job_location"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="inline-block w-full text-start">
-                Job Location
-              </FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="start_date"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="inline-block w-full text-start">
-                Location
-              </FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="end_date"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="inline-block w-full text-start">
-                End Date
-              </FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <Separator />
         <div className="space-x-2">
           <Button type="submit" variant={"outline"}>
-            Add
+            Save Job
           </Button>
-          <Button type="submit" variant={"destructive"}>
-            Remove
+          <Button
+            type="submit"
+            variant={"outline"}
+            onClick={callbackAddJob}
+            disabled={$Experience_.list.length === 5}
+          >
+            Add Job
+          </Button>
+          <Button
+            type="button"
+            variant={"destructive"}
+            onClick={callbackRemoveJob}
+            disabled={$Experience_.list.length === 1}
+          >
+            Remove Job
           </Button>
         </div>
       </form>
@@ -180,8 +213,6 @@ export const ExperienceItem = ({
 }
 
 export const Experience = () => {
-  const [activeTab, setActiveTab] = useState("")
-
   const $Experience_ = useSnapshot($Experience)
   const Resume$Core_ = useSnapshot(Resume.$Core)
 
@@ -190,54 +221,45 @@ export const Experience = () => {
   }, [])
 
   function onSubmit() {
-    Resume.$Core.userData.experience = $Experience_.list as any
+    Resume.$Core.userData.experience = [...$Experience_.list] as any
 
     callbackDialogClose()
-
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">
-            {JSON.stringify($Experience_.list, null, 2)}
-          </code>
-        </pre>
-      ),
-    })
   }
 
   useEffect(() => {
-    setActiveTab($Experience_.newTabId)
+    $Experience.activeTab = $Experience_.newTabId
   }, [$Experience_.newTabId])
 
   useEffect(() => {
-    $Experience.list = Resume$Core_.userData.experience as any
-    setActiveTab(Resume$Core_.userData.experience[0]?._id)
+    $Experience.list = [...Resume$Core_.userData.experience]
+    $Experience.activeTab = Resume$Core_.userData.experience[0]?._id
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
     <Dialog open={$Experience_.show} onOpenChange={callbackDialogClose}>
-      <DialogContent className="sm:max-w-[625px]">
+      <DialogContent>
         <DialogHeader>
-          <DialogTitle className="mb-2">Edit experience</DialogTitle>
+          <DialogTitle>Edit Experience</DialogTitle>
           <Tabs
-            value={activeTab}
+            value={$Experience_.activeTab}
             onValueChange={(value) => {
-              setActiveTab(value)
+              $Experience.activeTab = value
             }}
           >
-            <TabsList className="flex items-center justify-start overflow-hidden">
+            <TabsList className="my-4 flex items-center justify-start">
               {$Experience_.list.map((values) => {
                 return (
-                  <TabsTrigger
-                    key={values._id}
-                    value={values._id || "Untitled"}
-                  >
-                    <div className="w-32 justify-start truncate">
-                      {values.company_name || "Untitled"}
-                    </div>
-                  </TabsTrigger>
+                  <div>
+                    <TabsTrigger
+                      key={values._id}
+                      value={values._id || "Untitled"}
+                    >
+                      <div className="w-8 justify-start truncate sm:w-16">
+                        {values.company_name || "Untitled"}
+                      </div>
+                    </TabsTrigger>
+                  </div>
                 )
               })}
             </TabsList>

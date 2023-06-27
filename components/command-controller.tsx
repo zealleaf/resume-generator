@@ -94,7 +94,7 @@ export default function CommandController() {
             onSelect={() => callbackFormShow({ which: "b" })}
           >
             <User className="mr-2 h-4 w-4" />
-            <span>Base info</span>
+            <span>Base Info</span>
             <CommandShortcut>ctrl+b</CommandShortcut>
           </CommandItem>
           <CommandItem
@@ -113,7 +113,7 @@ export default function CommandController() {
             onSelect={callbackPrintResume}
           >
             <Printer className="mr-2 h-4 w-4" />
-            <span>Generate resume</span>
+            <span>Generate Resume</span>
             <CommandShortcut>ctrl+g</CommandShortcut>
           </CommandItem>
           <CommandItem
@@ -121,7 +121,7 @@ export default function CommandController() {
             onSelect={callbackTerminalShow}
           >
             <Terminal className="mr-2 h-4 w-4" />
-            <span>Terminal mode(wip)</span>
+            <span>Terminal Mode(wip)</span>
             <CommandShortcut>ctrl+t</CommandShortcut>
           </CommandItem>
         </CommandGroup>

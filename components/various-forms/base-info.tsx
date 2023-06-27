@@ -70,7 +70,7 @@ export const BaseInfo = () => {
     <Dialog open={$BaseInfo_.show} onOpenChange={callbackDialogClose}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit base info</DialogTitle>
+          <DialogTitle>Edit Base Info</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

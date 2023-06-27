@@ -25,13 +25,21 @@ interface experience {
   job_location: string
   start_date: string
   end_date: string
-  job_responsibilities: string[]
+  job_responsibilities: string
 }
 
-interface project {}
+interface project {
+  _id: string
+}
 
-interface award {}
+interface award {
+  _id: string
+}
 
-interface skill {}
+interface skill {
+  _id: string
+}
 
-interface education {}
+interface education {
+  _id: string
+}

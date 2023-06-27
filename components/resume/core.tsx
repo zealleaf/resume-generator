@@ -26,10 +26,22 @@ const initObj: any = {
         _id: shortid.generate(),
       },
     ],
-    skills: [{}],
-    projects: [{}],
-    awards: [{}],
-    education: [{}],
+    skills: [{ _id: shortid.generate() }],
+    projects: [
+      {
+        _id: shortid.generate(),
+      },
+    ],
+    awards: [
+      {
+        _id: shortid.generate(),
+      },
+    ],
+    education: [
+      {
+        _id: shortid.generate(),
+      },
+    ],
   } as TUserData,
   template: "one",
   printResume: () => {},
