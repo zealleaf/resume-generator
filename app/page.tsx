@@ -5,8 +5,8 @@ import VariousForms from "@/components/various-forms"
 
 export default function IndexPage() {
   return (
-    <div className="lg:flex lg:space-x-6">
-      <section className="mb-3 text-xs transition-all duration-700 md:text-base lg:w-[28%] xl:w-[38%]">
+    <div className="xl:flex xl:space-x-6">
+      <section className="mb-3 text-xs transition-all duration-700 md:text-base xl:w-[30%] 2xl:w-[37%]">
         <CommandController />
         <Terminal.Display>
           <Terminal.Core commandMap={Terminal.commandMap} />

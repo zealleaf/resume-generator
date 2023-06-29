@@ -1,4 +1,5 @@
 .separator::after {
+  color: gray;
   content: "|";
   margin: 0 4px;
 }

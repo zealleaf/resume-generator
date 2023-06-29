@@ -76,11 +76,12 @@ export const Core = () => {
       <div
         className={cn(
           "box-border bg-white text-black transition-all duration-500",
-          "ml-[calc(-794px/2+100vw/2-24px)] mt-[-335px] h-[1123px] w-[794px] scale-[0.4]",
-          "sm:mt-[-205px] sm:scale-[0.6]",
-          "md:m-auto md:scale-[0.95]",
-          "lg:scale-[0.9]",
-          "xl:scale-[1]"
+          "ml-[calc(-900px/2+100vw/2-24px)] mt-[-375px] h-[1273px] w-[900px] scale-[0.4]",
+          "sm:mt-[-220px] sm:scale-[0.6]",
+          "md:mt-[-155px] md:scale-[0.7]",
+          "lg:mt-[-105px] lg:scale-[0.8]",
+          "xl:m-auto xl:scale-[0.9]",
+          "2xl:scale-[1]"
         )}
       >
         <div ref={resumeRef} className="p-4">
