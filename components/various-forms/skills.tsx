@@ -176,7 +176,7 @@ export const Skills = () => {
         <Accordion
           type="single"
           collapsible
-          className="min-h-[300px]"
+          className="min-h-[360px]"
           value={$Skills_.activeAccordionItem}
           onValueChange={(value) => {
             $Skills.activeAccordionItem = value
@@ -188,7 +188,7 @@ export const Skills = () => {
                 <AccordionTrigger className="font-bold">
                   {values.skill_kind || "Untitled"}
                 </AccordionTrigger>
-                <AccordionContent className="overflow-visible">
+                <AccordionContent className="pl-4">
                   <SkillsItem values={values} />
                 </AccordionContent>
               </AccordionItem>
