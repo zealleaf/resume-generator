@@ -38,6 +38,8 @@ interface award {
 
 interface skill {
   _id: string
+  skill_kind: string
+  skill_content: string
 }
 
 interface education {

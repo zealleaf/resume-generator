@@ -96,9 +96,7 @@ export const ExperienceItem = ({
           name="company_name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="inline-block w-full text-start">
-                Company Name
-              </FormLabel>
+              <FormLabel>Company Name:</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -112,11 +110,9 @@ export const ExperienceItem = ({
             name="start_date"
             render={({ field }) => (
               <FormItem className="grow">
-                <FormLabel className="inline-block w-full text-start">
-                  Start Date
-                </FormLabel>
+                <FormLabel>Start Date:</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="2023-05" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -127,11 +123,9 @@ export const ExperienceItem = ({
             name="end_date"
             render={({ field }) => (
               <FormItem className="grow">
-                <FormLabel className="inline-block w-full text-start">
-                  End Date
-                </FormLabel>
+                <FormLabel>End Date:</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="2023-06/present" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -144,9 +138,7 @@ export const ExperienceItem = ({
             name="job_title"
             render={({ field }) => (
               <FormItem className="grow">
-                <FormLabel className="inline-block w-full text-start">
-                  Job Title
-                </FormLabel>
+                <FormLabel>Job Title:</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -159,9 +151,7 @@ export const ExperienceItem = ({
             name="job_location"
             render={({ field }) => (
               <FormItem className="grow">
-                <FormLabel className="inline-block w-full text-start">
-                  Job Location
-                </FormLabel>
+                <FormLabel>Job Location:</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -175,11 +165,15 @@ export const ExperienceItem = ({
           name="job_responsibilities"
           render={({ field }) => (
             <FormItem className="grow">
-              <FormLabel className="inline-block w-full text-start">
-                Job Responsibilities
-              </FormLabel>
+              <FormLabel>Job Responsibilities:</FormLabel>
               <FormControl>
-                <Textarea className="min-h-[8rem]" {...field} />
+                <Textarea
+                  className="min-h-[8rem]"
+                  placeholder={`1.xxxxxxxxxxxxxxxx
+2.xxxxxxxx
+`}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -241,42 +235,45 @@ export const Experience = () => {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Edit Experience</DialogTitle>
-          <Tabs
-            value={$Experience_.activeTab}
-            onValueChange={(value) => {
-              $Experience.activeTab = value
-            }}
-          >
-            <TabsList className="my-4 flex items-center justify-start">
-              {$Experience_.list.map((values) => {
-                return (
-                  <div>
-                    <TabsTrigger
-                      key={values._id}
-                      value={values._id || "Untitled"}
-                    >
-                      <div className="w-8 justify-start truncate sm:w-16">
-                        {values.company_name || "Untitled"}
-                      </div>
-                    </TabsTrigger>
-                  </div>
-                )
-              })}
-            </TabsList>
+        </DialogHeader>
+
+        <Tabs
+          value={$Experience_.activeTab}
+          onValueChange={(value) => {
+            $Experience.activeTab = value
+          }}
+        >
+          <TabsList className="my-4 flex items-center justify-start">
             {$Experience_.list.map((values) => {
               return (
-                <TabsContent key={values._id} value={values._id || "Untitled"}>
-                  <ExperienceItem values={values as TReadonlyExperienceItem} />
-                </TabsContent>
+                <div>
+                  <TabsTrigger
+                    key={values._id}
+                    value={values._id || "Untitled"}
+                  >
+                    <div className="w-8 justify-start truncate text-xs font-bold sm:w-16">
+                      {values.company_name || "Untitled"}
+                    </div>
+                  </TabsTrigger>
+                </div>
               )
             })}
-          </Tabs>
-          <DialogFooter>
-            <Button className="mt-4 grow" onClick={onSubmit}>
-              Submit
-            </Button>
-          </DialogFooter>
-        </DialogHeader>
+          </TabsList>
+
+          {$Experience_.list.map((values) => {
+            return (
+              <TabsContent key={values._id} value={values._id || "Untitled"}>
+                <ExperienceItem values={values as TReadonlyExperienceItem} />
+              </TabsContent>
+            )
+          })}
+        </Tabs>
+
+        <DialogFooter>
+          <Button className="mt-4 grow" onClick={onSubmit}>
+            Submit
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   )

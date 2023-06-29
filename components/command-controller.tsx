@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback, useEffect } from "react"
-import { Briefcase, Printer, Terminal, User } from "lucide-react"
+import { Briefcase, Code, Printer, Terminal, User } from "lucide-react"
 import { proxy, useSnapshot } from "valtio"
 
 import { Resume } from "./resume"
@@ -17,6 +17,7 @@ import {
 } from "./ui/command"
 import { $BaseInfo } from "./various-forms/base-info"
 import { $Experience } from "./various-forms/experience"
+import { $Skills } from "./various-forms/skills"
 
 export const $CommandController = proxy({
   show: true,
@@ -25,20 +26,27 @@ export const $CommandController = proxy({
 export default function CommandController() {
   const $CommandController_ = useSnapshot($CommandController)
 
-  const callbackFormShow = useCallback(({ which }: { which: "b" | "e" }) => {
-    switch (which) {
-      case "b":
-        $BaseInfo.show = true
-        break
+  const callbackFormShow = useCallback(
+    ({ which }: { which: "b" | "e" | "s" }) => {
+      switch (which) {
+        case "b":
+          $BaseInfo.show = true
+          break
 
-      case "e":
-        $Experience.show = true
-        break
+        case "e":
+          $Experience.show = true
+          break
 
-      default:
-        break
-    }
-  }, [])
+        case "s":
+          $Skills.show = true
+          break
+
+        default:
+          break
+      }
+    },
+    []
+  )
 
   const callbackTerminalShow = useCallback(() => {
     $CommandController.show = false
@@ -58,6 +66,10 @@ export default function CommandController() {
 
           case "e":
             callbackFormShow({ which: "e" })
+            break
+
+          case "s":
+            callbackFormShow({ which: "s" })
             break
 
           case "t":
@@ -104,6 +116,14 @@ export default function CommandController() {
             <Briefcase className="mr-2 h-4 w-4" />
             <span>Experience</span>
             <CommandShortcut>ctrl+e</CommandShortcut>
+          </CommandItem>
+          <CommandItem
+            className="cursor-pointer"
+            onSelect={() => callbackFormShow({ which: "s" })}
+          >
+            <Code className="mr-2 h-4 w-4" />
+            <span>Skills</span>
+            <CommandShortcut>ctrl+s</CommandShortcut>
           </CommandItem>
         </CommandGroup>
         <CommandSeparator />

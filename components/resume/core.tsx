@@ -3,7 +3,7 @@
 import { useCallback, useRef } from "react"
 import { useReactToPrint } from "react-to-print"
 import shortid from "shortid"
-import { proxy, useSnapshot } from "valtio"
+import { proxy, subscribe, useSnapshot } from "valtio"
 import { subscribeKey } from "valtio/utils"
 
 import { cn, resetValtioState } from "@/lib/utils"
@@ -52,12 +52,10 @@ export const $Core = proxy<{
   userData: TUserData
   template: TTemplate
   printResume: () => void
-}>(initObj)
+}>(JSON.parse(localStorage.getItem("current_resume") || "") || initObj)
 
-subscribeKey($Core, "show", (v) => {
-  if (v === false) {
-    resetValtioState($Core, initObj)
-  }
+subscribe($Core, () => {
+  localStorage.setItem("current_resume", JSON.stringify($Core))
 })
 
 export const Core = () => {

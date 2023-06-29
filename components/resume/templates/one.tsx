@@ -4,12 +4,12 @@ import { TUserData } from "../type"
 import styles from "./one.module.css"
 
 const style_sort_title = cn(
-  "border-b-[3px] border-b-black text-base font-extrabold uppercase"
+  "border-b-[3px] border-b-black text-lg font-extrabold uppercase"
 )
 
 export default function One(props: TUserData) {
   return (
-    <div className="space-y-2">
+    <div className="space-y-5">
       <section className="profile-area space-y-2">
         <p className="text-end text-3xl font-bold">{props.profile.name}</p>
         <div
@@ -45,7 +45,7 @@ export default function One(props: TUserData) {
         <div className="mt-2 space-y-2">
           {props.experience.map((experienceItem) => {
             return (
-              <div className="space-y-1">
+              <div key={experienceItem._id} className="space-y-1">
                 <section>
                   <div className="flex justify-between">
                     <b>{experienceItem.job_title}</b>
@@ -55,7 +55,7 @@ export default function One(props: TUserData) {
                       <span>{experienceItem.end_date}</span>
                     </div>
                   </div>
-                  <i>
+                  <i className="text-sm">
                     {experienceItem.company_name}
                     {experienceItem.company_name ? ", " : null}
                     {experienceItem.job_location}
@@ -66,7 +66,11 @@ export default function One(props: TUserData) {
                     ?.split("\n")
                     .map((item) => {
                       return (
-                        <div>
+                        <div
+                          key={item}
+                          className="flex items-center space-x-3 text-sm"
+                        >
+                          <div className="h-1 w-1 bg-black" />
                           <p>{item}</p>
                         </div>
                       )
@@ -79,6 +83,18 @@ export default function One(props: TUserData) {
       </section>
       <section>
         <h3 className={style_sort_title}>skills</h3>
+        <div className="mt-2 text-sm">
+          {props.skills.map((skill) => {
+            return (
+              <div key={skill._id}>
+                <div className="flex items-center space-x-12 px-6">
+                  <i>{skill.skill_kind}</i>
+                  <div>{skill.skill_content}</div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
       </section>
       <section>
         <h3 className={style_sort_title}>projects</h3>

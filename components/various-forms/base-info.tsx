@@ -79,9 +79,9 @@ export const BaseInfo = () => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Name:</FormLabel>
                   <FormControl>
-                    <Input placeholder="Please enter your name" {...field} />
+                    <Input placeholder="zealleaf" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -92,9 +92,9 @@ export const BaseInfo = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Email:</FormLabel>
                   <FormControl>
-                    <Input placeholder="Please enter your email" {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -105,9 +105,9 @@ export const BaseInfo = () => {
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone</FormLabel>
+                  <FormLabel>Phone:</FormLabel>
                   <FormControl>
-                    <Input placeholder="This is an option" {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -118,9 +118,9 @@ export const BaseInfo = () => {
               name="location"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Location</FormLabel>
+                  <FormLabel>Location:</FormLabel>
                   <FormControl>
-                    <Input placeholder="This is an option" {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -131,9 +131,9 @@ export const BaseInfo = () => {
               name="link"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Link</FormLabel>
+                  <FormLabel>Link:</FormLabel>
                   <FormControl>
-                    <Input placeholder="This is an option" {...field} />
+                    <Input placeholder="https://zealleaf.me" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
