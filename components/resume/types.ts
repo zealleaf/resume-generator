@@ -19,21 +19,12 @@ interface profile {
 
 interface experience {
   _id: string
-  section_heading: string
   company_name: string
-  job_title: string
-  job_location: string
   start_date: string
   end_date: string
+  job_title: string
+  job_location: string
   job_responsibilities: string
-}
-
-interface project {
-  _id: string
-}
-
-interface award {
-  _id: string
 }
 
 interface skill {
@@ -42,6 +33,18 @@ interface skill {
   skill_content: string
 }
 
+interface project {
+  _id: string
+  project_name: string
+  project_description: string
+  link: string
+  tools_used: string
+}
+
 interface education {
+  _id: string
+}
+
+interface award {
   _id: string
 }

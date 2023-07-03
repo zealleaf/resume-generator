@@ -1,13 +1,8 @@
 "use client"
 
-import { useCallback } from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import shortid from "shortid"
-import { proxy, useSnapshot } from "valtio"
+import { proxy } from "valtio"
 import { z } from "zod"
 
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 import {
@@ -19,6 +14,8 @@ import {
   FormMessage,
 } from "../ui/form"
 import DisplayAccordion from "./display-accordion"
+import FormFooter from "./form-footer"
+import { useContent } from "./hooks"
 
 const FormSchema = z.object({
   _id: z.string().nonempty(),
@@ -38,41 +35,21 @@ export const $Skills = proxy({
 })
 
 export const SkillsItem = ({ values }: { values: TReadonlySkillsItem }) => {
-  const $Skills_ = useSnapshot($Skills)
-  const form = useForm<TReadonlySkillsItem>({
-    resolver: zodResolver(FormSchema),
+  const {
+    $Atom_: $Skills_,
+    form,
+    save,
+    add,
+    remove,
+  } = useContent({
+    $Atom: $Skills,
+    FormSchema,
     values,
   })
 
-  const saveJob = (data: z.infer<typeof FormSchema>) => {
-    for (const [i, v] of ($Skills_.list as any).entries()) {
-      if (values._id === (v as TSkillsItem)._id) {
-        $Skills.list[i] = data
-        break
-      }
-    }
-  }
-
-  const callbackAddJob = useCallback(() => {
-    const _id = shortid.generate()
-    $Skills.list.push({ _id } as TSkillsItem)
-    $Skills.newItemId = _id
-  }, [])
-
-  const callbackRemoveJob = useCallback(() => {
-    if ($Skills_.list.length === 1) return
-
-    const newList = $Skills_.list.filter((item) => {
-      return item._id !== $Skills_.activeItem
-    })
-
-    $Skills.list = newList as TSkillsItem[]
-    $Skills.activeItem = newList[0]._id
-  }, [$Skills_.activeItem, $Skills_.list])
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(saveJob)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(save)} className="space-y-6">
         <FormField
           control={form.control}
           name="skill_kind"
@@ -103,27 +80,7 @@ export const SkillsItem = ({ values }: { values: TReadonlySkillsItem }) => {
             </FormItem>
           )}
         />
-        <div className="space-x-2">
-          <Button type="submit" variant={"outline"}>
-            Save Skill
-          </Button>
-          <Button
-            type="submit"
-            variant={"outline"}
-            onClick={callbackAddJob}
-            disabled={$Skills_.list.length === 5}
-          >
-            Add Skill
-          </Button>
-          <Button
-            type="button"
-            variant={"destructive"}
-            onClick={callbackRemoveJob}
-            disabled={$Skills_.list.length === 1}
-          >
-            Remove Skill
-          </Button>
-        </div>
+        <FormFooter $Atom_={$Skills_} add={add} remove={remove} maxLimit={5} />
       </form>
     </Form>
   )
@@ -138,7 +95,7 @@ export const Skills = () => {
       }}
       dataKey={"skills"}
       dialogTitle={"Edit Skills"}
-      tabTitle={"skill_kind"}
+      accordionTitle={"skill_kind"}
     />
   )
 }

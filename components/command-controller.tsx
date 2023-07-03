@@ -1,7 +1,16 @@
 "use client"
 
 import { useCallback, useEffect } from "react"
-import { Briefcase, Code, Printer, Terminal, User } from "lucide-react"
+import {
+  Award,
+  Briefcase,
+  Code,
+  Folder,
+  Printer,
+  School,
+  Terminal,
+  User,
+} from "lucide-react"
 import { proxy, useSnapshot } from "valtio"
 
 import { Resume } from "./resume"
@@ -15,8 +24,11 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "./ui/command"
+import { $Award } from "./various-forms/awards"
 import { $BaseInfo } from "./various-forms/base-info"
+import { $Education } from "./various-forms/education"
 import { $Experience } from "./various-forms/experience"
+import { $Projects } from "./various-forms/projects"
 import { $Skills } from "./various-forms/skills"
 
 export const $CommandController = proxy({
@@ -27,18 +39,40 @@ export default function CommandController() {
   const $CommandController_ = useSnapshot($CommandController)
 
   const callbackFormShow = useCallback(
-    ({ which }: { which: "b" | "e" | "s" }) => {
+    ({
+      which,
+    }: {
+      which:
+        | "BaseInfo"
+        | "Experience"
+        | "Skills"
+        | "Projects"
+        | "Education"
+        | "Award"
+    }) => {
       switch (which) {
-        case "b":
+        case "BaseInfo":
           $BaseInfo.show = true
           break
 
-        case "e":
+        case "Experience":
           $Experience.show = true
           break
 
-        case "s":
+        case "Skills":
           $Skills.show = true
+          break
+
+        case "Projects":
+          $Projects.show = true
+          break
+
+        case "Education":
+          $Education.show = true
+          break
+
+        case "Award":
+          $Award.show = true
           break
 
         default:
@@ -61,15 +95,27 @@ export default function CommandController() {
       if (e.ctrlKey) {
         switch (e.key) {
           case "b":
-            callbackFormShow({ which: "b" })
+            callbackFormShow({ which: "BaseInfo" })
             break
 
-          case "e":
-            callbackFormShow({ which: "e" })
+          case "j":
+            callbackFormShow({ which: "Experience" })
             break
 
           case "s":
-            callbackFormShow({ which: "s" })
+            callbackFormShow({ which: "Skills" })
+            break
+
+          case "p":
+            callbackFormShow({ which: "Projects" })
+            break
+
+          case "e":
+            callbackFormShow({ which: "Education" })
+            break
+
+          case "a":
+            callbackFormShow({ which: "Award" })
             break
 
           case "t":
@@ -98,12 +144,12 @@ export default function CommandController() {
   return (
     <Command className="h-fit rounded-lg border shadow-md">
       <CommandInput placeholder="Type a command or search..." />
-      <CommandList>
+      <CommandList className="max-h-[600px]">
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Forms">
           <CommandItem
             className="cursor-pointer"
-            onSelect={() => callbackFormShow({ which: "b" })}
+            onSelect={() => callbackFormShow({ which: "BaseInfo" })}
           >
             <User className="mr-2 h-4 w-4" />
             <span>Base Info</span>
@@ -111,19 +157,43 @@ export default function CommandController() {
           </CommandItem>
           <CommandItem
             className="cursor-pointer"
-            onSelect={() => callbackFormShow({ which: "e" })}
+            onSelect={() => callbackFormShow({ which: "Experience" })}
           >
             <Briefcase className="mr-2 h-4 w-4" />
             <span>Experience</span>
-            <CommandShortcut>ctrl+e</CommandShortcut>
+            <CommandShortcut>ctrl+j</CommandShortcut>
           </CommandItem>
           <CommandItem
             className="cursor-pointer"
-            onSelect={() => callbackFormShow({ which: "s" })}
+            onSelect={() => callbackFormShow({ which: "Skills" })}
           >
             <Code className="mr-2 h-4 w-4" />
             <span>Skills</span>
             <CommandShortcut>ctrl+s</CommandShortcut>
+          </CommandItem>
+          <CommandItem
+            className="cursor-pointer"
+            onSelect={() => callbackFormShow({ which: "Projects" })}
+          >
+            <Folder className="mr-2 h-4 w-4" />
+            <span>Projects</span>
+            <CommandShortcut>ctrl+p</CommandShortcut>
+          </CommandItem>
+          <CommandItem
+            className="cursor-pointer"
+            onSelect={() => callbackFormShow({ which: "Education" })}
+          >
+            <School className="mr-2 h-4 w-4" />
+            <span>Education</span>
+            <CommandShortcut>ctrl+e</CommandShortcut>
+          </CommandItem>
+          <CommandItem
+            className="cursor-pointer"
+            onSelect={() => callbackFormShow({ which: "Award" })}
+          >
+            <Award className="mr-2 h-4 w-4" />
+            <span>Award</span>
+            <CommandShortcut>ctrl+a</CommandShortcut>
           </CommandItem>
         </CommandGroup>
         <CommandSeparator />

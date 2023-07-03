@@ -5,5 +5,6 @@ export interface IDisplayProps {
   form: (params: any) => JSX.Element
   dataKey: keyof Omit<typeof Resume.$Core.userData, "profile">
   dialogTitle: string
-  tabTitle: string
+  tabTitle?: string
+  accordionTitle?: string
 }

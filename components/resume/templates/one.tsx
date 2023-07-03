@@ -100,10 +100,10 @@ export default function One(props: TUserData) {
         <h3 className={style_sort_title}>projects</h3>
       </section>
       <section>
-        <h3 className={style_sort_title}>awards</h3>
+        <h3 className={style_sort_title}>education</h3>
       </section>
       <section>
-        <h3 className={style_sort_title}>education</h3>
+        <h3 className={style_sort_title}>awards</h3>
       </section>
     </div>
   )

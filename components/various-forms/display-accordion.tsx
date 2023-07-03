@@ -22,8 +22,8 @@ const DisplayAccordion = ({
   form,
   dataKey,
   dialogTitle,
-  tabTitle,
-}: IDisplayProps) => {
+  accordionTitle,
+}: Omit<IDisplayProps, "tabTitle">) => {
   const { $Atom_, onSubmit, callbackDialogClose } = useDisplay({
     $Atom,
     dataKey,
@@ -49,7 +49,7 @@ const DisplayAccordion = ({
             return (
               <AccordionItem key={values._id} value={values._id || "Untitled"}>
                 <AccordionTrigger className="font-bold">
-                  {values[tabTitle] || "Untitled"}
+                  {values[accordionTitle || ""] || "Untitled"}
                 </AccordionTrigger>
                 <AccordionContent className="pl-4">
                   {typeof form === "function" ? form(values) : null}

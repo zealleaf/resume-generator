@@ -18,7 +18,7 @@ const DisplayTabs = ({
   dataKey,
   dialogTitle,
   tabTitle,
-}: IDisplayProps) => {
+}: Omit<IDisplayProps, "accordionTitle">) => {
   const { $Atom_, onSubmit, callbackDialogClose } = useDisplay({
     $Atom,
     dataKey,
@@ -46,7 +46,7 @@ const DisplayTabs = ({
                     value={values._id || "Untitled"}
                   >
                     <div className="w-8 justify-start truncate text-xs font-bold sm:w-16">
-                      {values[tabTitle] || "Untitled"}
+                      {values[tabTitle || ""] || "Untitled"}
                     </div>
                   </TabsTrigger>
                 </div>

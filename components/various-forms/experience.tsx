@@ -1,13 +1,8 @@
 "use client"
 
-import { useCallback } from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import shortid from "shortid"
-import { proxy, useSnapshot } from "valtio"
+import { proxy } from "valtio"
 import { z } from "zod"
 
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 import {
@@ -21,6 +16,8 @@ import {
 import { Separator } from "../ui/separator"
 import { Textarea } from "../ui/textarea"
 import DisplayTabs from "./display-tabs"
+import FormFooter from "./form-footer"
+import { useContent } from "./hooks"
 
 const FormSchema = z.object({
   _id: z.string().nonempty(),
@@ -48,41 +45,21 @@ export const ExperienceItem = ({
 }: {
   values: TReadonlyExperienceItem
 }) => {
-  const $Experience_ = useSnapshot($Experience)
-  const form = useForm<TReadonlyExperienceItem>({
-    resolver: zodResolver(FormSchema),
+  const {
+    $Atom_: $Experience_,
+    form,
+    save,
+    add,
+    remove,
+  } = useContent({
+    $Atom: $Experience,
+    FormSchema,
     values,
   })
 
-  const saveJob = (data: z.infer<typeof FormSchema>) => {
-    for (const [i, v] of ($Experience_.list as any).entries()) {
-      if (values._id === (v as TExperienceItem)._id) {
-        $Experience.list[i] = data
-        break
-      }
-    }
-  }
-
-  const callbackAddJob = useCallback(() => {
-    const _id = shortid.generate()
-    $Experience.list.push({ _id } as TExperienceItem)
-    $Experience.newItemId = _id
-  }, [])
-
-  const callbackRemoveJob = useCallback(() => {
-    if ($Experience_.list.length === 1) return
-
-    const newList = $Experience_.list.filter((item) => {
-      return item._id !== $Experience_.activeItem
-    })
-
-    $Experience.list = newList as TExperienceItem[]
-    $Experience.activeItem = newList[0]._id
-  }, [$Experience_.activeItem, $Experience_.list])
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(saveJob)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(save)} className="space-y-6">
         <FormField
           control={form.control}
           name="company_name"
@@ -166,27 +143,12 @@ export const ExperienceItem = ({
           )}
         />
         <Separator />
-        <div className="space-x-2">
-          <Button type="submit" variant={"outline"}>
-            Save Job
-          </Button>
-          <Button
-            type="submit"
-            variant={"outline"}
-            onClick={callbackAddJob}
-            disabled={$Experience_.list.length === 5}
-          >
-            Add Job
-          </Button>
-          <Button
-            type="button"
-            variant={"destructive"}
-            onClick={callbackRemoveJob}
-            disabled={$Experience_.list.length === 1}
-          >
-            Remove Job
-          </Button>
-        </div>
+        <FormFooter
+          $Atom_={$Experience_}
+          add={add}
+          remove={remove}
+          maxLimit={5}
+        />
       </form>
     </Form>
   )
