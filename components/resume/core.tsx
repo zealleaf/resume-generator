@@ -4,12 +4,11 @@ import { useCallback, useRef } from "react"
 import { useReactToPrint } from "react-to-print"
 import shortid from "shortid"
 import { proxy, subscribe, useSnapshot } from "valtio"
-import { subscribeKey } from "valtio/utils"
 
-import { cn, resetValtioState } from "@/lib/utils"
+import { cn } from "@/lib/utils"
 
 import Templates from "./templates"
-import { TTemplate, TUserData } from "./type"
+import { TTemplate, TUserData } from "./types"
 
 const initObj: any = {
   show: true, // TEMP
@@ -76,7 +75,7 @@ export const Core = () => {
       <div
         className={cn(
           "box-border bg-white text-black transition-all duration-500",
-          "ml-[calc(-900px/2+100vw/2-24px)] mt-[-375px] h-[1273px] w-[900px] scale-[0.4]",
+          "ml-[calc(-900px/2+100vw/2-28px)] mt-[-375px] h-[1273px] w-[900px] scale-[0.35]",
           "sm:mt-[-220px] sm:scale-[0.6]",
           "md:mt-[-155px] md:scale-[0.7]",
           "lg:mt-[-105px] lg:scale-[0.8]",

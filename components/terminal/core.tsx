@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 
-import { ITerminal, outPutItem } from "./type"
+import { ITerminal, outPutItem } from "./types"
 
 const initOutPutItemList: outPutItem[] = [
   {

@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 
-import { TUserData } from "../type"
+import { TUserData } from "../types"
 import styles from "./one.module.css"
 
 const style_sort_title = cn(

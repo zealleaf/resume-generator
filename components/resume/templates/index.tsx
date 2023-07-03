@@ -1,4 +1,4 @@
-import { TTemplate, TUserData } from "../type"
+import { TTemplate, TUserData } from "../types"
 import One from "./one"
 
 interface ITemplates {

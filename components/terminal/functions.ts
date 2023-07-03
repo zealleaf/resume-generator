@@ -2,7 +2,7 @@
 
 import { $CommandController } from "../command-controller"
 import { Resume } from "../resume"
-import { TCommand, TCommandMap } from "./type"
+import { TCommand, TCommandMap } from "./types"
 
 const help: TCommand = ({ setOutPutItemList, next }) => {
   setOutPutItemList((oldData) => {

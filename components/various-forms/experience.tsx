@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect } from "react"
+import { useCallback } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import shortid from "shortid"
@@ -8,16 +8,8 @@ import { proxy, useSnapshot } from "valtio"
 import { z } from "zod"
 
 import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 
-import { Resume } from "../resume"
 import {
   Form,
   FormControl,
@@ -27,8 +19,8 @@ import {
   FormMessage,
 } from "../ui/form"
 import { Separator } from "../ui/separator"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
 import { Textarea } from "../ui/textarea"
+import DisplayTabs from "./display-tabs"
 
 const FormSchema = z.object({
   _id: z.string().nonempty(),
@@ -46,8 +38,8 @@ type TReadonlyExperienceItem = Readonly<z.infer<typeof FormSchema>>
 
 export const $Experience = proxy({
   show: false,
-  newTabId: "",
-  activeTab: "",
+  newItemId: "",
+  activeItem: "",
   list: [] as TExperienceItem[],
 })
 
@@ -74,19 +66,19 @@ export const ExperienceItem = ({
   const callbackAddJob = useCallback(() => {
     const _id = shortid.generate()
     $Experience.list.push({ _id } as TExperienceItem)
-    $Experience.newTabId = _id
+    $Experience.newItemId = _id
   }, [])
 
   const callbackRemoveJob = useCallback(() => {
     if ($Experience_.list.length === 1) return
 
     const newList = $Experience_.list.filter((item) => {
-      return item._id !== $Experience_.activeTab
+      return item._id !== $Experience_.activeItem
     })
 
     $Experience.list = newList as TExperienceItem[]
-    $Experience.activeTab = newList[0]._id
-  }, [$Experience_.activeTab, $Experience_.list])
+    $Experience.activeItem = newList[0]._id
+  }, [$Experience_.activeItem, $Experience_.list])
 
   return (
     <Form {...form}>
@@ -112,7 +104,7 @@ export const ExperienceItem = ({
               <FormItem className="grow">
                 <FormLabel>Start Date:</FormLabel>
                 <FormControl>
-                  <Input placeholder="2023-05" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -125,7 +117,7 @@ export const ExperienceItem = ({
               <FormItem className="grow">
                 <FormLabel>End Date:</FormLabel>
                 <FormControl>
-                  <Input placeholder="2023-06/present" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -167,13 +159,7 @@ export const ExperienceItem = ({
             <FormItem className="grow">
               <FormLabel>Job Responsibilities:</FormLabel>
               <FormControl>
-                <Textarea
-                  className="min-h-[8rem]"
-                  placeholder={`1.xxxxxxxxxxxxxxxx
-2.xxxxxxxx
-`}
-                  {...field}
-                />
+                <Textarea className="min-h-[8rem]" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -207,74 +193,15 @@ export const ExperienceItem = ({
 }
 
 export const Experience = () => {
-  const $Experience_ = useSnapshot($Experience)
-  const Resume$Core_ = useSnapshot(Resume.$Core)
-
-  const callbackDialogClose = useCallback(() => {
-    $Experience.show = false
-  }, [])
-
-  function onSubmit() {
-    Resume.$Core.userData.experience = [...$Experience_.list] as any
-
-    callbackDialogClose()
-  }
-
-  useEffect(() => {
-    $Experience.activeTab = $Experience_.newTabId
-  }, [$Experience_.newTabId])
-
-  useEffect(() => {
-    $Experience.list = [...Resume$Core_.userData.experience]
-    $Experience.activeTab = Resume$Core_.userData.experience[0]?._id
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   return (
-    <Dialog open={$Experience_.show} onOpenChange={callbackDialogClose}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Edit Experience</DialogTitle>
-        </DialogHeader>
-
-        <Tabs
-          value={$Experience_.activeTab}
-          onValueChange={(value) => {
-            $Experience.activeTab = value
-          }}
-        >
-          <TabsList className="my-4 flex items-center justify-start">
-            {$Experience_.list.map((values) => {
-              return (
-                <div>
-                  <TabsTrigger
-                    key={values._id}
-                    value={values._id || "Untitled"}
-                  >
-                    <div className="w-8 justify-start truncate text-xs font-bold sm:w-16">
-                      {values.company_name || "Untitled"}
-                    </div>
-                  </TabsTrigger>
-                </div>
-              )
-            })}
-          </TabsList>
-
-          {$Experience_.list.map((values) => {
-            return (
-              <TabsContent key={values._id} value={values._id || "Untitled"}>
-                <ExperienceItem values={values as TReadonlyExperienceItem} />
-              </TabsContent>
-            )
-          })}
-        </Tabs>
-
-        <DialogFooter>
-          <Button className="mt-4 grow" onClick={onSubmit}>
-            Submit
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+    <DisplayTabs
+      $Atom={$Experience}
+      form={function (params: any): JSX.Element {
+        return <ExperienceItem values={params} />
+      }}
+      dataKey={"experience"}
+      dialogTitle={"Edit Experience"}
+      tabTitle={"company_name"}
+    />
   )
 }

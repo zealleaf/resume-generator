@@ -49,6 +49,7 @@ export const BaseInfo = () => {
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
+    values: Resume.$Core.userData.profile,
   })
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
@@ -81,7 +82,7 @@ export const BaseInfo = () => {
                 <FormItem>
                   <FormLabel>Name:</FormLabel>
                   <FormControl>
-                    <Input placeholder="zealleaf" {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -133,7 +134,7 @@ export const BaseInfo = () => {
                 <FormItem>
                   <FormLabel>Link:</FormLabel>
                   <FormControl>
-                    <Input placeholder="https://zealleaf.me" {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

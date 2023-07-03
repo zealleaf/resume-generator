@@ -1,7 +1,7 @@
 import { $Core, Core } from "./core"
 import { Display } from "./display"
 
-export * from "./type"
+export * from "./types"
 
 export const Resume = {
   Display,
