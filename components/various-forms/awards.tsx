@@ -20,8 +20,7 @@ import { useContent } from "./hooks"
 const FormSchema = z.object({
   _id: z.string().nonempty(),
   award_name: z.string().nonempty(),
-  award_summary: z.string().nonempty(),
-  get_date: z.string().optional(),
+  more_info: z.string().optional(),
 })
 
 type TSkillsItem = z.infer<typeof FormSchema>
@@ -65,26 +64,13 @@ export const AwardItem = ({ values }: { values: TReadonlySkillsItem }) => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="get_date"
-            render={({ field }) => (
-              <FormItem className="grow">
-                <FormLabel>Get Date:</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
         </div>
         <FormField
           control={form.control}
-          name="award_summary"
+          name="more_info"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Award Summary:</FormLabel>
+              <FormLabel>More Info:</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -107,7 +93,7 @@ export const Awards = () => {
       }}
       dataKey={"awards"}
       dialogTitle={"Edit Awards"}
-      accordionTitle={"skill_kind"}
+      accordionTitle={"award_name"}
     />
   )
 }

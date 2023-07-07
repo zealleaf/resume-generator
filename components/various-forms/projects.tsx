@@ -127,7 +127,7 @@ export const Projects = () => {
       }}
       dataKey={"projects"}
       dialogTitle={"Edit Projects"}
-      tabTitle={"company_name"}
+      tabTitle={"project_name"}
     />
   )
 }

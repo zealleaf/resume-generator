@@ -46,15 +46,29 @@ const initObj: any = {
   printResume: () => {},
 }
 
+const handleLocalStorageGetItem = () => {
+  if (typeof window !== "undefined") {
+    try {
+      return JSON.parse(localStorage.getItem("current_resume") || "") || initObj
+    } catch (error) {
+      return initObj
+    }
+  } else {
+    return initObj
+  }
+}
+
 export const $Core = proxy<{
   show: boolean
   userData: TUserData
   template: TTemplate
   printResume: () => void
-}>(JSON.parse(localStorage.getItem("current_resume") || "") || initObj)
+}>(handleLocalStorageGetItem())
 
 subscribe($Core, () => {
-  localStorage.setItem("current_resume", JSON.stringify($Core))
+  if (typeof window !== "undefined") {
+    localStorage.setItem("current_resume", JSON.stringify($Core))
+  }
 })
 
 export const Core = () => {

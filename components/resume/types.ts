@@ -43,6 +43,12 @@ interface project {
 
 interface education {
   _id: string
+  school_name: string
+  degree: string
+  major: string
+  start_date: string
+  end_date: string
+  additional_information: string
 }
 
 interface award {
