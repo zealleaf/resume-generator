@@ -48,10 +48,10 @@ const DisplayAccordion = ({
           {$Atom_.list.map((values: any) => {
             return (
               <AccordionItem key={values._id} value={values._id || "Untitled"}>
-                <AccordionTrigger className="font-bold">
+                <AccordionTrigger className="px-1 font-bold">
                   {values[accordionTitle || ""] || "Untitled"}
                 </AccordionTrigger>
-                <AccordionContent className="pl-4">
+                <AccordionContent className="px-1">
                   {typeof form === "function" ? form(values) : null}
                 </AccordionContent>
               </AccordionItem>

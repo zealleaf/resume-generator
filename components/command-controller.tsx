@@ -146,6 +146,22 @@ export default function CommandController() {
       <CommandInput placeholder="Type a command or search..." />
       <CommandList className="max-h-[600px]">
         <CommandEmpty>No results found.</CommandEmpty>
+        {/* <CommandGroup heading="Starter"> */}
+        {/*   <CommandItem */}
+        {/*     className="cursor-pointer" */}
+        {/*     onSelect={callbackPrintResume} */}
+        {/*   > */}
+        {/*     <Printer className="mr-2 h-4 w-4" /> */}
+        {/*     <span>Select a template</span> */}
+        {/*   </CommandItem> */}
+        {/*   <CommandItem */}
+        {/*     className="cursor-pointer" */}
+        {/*     onSelect={callbackTerminalShow} */}
+        {/*   > */}
+        {/*     <Terminal className="mr-2 h-4 w-4" /> */}
+        {/*     <span>History edit records</span> */}
+        {/*   </CommandItem> */}
+        {/* </CommandGroup> */}
         <CommandGroup heading="Forms">
           <CommandItem
             className="cursor-pointer"
