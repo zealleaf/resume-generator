@@ -27,7 +27,7 @@ type TSkillsItem = z.infer<typeof FormSchema>
 
 type TReadonlySkillsItem = Readonly<z.infer<typeof FormSchema>>
 
-export const $Skills = proxy({
+export const skills_store = proxy({
   show: false,
   newItemId: "",
   activeItem: "",
@@ -36,13 +36,13 @@ export const $Skills = proxy({
 
 export const SkillsItem = ({ values }: { values: TReadonlySkillsItem }) => {
   const {
-    $Atom_: $Skills_,
+    atom_snapshot: skills_store_snapshot,
     form,
     save,
     add,
     remove,
   } = useContent({
-    $Atom: $Skills,
+    atom: skills_store,
     FormSchema,
     values,
   })
@@ -80,7 +80,12 @@ export const SkillsItem = ({ values }: { values: TReadonlySkillsItem }) => {
             </FormItem>
           )}
         />
-        <FormFooter $Atom_={$Skills_} add={add} remove={remove} maxLimit={5} />
+        <FormFooter
+          atom_snapshot={skills_store_snapshot}
+          add={add}
+          remove={remove}
+          maxLimit={5}
+        />
       </form>
     </Form>
   )
@@ -89,7 +94,7 @@ export const SkillsItem = ({ values }: { values: TReadonlySkillsItem }) => {
 export const Skills = () => {
   return (
     <DisplayAccordion
-      $Atom={$Skills}
+      atom={skills_store}
       form={function (params: any): JSX.Element {
         return <SkillsItem values={params} />
       }}

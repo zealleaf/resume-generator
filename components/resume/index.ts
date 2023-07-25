@@ -1,4 +1,4 @@
-import { $Core, Core } from "./core"
+import { Core, store } from "./core"
 import { Display } from "./display"
 
 export * from "./types"
@@ -6,5 +6,5 @@ export * from "./types"
 export const Resume = {
   Display,
   Core,
-  $Core,
+  store,
 }

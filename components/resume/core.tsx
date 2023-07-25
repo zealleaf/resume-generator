@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils"
 import Templates from "./templates"
 import { TTemplate, TUserData } from "./types"
 
-const initObj: any = {
+const initialState: any = {
   show: true, // TEMP
   userData: {
     profile: {
@@ -49,37 +49,39 @@ const initObj: any = {
 const handleLocalStorageGetItem = () => {
   if (typeof window !== "undefined") {
     try {
-      return JSON.parse(localStorage.getItem("current_resume") || "") || initObj
+      return (
+        JSON.parse(localStorage.getItem("current_resume") || "") || initialState
+      )
     } catch (error) {
-      return initObj
+      return initialState
     }
   } else {
-    return initObj
+    return initialState
   }
 }
 
-export const $Core = proxy<{
+export const store = proxy<{
   show: boolean
   userData: TUserData
   template: TTemplate
   printResume: () => void
 }>(handleLocalStorageGetItem())
 
-subscribe($Core, () => {
+subscribe(store, () => {
   if (typeof window !== "undefined") {
-    localStorage.setItem("current_resume", JSON.stringify($Core))
+    localStorage.setItem("current_resume", JSON.stringify(store))
   }
 })
 
 export const Core = () => {
   const resumeRef = useRef(null)
-  const $Core_ = useSnapshot($Core)
+  const store_snapshot = useSnapshot(store)
 
   const handlePrint = useReactToPrint({
     content: () => resumeRef.current,
   })
 
-  $Core.printResume = useCallback(() => {
+  store.printResume = useCallback(() => {
     handlePrint()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -99,8 +101,8 @@ export const Core = () => {
       >
         <div ref={resumeRef} className="p-4">
           <Templates
-            template={$Core_.template}
-            userData={$Core_.userData as TUserData}
+            template={store_snapshot.template}
+            userData={store_snapshot.userData as TUserData}
           />
         </div>
       </div>

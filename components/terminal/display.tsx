@@ -2,12 +2,14 @@
 
 import { useSnapshot } from "valtio"
 
-import { $CommandController } from "../command-controller"
+import { command_controller_store } from "../command-controller"
 
 export const Display = ({ children }: { children: JSX.Element }) => {
-  const $CommandController_ = useSnapshot($CommandController)
+  const command_controller_store_snapshot = useSnapshot(
+    command_controller_store
+  )
 
-  if ($CommandController_.show) {
+  if (command_controller_store_snapshot.show) {
     return null
   }
 

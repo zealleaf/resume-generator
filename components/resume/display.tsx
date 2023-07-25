@@ -3,12 +3,12 @@
 import EmptyResume from "@/lottie/components/empty-resume"
 import { useSnapshot } from "valtio"
 
-import { $Core } from "./core"
+import { store } from "./core"
 
 export const Display = ({ children }: { children: JSX.Element }) => {
-  const $Core_ = useSnapshot($Core)
+  const store_snapshot = useSnapshot(store)
 
-  if (!$Core_.show) {
+  if (!store_snapshot.show) {
     return (
       <div className="flex h-[469px] flex-col items-center space-y-1 rounded-sm border-[1px] border-gray-200 pt-52 dark:border-gray-800 sm:h-[80vh]">
         <EmptyResume />

@@ -13,32 +13,32 @@ import { useDisplay } from "./hooks"
 import { IDisplayProps } from "./types"
 
 const DisplayTabs = ({
-  $Atom,
+  atom,
   form,
   dataKey,
   dialogTitle,
   tabTitle,
 }: Omit<IDisplayProps, "accordionTitle">) => {
-  const { $Atom_, onSubmit, callbackDialogClose } = useDisplay({
-    $Atom,
+  const { atom_snapshot, onSubmit, callbackDialogClose } = useDisplay({
+    atom,
     dataKey,
   })
 
   return (
-    <Dialog open={$Atom_.show} onOpenChange={callbackDialogClose}>
+    <Dialog open={atom_snapshot.show} onOpenChange={callbackDialogClose}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{dialogTitle}</DialogTitle>
         </DialogHeader>
 
         <Tabs
-          value={$Atom_.activeItem}
+          value={atom_snapshot.activeItem}
           onValueChange={(value) => {
-            $Atom.activeItem = value
+            atom.activeItem = value
           }}
         >
           <TabsList className="my-4 flex items-center justify-start">
-            {$Atom_.list.map((values: any) => {
+            {atom_snapshot.list.map((values: any) => {
               return (
                 <div>
                   <TabsTrigger
@@ -54,7 +54,7 @@ const DisplayTabs = ({
             })}
           </TabsList>
 
-          {$Atom_.list.map((values: any) => {
+          {atom_snapshot.list.map((values: any) => {
             return (
               <TabsContent key={values._id} value={values._id || "Untitled"}>
                 {typeof form === "function" ? form(values) : null}

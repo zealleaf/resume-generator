@@ -1,6 +1,6 @@
 "use client"
 
-import { $CommandController } from "../command-controller"
+import { command_controller_store } from "../command-controller"
 import { Resume } from "../resume"
 import { TCommand, TCommandMap } from "./types"
 
@@ -31,14 +31,14 @@ const help: TCommand = ({ setOutPutItemList, next }) => {
 }
 
 const template: TCommand = ({ setOutPutItemList, next }) => {
-  Resume.$Core.show = true
-  Resume.$Core.template = "one"
+  Resume.store.show = true
+  Resume.store.template = "one"
 
   next()
 }
 
 const open: TCommand = ({ setOutPutItemList, next }) => {
-  $CommandController.show = true
+  command_controller_store.show = true
 
   setOutPutItemList((oldData) => {
     return [
@@ -64,7 +64,7 @@ const generate: TCommand = ({ setOutPutItemList, next }) => {
     ]
   })
 
-  Resume.$Core.printResume()
+  Resume.store.printResume()
 
   setOutPutItemList((oldData) => {
     return [

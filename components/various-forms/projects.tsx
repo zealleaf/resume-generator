@@ -31,7 +31,7 @@ type TProjectItem = z.infer<typeof FormSchema>
 
 type TReadonlyProjectItem = Readonly<z.infer<typeof FormSchema>>
 
-export const $Projects = proxy({
+export const projects_store = proxy({
   show: false,
   newItemId: "",
   activeItem: "",
@@ -40,13 +40,13 @@ export const $Projects = proxy({
 
 export const ProjectsItem = ({ values }: { values: TReadonlyProjectItem }) => {
   const {
-    $Atom_: $Projects_,
+    atom_snapshot: projects_store_snapshot,
     form,
     save,
     add,
     remove,
   } = useContent({
-    $Atom: $Projects,
+    atom: projects_store,
     FormSchema,
     values,
   })
@@ -108,7 +108,7 @@ export const ProjectsItem = ({ values }: { values: TReadonlyProjectItem }) => {
         />
         <Separator />
         <FormFooter
-          $Atom_={$Projects_}
+          atom_snapshot={projects_store_snapshot}
           add={add}
           remove={remove}
           maxLimit={5}
@@ -121,7 +121,7 @@ export const ProjectsItem = ({ values }: { values: TReadonlyProjectItem }) => {
 export const Projects = () => {
   return (
     <DisplayTabs
-      $Atom={$Projects}
+      atom={projects_store}
       form={function (params: any): JSX.Element {
         return <ProjectsItem values={params} />
       }}

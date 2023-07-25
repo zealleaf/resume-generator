@@ -32,7 +32,7 @@ type TSkillsItem = z.infer<typeof FormSchema>
 
 type TReadonlySkillsItem = Readonly<z.infer<typeof FormSchema>>
 
-export const $Education = proxy({
+export const education_store = proxy({
   show: false,
   newItemId: "",
   activeItem: "",
@@ -41,13 +41,13 @@ export const $Education = proxy({
 
 export const EducationItem = ({ values }: { values: TReadonlySkillsItem }) => {
   const {
-    $Atom_: $Education_,
+    atom_snapshot: education_store_snapshot,
     form,
     save,
     add,
     remove,
   } = useContent({
-    $Atom: $Education,
+    atom: education_store,
     FormSchema,
     values,
   })
@@ -140,7 +140,7 @@ export const EducationItem = ({ values }: { values: TReadonlySkillsItem }) => {
           )}
         />
         <FormFooter
-          $Atom_={$Education_}
+          atom_snapshot={education_store_snapshot}
           add={add}
           remove={remove}
           maxLimit={5}
@@ -153,7 +153,7 @@ export const EducationItem = ({ values }: { values: TReadonlySkillsItem }) => {
 export const Education = () => {
   return (
     <DisplayAccordion
-      $Atom={$Education}
+      atom={education_store}
       form={function (params: any): JSX.Element {
         return <EducationItem values={params} />
       }}

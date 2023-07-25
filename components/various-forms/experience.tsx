@@ -33,7 +33,7 @@ type TExperienceItem = z.infer<typeof FormSchema>
 
 type TReadonlyExperienceItem = Readonly<z.infer<typeof FormSchema>>
 
-export const $Experience = proxy({
+export const experience_store = proxy({
   show: false,
   newItemId: "",
   activeItem: "",
@@ -46,13 +46,13 @@ export const ExperienceItem = ({
   values: TReadonlyExperienceItem
 }) => {
   const {
-    $Atom_: $Experience_,
+    atom_snapshot: experience_store_snapshot,
     form,
     save,
     add,
     remove,
   } = useContent({
-    $Atom: $Experience,
+    atom: experience_store,
     FormSchema,
     values,
   })
@@ -144,7 +144,7 @@ export const ExperienceItem = ({
         />
         <Separator />
         <FormFooter
-          $Atom_={$Experience_}
+          atom_snapshot={experience_store_snapshot}
           add={add}
           remove={remove}
           maxLimit={5}
@@ -157,7 +157,7 @@ export const ExperienceItem = ({
 export const Experience = () => {
   return (
     <DisplayTabs
-      $Atom={$Experience}
+      atom={experience_store}
       form={function (params: any): JSX.Element {
         return <ExperienceItem values={params} />
       }}

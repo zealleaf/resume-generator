@@ -3,12 +3,12 @@ import React from "react"
 import { Button } from "../ui/button"
 
 const FormFooter = ({
-  $Atom_,
+  atom_snapshot,
   add,
   remove,
   maxLimit,
 }: {
-  $Atom_: any
+  atom_snapshot: any
   add: () => void
   remove: () => void
   maxLimit: number
@@ -22,7 +22,7 @@ const FormFooter = ({
         type="submit"
         variant={"outline"}
         onClick={add}
-        disabled={$Atom_.list.length === maxLimit}
+        disabled={atom_snapshot.list.length === maxLimit}
       >
         Add
       </Button>
@@ -30,7 +30,7 @@ const FormFooter = ({
         type="button"
         variant={"destructive"}
         onClick={remove}
-        disabled={$Atom_.list.length === 1}
+        disabled={atom_snapshot.list.length === 1}
       >
         Remove
       </Button>

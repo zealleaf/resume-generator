@@ -24,19 +24,21 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "./ui/command"
-import { $Award } from "./various-forms/awards"
-import { $BaseInfo } from "./various-forms/base-info"
-import { $Education } from "./various-forms/education"
-import { $Experience } from "./various-forms/experience"
-import { $Projects } from "./various-forms/projects"
-import { $Skills } from "./various-forms/skills"
+import { award_store } from "./various-forms/awards"
+import { base_info_store } from "./various-forms/base-info"
+import { education_store } from "./various-forms/education"
+import { experience_store } from "./various-forms/experience"
+import { projects_store } from "./various-forms/projects"
+import { skills_store } from "./various-forms/skills"
 
-export const $CommandController = proxy({
+export const command_controller_store = proxy({
   show: true,
 })
 
 export default function CommandController() {
-  const $CommandController_ = useSnapshot($CommandController)
+  const command_controller_store_snapshot = useSnapshot(
+    command_controller_store
+  )
 
   const callbackFormShow = useCallback(
     ({
@@ -52,27 +54,27 @@ export default function CommandController() {
     }) => {
       switch (which) {
         case "BaseInfo":
-          $BaseInfo.show = true
+          base_info_store.show = true
           break
 
         case "Experience":
-          $Experience.show = true
+          experience_store.show = true
           break
 
         case "Skills":
-          $Skills.show = true
+          skills_store.show = true
           break
 
         case "Projects":
-          $Projects.show = true
+          projects_store.show = true
           break
 
         case "Education":
-          $Education.show = true
+          education_store.show = true
           break
 
         case "Award":
-          $Award.show = true
+          award_store.show = true
           break
 
         default:
@@ -83,11 +85,11 @@ export default function CommandController() {
   )
 
   const callbackTerminalShow = useCallback(() => {
-    $CommandController.show = false
+    command_controller_store.show = false
   }, [])
 
   const callbackPrintResume = useCallback(() => {
-    Resume.$Core.printResume()
+    Resume.store.printResume()
   }, [])
 
   useEffect(() => {
@@ -137,7 +139,7 @@ export default function CommandController() {
 
   // JSX render
 
-  if (!$CommandController_.show) {
+  if (!command_controller_store_snapshot.show) {
     return null
   }
 

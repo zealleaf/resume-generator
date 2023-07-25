@@ -36,24 +36,24 @@ const FormSchema = z.object({
   link: z.string().url().optional(),
 })
 
-export const $BaseInfo = proxy({
+export const base_info_store = proxy({
   show: false,
 })
 
 export const BaseInfo = () => {
-  const $BaseInfo_ = useSnapshot($BaseInfo)
+  const base_info_store_snapshot = useSnapshot(base_info_store)
 
   const callbackDialogClose = useCallback(() => {
-    $BaseInfo.show = false
+    base_info_store.show = false
   }, [])
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    values: Resume.$Core.userData.profile,
+    values: Resume.store.userData.profile,
   })
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    Resume.$Core.userData.profile = data
+    Resume.store.userData.profile = data
 
     callbackDialogClose()
 
@@ -68,7 +68,10 @@ export const BaseInfo = () => {
   }
 
   return (
-    <Dialog open={$BaseInfo_.show} onOpenChange={callbackDialogClose}>
+    <Dialog
+      open={base_info_store_snapshot.show}
+      onOpenChange={callbackDialogClose}
+    >
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Edit Base Info</DialogTitle>

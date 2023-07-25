@@ -9,52 +9,52 @@ import { Resume } from "../resume"
 import { IDisplayProps } from "./types"
 
 export const useDisplay = ({
-  $Atom,
+  atom,
   dataKey,
 }: Omit<IDisplayProps, "form" | "dialogTitle" | "tabTitle">) => {
-  const $Atom_ = useSnapshot($Atom)
-  const Resume$Core_ = useSnapshot(Resume.$Core)
+  const atom_snapshot = useSnapshot(atom)
+  const resume_store_snapshot = useSnapshot(Resume.store)
 
   const callbackDialogClose = useCallback(() => {
-    $Atom.show = false
-  }, [$Atom])
+    atom.show = false
+  }, [atom])
 
   const onSubmit = useCallback(() => {
-    Resume.$Core.userData[dataKey] = [...$Atom_.list] as any
+    Resume.store.userData[dataKey] = [...atom_snapshot.list] as any
     callbackDialogClose()
-  }, [$Atom_.list, dataKey, callbackDialogClose])
+  }, [atom_snapshot.list, dataKey, callbackDialogClose])
 
   useEffect(() => {
-    $Atom.activeItem = $Atom_.newItemId
-  }, [$Atom, $Atom_.newItemId])
+    atom.activeItem = atom_snapshot.newItemId
+  }, [atom, atom_snapshot.newItemId])
 
   useEffect(() => {
-    $Atom.list = [...Resume$Core_.userData[dataKey]]
-    $Atom.activeItem = Resume$Core_.userData[dataKey][0]?._id
+    atom.list = [...resume_store_snapshot.userData[dataKey]]
+    atom.activeItem = resume_store_snapshot.userData[dataKey][0]?._id
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return useMemo(() => {
     return {
-      $Atom_,
+      atom_snapshot,
       onSubmit,
       callbackDialogClose,
     }
-  }, [$Atom_, onSubmit, callbackDialogClose])
+  }, [atom_snapshot, onSubmit, callbackDialogClose])
 }
 
 export const useContent = <T extends Record<string, any>>({
-  $Atom,
+  atom,
   FormSchema,
   values,
 }: T): {
-  $Atom_: T["values"]
+  atom_snapshot: T["values"]
   form: UseFormReturn<T["values"], any, undefined>
   save: (data: any) => void
   add: () => void
   remove: () => void
 } => {
-  const $Atom_ = useSnapshot($Atom)
+  const atom_snapshot = useSnapshot(atom)
   const form = useForm({
     resolver: zodResolver(FormSchema),
     values,
@@ -62,35 +62,35 @@ export const useContent = <T extends Record<string, any>>({
 
   const save = useCallback(
     (data: z.infer<typeof FormSchema>) => {
-      for (const [i, v] of ($Atom_.list as any).entries()) {
+      for (const [i, v] of (atom_snapshot.list as any).entries()) {
         if (values._id === v._id) {
-          $Atom.list[i] = data
+          atom.list[i] = data
           break
         }
       }
     },
-    [$Atom, $Atom_.list, values._id]
+    [atom, atom_snapshot.list, values._id]
   )
 
   const add = useCallback(() => {
     const _id = shortid.generate()
-    $Atom.list.push({ _id })
-    $Atom.newItemId = _id
-  }, [$Atom])
+    atom.list.push({ _id })
+    atom.newItemId = _id
+  }, [atom])
 
   const remove = useCallback(() => {
-    if ($Atom_.list.length === 1) return
+    if (atom_snapshot.list.length === 1) return
 
-    const newList = $Atom_.list.filter((item: any) => {
-      return item._id !== $Atom_.activeItem
+    const newList = atom_snapshot.list.filter((item: any) => {
+      return item._id !== atom_snapshot.activeItem
     })
 
-    $Atom.list = newList
-    $Atom.activeItem = newList[0]._id
-  }, [$Atom, $Atom_.activeItem, $Atom_.list])
+    atom.list = newList
+    atom.activeItem = newList[0]._id
+  }, [atom, atom_snapshot.activeItem, atom_snapshot.list])
 
   return useMemo(
-    () => ({ $Atom_, form, save, add, remove }),
-    [$Atom_, form, save, add, remove]
+    () => ({ atom_snapshot, form, save, add, remove }),
+    [atom_snapshot, form, save, add, remove]
   )
 }

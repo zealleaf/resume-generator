@@ -1,9 +1,9 @@
 import { Resume } from "../resume"
 
 export interface IDisplayProps {
-  $Atom: any
+  atom: any
   form: (params: any) => JSX.Element
-  dataKey: keyof Omit<typeof Resume.$Core.userData, "profile">
+  dataKey: keyof Omit<typeof Resume.store.userData, "profile">
   dialogTitle: string
   tabTitle?: string
   accordionTitle?: string
