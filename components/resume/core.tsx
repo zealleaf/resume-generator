@@ -5,14 +5,18 @@ import { useReactToPrint } from "react-to-print"
 import shortid from "shortid"
 import { proxy, subscribe, useSnapshot } from "valtio"
 
-import { cn } from "@/lib/utils"
+import {
+  cn,
+  handleLocalStorageForValtioGetItem,
+  handleLocalStorageForValtioSetItem,
+} from "@/lib/utils"
 
 import Templates from "./templates"
 import { TTemplate, TUserData } from "./types"
 
-const initialState = {
+const initial_state = {
   show: true, // TEMP
-  userData: {
+  user_data: {
     profile: {
       name: "",
       link: "",
@@ -42,35 +46,24 @@ const initialState = {
       },
     ],
   } as TUserData,
-  template: "one",
-  printResume: () => {},
-}
-
-const handleLocalStorageGetItem = () => {
-  if (typeof window !== "undefined") {
-    try {
-      return (
-        JSON.parse(localStorage.getItem("current_resume") || "") || initialState
-      )
-    } catch (error) {
-      return initialState
-    }
-  } else {
-    return initialState
-  }
+  template: "one" as TTemplate,
+  print_resume: () => {},
 }
 
 export const store = proxy<{
   show: boolean
-  userData: TUserData
+  user_data: TUserData
   template: TTemplate
-  printResume: () => void
-}>(handleLocalStorageGetItem())
+  print_resume: () => void
+}>(
+  handleLocalStorageForValtioGetItem({
+    key: "current_resume",
+    data: initial_state,
+  })
+)
 
 subscribe(store, () => {
-  if (typeof window !== "undefined") {
-    localStorage.setItem("current_resume", JSON.stringify(store))
-  }
+  handleLocalStorageForValtioSetItem({ key: "current_resume", data: store })
 })
 
 export const Core = () => {
@@ -81,7 +74,7 @@ export const Core = () => {
     content: () => resumeRef.current,
   })
 
-  store.printResume = useCallback(() => {
+  store.print_resume = useCallback(() => {
     handlePrint()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -102,7 +95,7 @@ export const Core = () => {
         <div ref={resumeRef} className="p-4">
           <Templates
             template={store_snapshot.template}
-            userData={store_snapshot.userData as TUserData}
+            userData={store_snapshot.user_data as TUserData}
           />
         </div>
       </div>

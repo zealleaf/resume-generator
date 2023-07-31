@@ -8,6 +8,7 @@ const style_sort_title = cn(
 )
 
 export default function One(props: TUserData) {
+  console.log(props)
   return (
     <div className="space-y-5">
       <section className="profile-area space-y-2">

@@ -49,11 +49,11 @@ export const BaseInfo = () => {
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    values: Resume.store.userData.profile,
+    values: Resume.store.user_data.profile,
   })
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    Resume.store.userData.profile = data
+    Resume.store.user_data.profile = data
 
     callbackDialogClose()
 

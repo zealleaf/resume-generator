@@ -90,8 +90,8 @@ export default function CommandController() {
     command_controller_store.show = false
   }, [])
 
-  const callbackPrintResume = useCallback(() => {
-    Resume.store.printResume()
+  const callbackprint_resume = useCallback(() => {
+    Resume.store.print_resume()
   }, [])
 
   useEffect(() => {
@@ -127,7 +127,7 @@ export default function CommandController() {
             break
 
           case "g":
-            callbackPrintResume()
+            callbackprint_resume()
             break
 
           default:
@@ -137,7 +137,7 @@ export default function CommandController() {
     }
     document.addEventListener("keydown", down)
     return () => document.removeEventListener("keydown", down)
-  }, [callbackFormShow, callbackTerminalShow, callbackPrintResume])
+  }, [callbackFormShow, callbackTerminalShow, callbackprint_resume])
 
   // JSX render
 
@@ -153,7 +153,7 @@ export default function CommandController() {
         <CommandGroup heading="Starter">
           <CommandItem
             className="cursor-pointer"
-            onSelect={callbackPrintResume}
+            onSelect={callbackprint_resume}
           >
             <LayoutTemplate className="mr-2 h-4 w-4" />
             <span>Select a template</span>
@@ -229,7 +229,7 @@ export default function CommandController() {
         <CommandGroup heading="Options">
           <CommandItem
             className="cursor-pointer"
-            onSelect={callbackPrintResume}
+            onSelect={callbackprint_resume}
           >
             <Printer className="mr-2 h-4 w-4" />
             <span>Generate Resume</span>

@@ -13,5 +13,6 @@ const templateMap = {
 }
 
 export default function Templates({ template, userData }: ITemplates) {
+  console.log(template, userData)
   return <div className="select-none">{templateMap[template](userData)}</div>
 }

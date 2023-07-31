@@ -64,7 +64,7 @@ const generate: TCommand = ({ setOutPutItemList, next }) => {
     ]
   })
 
-  Resume.store.printResume()
+  Resume.store.print_resume()
 
   setOutPutItemList((oldData) => {
     return [

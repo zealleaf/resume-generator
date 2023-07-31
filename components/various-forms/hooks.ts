@@ -20,7 +20,7 @@ export const useDisplay = ({
   }, [store])
 
   const onSubmit = useCallback(() => {
-    Resume.store.userData[dataKey] = [...store_snapshot.list] as any
+    Resume.store.user_data[dataKey] = [...store_snapshot.list] as any
     callbackDialogClose()
   }, [store_snapshot.list, dataKey, callbackDialogClose])
 
@@ -29,8 +29,8 @@ export const useDisplay = ({
   }, [store, store_snapshot.new_item_id])
 
   useEffect(() => {
-    store.list = [...resume_store_snapshot.userData[dataKey]]
-    store.active_item = resume_store_snapshot.userData[dataKey][0]?._id
+    store.list = [...resume_store_snapshot.user_data[dataKey]]
+    store.active_item = resume_store_snapshot.user_data[dataKey][0]?._id
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
