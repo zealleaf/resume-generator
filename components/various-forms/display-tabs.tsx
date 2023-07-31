@@ -32,9 +32,9 @@ const DisplayTabs = ({
         </DialogHeader>
 
         <Tabs
-          value={store_snapshot.activeItem}
+          value={store_snapshot.active_item}
           onValueChange={(value) => {
-            store.activeItem = value
+            store.active_item = value
           }}
         >
           <TabsList className="my-4 flex items-center justify-start">

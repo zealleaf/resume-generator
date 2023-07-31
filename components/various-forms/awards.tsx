@@ -29,8 +29,8 @@ type TReadonlySkillsItem = Readonly<z.infer<typeof FormSchema>>
 
 export const award_store = proxy({
   show: false,
-  newItemId: "",
-  activeItem: "",
+  new_item_id: "",
+  active_item: "",
   list: [] as TSkillsItem[],
 })
 

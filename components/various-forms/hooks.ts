@@ -25,12 +25,12 @@ export const useDisplay = ({
   }, [store_snapshot.list, dataKey, callbackDialogClose])
 
   useEffect(() => {
-    store.activeItem = store_snapshot.newItemId
-  }, [store, store_snapshot.newItemId])
+    store.active_item = store_snapshot.new_item_id
+  }, [store, store_snapshot.new_item_id])
 
   useEffect(() => {
     store.list = [...resume_store_snapshot.userData[dataKey]]
-    store.activeItem = resume_store_snapshot.userData[dataKey][0]?._id
+    store.active_item = resume_store_snapshot.userData[dataKey][0]?._id
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -75,19 +75,19 @@ export const useContent = <T extends Record<string, any>>({
   const add = useCallback(() => {
     const _id = shortid.generate()
     store.list.push({ _id })
-    store.newItemId = _id
+    store.new_item_id = _id
   }, [store])
 
   const remove = useCallback(() => {
     if (store_snapshot.list.length === 1) return
 
     const newList = store_snapshot.list.filter((item: any) => {
-      return item._id !== store_snapshot.activeItem
+      return item._id !== store_snapshot.active_item
     })
 
     store.list = newList
-    store.activeItem = newList[0]._id
-  }, [store, store_snapshot.activeItem, store_snapshot.list])
+    store.active_item = newList[0]._id
+  }, [store, store_snapshot.active_item, store_snapshot.list])
 
   return useMemo(
     () => ({ store_snapshot, form, save, add, remove }),

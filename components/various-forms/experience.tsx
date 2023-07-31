@@ -35,8 +35,8 @@ type TReadonlyExperienceItem = Readonly<z.infer<typeof FormSchema>>
 
 export const experience_store = proxy({
   show: false,
-  newItemId: "",
-  activeItem: "",
+  new_item_id: "",
+  active_item: "",
   list: [] as TExperienceItem[],
 })
 

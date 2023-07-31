@@ -40,9 +40,9 @@ const DisplayAccordion = ({
           type="single"
           collapsible
           className="min-h-[360px]"
-          value={store_snapshot.activeItem}
+          value={store_snapshot.active_item}
           onValueChange={(value) => {
-            store.activeItem = value
+            store.active_item = value
           }}
         >
           {store_snapshot.list.map((values: any) => {

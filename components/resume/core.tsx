@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils"
 import Templates from "./templates"
 import { TTemplate, TUserData } from "./types"
 
-const initialState: any = {
+const initialState = {
   show: true, // TEMP
   userData: {
     profile: {

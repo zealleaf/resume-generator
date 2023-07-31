@@ -33,8 +33,8 @@ type TReadonlyProjectItem = Readonly<z.infer<typeof FormSchema>>
 
 export const projects_store = proxy({
   show: false,
-  newItemId: "",
-  activeItem: "",
+  new_item_id: "",
+  active_item: "",
   list: [] as TProjectItem[],
 })
 

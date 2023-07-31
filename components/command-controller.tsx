@@ -6,6 +6,8 @@ import {
   Briefcase,
   Code,
   Folder,
+  History,
+  LayoutTemplate,
   Printer,
   School,
   Terminal,
@@ -148,22 +150,24 @@ export default function CommandController() {
       <CommandInput placeholder="Type a command or search..." />
       <CommandList className="max-h-[600px]">
         <CommandEmpty>No results found.</CommandEmpty>
-        {/* <CommandGroup heading="Starter"> */}
-        {/*   <CommandItem */}
-        {/*     className="cursor-pointer" */}
-        {/*     onSelect={callbackPrintResume} */}
-        {/*   > */}
-        {/*     <Printer className="mr-2 h-4 w-4" /> */}
-        {/*     <span>Select a template</span> */}
-        {/*   </CommandItem> */}
-        {/*   <CommandItem */}
-        {/*     className="cursor-pointer" */}
-        {/*     onSelect={callbackTerminalShow} */}
-        {/*   > */}
-        {/*     <Terminal className="mr-2 h-4 w-4" /> */}
-        {/*     <span>History edit records</span> */}
-        {/*   </CommandItem> */}
-        {/* </CommandGroup> */}
+        <CommandGroup heading="Starter">
+          <CommandItem
+            className="cursor-pointer"
+            onSelect={callbackPrintResume}
+          >
+            <LayoutTemplate className="mr-2 h-4 w-4" />
+            <span>Select a template</span>
+          </CommandItem>
+
+          <CommandItem
+            className="cursor-pointer"
+            onSelect={callbackTerminalShow}
+          >
+            <History className="mr-2 h-4 w-4" />
+            <span>History edit records</span>
+          </CommandItem>
+        </CommandGroup>
+
         <CommandGroup heading="Forms">
           <CommandItem
             className="cursor-pointer"
@@ -173,6 +177,7 @@ export default function CommandController() {
             <span>Base Info</span>
             <CommandShortcut>ctrl+b</CommandShortcut>
           </CommandItem>
+
           <CommandItem
             className="cursor-pointer"
             onSelect={() => callbackFormShow({ which: "Experience" })}
@@ -181,6 +186,7 @@ export default function CommandController() {
             <span>Experience</span>
             <CommandShortcut>ctrl+j</CommandShortcut>
           </CommandItem>
+
           <CommandItem
             className="cursor-pointer"
             onSelect={() => callbackFormShow({ which: "Skills" })}
@@ -189,6 +195,7 @@ export default function CommandController() {
             <span>Skills</span>
             <CommandShortcut>ctrl+s</CommandShortcut>
           </CommandItem>
+
           <CommandItem
             className="cursor-pointer"
             onSelect={() => callbackFormShow({ which: "Projects" })}
@@ -197,6 +204,7 @@ export default function CommandController() {
             <span>Projects</span>
             <CommandShortcut>ctrl+p</CommandShortcut>
           </CommandItem>
+
           <CommandItem
             className="cursor-pointer"
             onSelect={() => callbackFormShow({ which: "Education" })}
@@ -205,6 +213,7 @@ export default function CommandController() {
             <span>Education</span>
             <CommandShortcut>ctrl+e</CommandShortcut>
           </CommandItem>
+
           <CommandItem
             className="cursor-pointer"
             onSelect={() => callbackFormShow({ which: "Award" })}
@@ -214,7 +223,9 @@ export default function CommandController() {
             <CommandShortcut>ctrl+a</CommandShortcut>
           </CommandItem>
         </CommandGroup>
+
         <CommandSeparator />
+
         <CommandGroup heading="Options">
           <CommandItem
             className="cursor-pointer"
@@ -224,6 +235,7 @@ export default function CommandController() {
             <span>Generate Resume</span>
             <CommandShortcut>ctrl+g</CommandShortcut>
           </CommandItem>
+
           <CommandItem
             className="cursor-pointer"
             onSelect={callbackTerminalShow}
