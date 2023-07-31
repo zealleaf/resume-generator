@@ -2,7 +2,6 @@
 
 import { useCallback, useRef } from "react"
 import { useReactToPrint } from "react-to-print"
-import shortid from "shortid"
 import { proxy, subscribe, useSnapshot } from "valtio"
 
 import {
@@ -15,47 +14,13 @@ import Templates from "./templates"
 import { TTemplate, TUserData } from "./types"
 
 const initial_state = {
-  show: true, // TEMP
-  user_data: {
-    profile: {
-      name: "",
-      link: "",
-      email: "",
-      phone: "",
-      location: "",
-    },
-    experience: [
-      {
-        _id: shortid.generate(),
-      },
-    ],
-    skills: [{ _id: shortid.generate() }],
-    projects: [
-      {
-        _id: shortid.generate(),
-      },
-    ],
-    awards: [
-      {
-        _id: shortid.generate(),
-      },
-    ],
-    education: [
-      {
-        _id: shortid.generate(),
-      },
-    ],
-  } as TUserData,
+  show: true,
+  user_data: {} as TUserData,
   template: "one" as TTemplate,
   print_resume: () => {},
 }
 
-export const store = proxy<{
-  show: boolean
-  user_data: TUserData
-  template: TTemplate
-  print_resume: () => void
-}>(
+export const store = proxy(
   handleLocalStorageForValtioGetItem({
     key: "current_resume",
     data: initial_state,

@@ -151,20 +151,14 @@ export default function CommandController() {
       <CommandList className="max-h-[600px]">
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Starter">
-          <CommandItem
-            className="cursor-pointer"
-            onSelect={callbackprint_resume}
-          >
+          <CommandItem className="cursor-pointer" onSelect={() => {}}>
             <LayoutTemplate className="mr-2 h-4 w-4" />
-            <span>Select a template</span>
+            <span>Select a template (coming soon ...)</span>
           </CommandItem>
 
-          <CommandItem
-            className="cursor-pointer"
-            onSelect={callbackTerminalShow}
-          >
+          <CommandItem className="cursor-pointer" onSelect={() => {}}>
             <History className="mr-2 h-4 w-4" />
-            <span>History edit records</span>
+            <span>History edit records (coming soon ...)</span>
           </CommandItem>
         </CommandGroup>
 

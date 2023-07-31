@@ -13,7 +13,12 @@ export const resetValtioState = (store: any, initialObj: any) => {
   })
 }
 
-export const handleLocalStorageForValtioGetItem = ({ key, data }) => {
+export const handleLocalStorageForValtioGetItem = <
+  T extends Record<"key" | "data", any>
+>({
+  key,
+  data,
+}: T): T["data"] => {
   if (typeof window !== "undefined") {
     try {
       return JSON.parse(localStorage.getItem(key) || "") || data

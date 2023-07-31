@@ -1,12 +1,12 @@
 export type TTemplate = "one"
 
 export interface TUserData {
-  profile: profile
-  experience: experience[]
-  projects: project[]
-  awards: award[]
-  skills: skill[]
-  education: education[]
+  profile?: profile
+  experience?: experience[]
+  projects?: project[]
+  awards?: award[]
+  skills?: skill[]
+  education?: education[]
 }
 
 interface profile {

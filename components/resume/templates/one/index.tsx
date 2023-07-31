@@ -8,11 +8,10 @@ const style_sort_title = cn(
 )
 
 export default function One(props: TUserData) {
-  console.log(props)
   return (
     <div className="space-y-5">
       <section className="profile-area space-y-2">
-        <p className="text-end text-3xl font-bold">{props.profile.name}</p>
+        <p className="text-end text-3xl font-bold">{props.profile?.name}</p>
         <div
           className={cn(
             "flex w-full justify-end text-sm",
@@ -20,31 +19,31 @@ export default function One(props: TUserData) {
           )}
         >
           <a
-            className={cn(props.profile.link && styles.separator)}
-            href={props.profile.link}
+            className={cn(props.profile?.link && styles.separator)}
+            href={props.profile?.link}
             target="_blank"
             rel="noreferrer"
           >
-            {props.profile.link}
+            {props.profile?.link}
           </a>
           <a
-            className={cn(props.profile.link && styles.separator)}
-            href={"mailto:" + props.profile.email}
+            className={cn(props.profile?.link && styles.separator)}
+            href={"mailto:" + props.profile?.email}
           >
-            {props.profile.email}
+            {props.profile?.email}
           </a>
-          <span className={cn(props.profile.link && styles.separator)}>
-            {props.profile.phone}
+          <span className={cn(props.profile?.link && styles.separator)}>
+            {props.profile?.phone}
           </span>
-          <span className={cn(props.profile.link && styles.separator)}>
-            {props.profile.location}
+          <span className={cn(props.profile?.link && styles.separator)}>
+            {props.profile?.location}
           </span>
         </div>
       </section>
       <section>
         <h3 className={style_sort_title}>experience</h3>
         <div className="mt-2 space-y-2">
-          {props.experience.map((experienceItem) => {
+          {props.experience?.map((experienceItem) => {
             return (
               <div key={experienceItem._id} className="space-y-1">
                 <section>
@@ -86,7 +85,7 @@ export default function One(props: TUserData) {
       <section>
         <h3 className={style_sort_title}>skills</h3>
         <div className="mt-2 text-sm">
-          {props.skills.map((skill) => {
+          {props.skills?.map((skill) => {
             return (
               <div key={skill._id}>
                 <div className="flex items-center space-x-6 px-6">
@@ -101,7 +100,7 @@ export default function One(props: TUserData) {
       <section>
         <h3 className={style_sort_title}>projects</h3>
         <div className="mt-2 space-y-2">
-          {props.projects.map((projectItem) => {
+          {props.projects?.map((projectItem) => {
             return (
               <div key={projectItem._id} className="space-y-1">
                 <section>
@@ -133,7 +132,7 @@ export default function One(props: TUserData) {
       <section>
         <h3 className={style_sort_title}>education</h3>
         <div className="mt-2 text-sm">
-          {props.education.map((educationItem) => {
+          {props.education?.map((educationItem) => {
             return (
               <div key={educationItem._id}>
                 <section>

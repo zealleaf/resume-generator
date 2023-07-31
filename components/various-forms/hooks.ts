@@ -29,8 +29,15 @@ export const useDisplay = ({
   }, [store, store_snapshot.new_item_id])
 
   useEffect(() => {
-    store.list = [...resume_store_snapshot.user_data[dataKey]]
-    store.active_item = resume_store_snapshot.user_data[dataKey][0]?._id
+    const obj = resume_store_snapshot.user_data[dataKey]
+
+    if (obj) {
+      store.list = [...obj]
+      if (obj[0]) {
+        store.active_item = obj[0]?._id
+      }
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -43,7 +50,9 @@ export const useDisplay = ({
   }, [store_snapshot, onSubmit, callbackDialogClose])
 }
 
-export const useContent = <T extends Record<string, any>>({
+export const useContent = <
+  T extends Record<"store" | "FormSchema" | "values", any>
+>({
   store,
   FormSchema,
   values,
