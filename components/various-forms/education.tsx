@@ -41,13 +41,13 @@ export const education_store = proxy({
 
 export const EducationItem = ({ values }: { values: TReadonlySkillsItem }) => {
   const {
-    atom_snapshot: education_store_snapshot,
+    store_snapshot: education_store_snapshot,
     form,
     save,
     add,
     remove,
   } = useContent({
-    atom: education_store,
+    store: education_store,
     FormSchema,
     values,
   })
@@ -140,7 +140,7 @@ export const EducationItem = ({ values }: { values: TReadonlySkillsItem }) => {
           )}
         />
         <FormFooter
-          atom_snapshot={education_store_snapshot}
+          store_snapshot={education_store_snapshot}
           add={add}
           remove={remove}
           maxLimit={5}
@@ -153,7 +153,7 @@ export const EducationItem = ({ values }: { values: TReadonlySkillsItem }) => {
 export const Education = () => {
   return (
     <DisplayAccordion
-      atom={education_store}
+      store={education_store}
       form={function (params: any): JSX.Element {
         return <EducationItem values={params} />
       }}

@@ -36,13 +36,13 @@ export const skills_store = proxy({
 
 export const SkillsItem = ({ values }: { values: TReadonlySkillsItem }) => {
   const {
-    atom_snapshot: skills_store_snapshot,
+    store_snapshot: skills_store_snapshot,
     form,
     save,
     add,
     remove,
   } = useContent({
-    atom: skills_store,
+    store: skills_store,
     FormSchema,
     values,
   })
@@ -81,7 +81,7 @@ export const SkillsItem = ({ values }: { values: TReadonlySkillsItem }) => {
           )}
         />
         <FormFooter
-          atom_snapshot={skills_store_snapshot}
+          store_snapshot={skills_store_snapshot}
           add={add}
           remove={remove}
           maxLimit={5}
@@ -94,7 +94,7 @@ export const SkillsItem = ({ values }: { values: TReadonlySkillsItem }) => {
 export const Skills = () => {
   return (
     <DisplayAccordion
-      atom={skills_store}
+      store={skills_store}
       form={function (params: any): JSX.Element {
         return <SkillsItem values={params} />
       }}

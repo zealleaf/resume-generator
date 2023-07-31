@@ -36,13 +36,13 @@ export const award_store = proxy({
 
 export const AwardItem = ({ values }: { values: TReadonlySkillsItem }) => {
   const {
-    atom_snapshot: award_store_snapshot,
+    store_snapshot: award_store_snapshot,
     form,
     save,
     add,
     remove,
   } = useContent({
-    atom: award_store,
+    store: award_store,
     FormSchema,
     values,
   })
@@ -79,7 +79,7 @@ export const AwardItem = ({ values }: { values: TReadonlySkillsItem }) => {
           )}
         />
         <FormFooter
-          atom_snapshot={award_store_snapshot}
+          store_snapshot={award_store_snapshot}
           add={add}
           remove={remove}
           maxLimit={5}
@@ -92,7 +92,7 @@ export const AwardItem = ({ values }: { values: TReadonlySkillsItem }) => {
 export const Awards = () => {
   return (
     <DisplayAccordion
-      atom={award_store}
+      store={award_store}
       form={function (params: any): JSX.Element {
         return <AwardItem values={params} />
       }}

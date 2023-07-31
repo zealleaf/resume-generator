@@ -18,19 +18,19 @@ import { useDisplay } from "./hooks"
 import { IDisplayProps } from "./types"
 
 const DisplayAccordion = ({
-  atom,
+  store,
   form,
   dataKey,
   dialogTitle,
   accordionTitle,
 }: Omit<IDisplayProps, "tabTitle">) => {
-  const { atom_snapshot, onSubmit, callbackDialogClose } = useDisplay({
-    atom,
+  const { store_snapshot, onSubmit, callbackDialogClose } = useDisplay({
+    store,
     dataKey,
   })
 
   return (
-    <Dialog open={atom_snapshot.show} onOpenChange={callbackDialogClose}>
+    <Dialog open={store_snapshot.show} onOpenChange={callbackDialogClose}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{dialogTitle}</DialogTitle>
@@ -40,12 +40,12 @@ const DisplayAccordion = ({
           type="single"
           collapsible
           className="min-h-[360px]"
-          value={atom_snapshot.activeItem}
+          value={store_snapshot.activeItem}
           onValueChange={(value) => {
-            atom.activeItem = value
+            store.activeItem = value
           }}
         >
-          {atom_snapshot.list.map((values: any) => {
+          {store_snapshot.list.map((values: any) => {
             return (
               <AccordionItem key={values._id} value={values._id || "Untitled"}>
                 <AccordionTrigger className="px-1 font-bold">

@@ -40,13 +40,13 @@ export const projects_store = proxy({
 
 export const ProjectsItem = ({ values }: { values: TReadonlyProjectItem }) => {
   const {
-    atom_snapshot: projects_store_snapshot,
+    store_snapshot: projects_store_snapshot,
     form,
     save,
     add,
     remove,
   } = useContent({
-    atom: projects_store,
+    store: projects_store,
     FormSchema,
     values,
   })
@@ -108,10 +108,10 @@ export const ProjectsItem = ({ values }: { values: TReadonlyProjectItem }) => {
         />
         <Separator />
         <FormFooter
-          atom_snapshot={projects_store_snapshot}
+          store_snapshot={projects_store_snapshot}
           add={add}
           remove={remove}
-          maxLimit={5}
+          maxLimit={6}
         />
       </form>
     </Form>
@@ -121,7 +121,7 @@ export const ProjectsItem = ({ values }: { values: TReadonlyProjectItem }) => {
 export const Projects = () => {
   return (
     <DisplayTabs
-      atom={projects_store}
+      store={projects_store}
       form={function (params: any): JSX.Element {
         return <ProjectsItem values={params} />
       }}

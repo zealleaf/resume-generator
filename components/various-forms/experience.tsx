@@ -46,13 +46,13 @@ export const ExperienceItem = ({
   values: TReadonlyExperienceItem
 }) => {
   const {
-    atom_snapshot: experience_store_snapshot,
+    store_snapshot: experience_store_snapshot,
     form,
     save,
     add,
     remove,
   } = useContent({
-    atom: experience_store,
+    store: experience_store,
     FormSchema,
     values,
   })
@@ -144,7 +144,7 @@ export const ExperienceItem = ({
         />
         <Separator />
         <FormFooter
-          atom_snapshot={experience_store_snapshot}
+          store_snapshot={experience_store_snapshot}
           add={add}
           remove={remove}
           maxLimit={5}
@@ -157,7 +157,7 @@ export const ExperienceItem = ({
 export const Experience = () => {
   return (
     <DisplayTabs
-      atom={experience_store}
+      store={experience_store}
       form={function (params: any): JSX.Element {
         return <ExperienceItem values={params} />
       }}

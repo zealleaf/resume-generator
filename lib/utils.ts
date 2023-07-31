@@ -6,9 +6,9 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function resetValtioState(atom: any, initialObj: any) {
+export function resetValtioState(store: any, initialObj: any) {
   const resetObj = cloneDeep(initialObj)
   Object.keys(resetObj).forEach((key) => {
-    ;(atom as any)[key] = (resetObj as any)[key]
+    ;(store as any)[key] = (resetObj as any)[key]
   })
 }
