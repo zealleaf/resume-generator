@@ -19,7 +19,7 @@ import { IDisplayProps } from "./types"
 
 const DisplayAccordion = ({
   store,
-  form,
+  formCpn,
   dataKey,
   dialogTitle,
   accordionTitle,
@@ -52,7 +52,7 @@ const DisplayAccordion = ({
                   {values[accordionTitle || ""] || "Untitled"}
                 </AccordionTrigger>
                 <AccordionContent className="px-1">
-                  {typeof form === "function" ? form(values) : null}
+                  {typeof formCpn === "function" ? formCpn(values) : null}
                 </AccordionContent>
               </AccordionItem>
             )

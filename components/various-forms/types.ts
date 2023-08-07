@@ -2,7 +2,7 @@ import { Resume } from "../resume"
 
 export interface IDisplayProps {
   store: any
-  form: (params: any) => JSX.Element
+  formCpn: (params: any) => JSX.Element
   dataKey: keyof Omit<typeof Resume.store.user_data, "profile">
   dialogTitle: string
   tabTitle?: string

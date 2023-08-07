@@ -154,7 +154,7 @@ export const Education = () => {
   return (
     <DisplayAccordion
       store={education_store}
-      form={function (params: any): JSX.Element {
+      formCpn={function (params: any): JSX.Element {
         return <EducationItem values={params} />
       }}
       dataKey={"education"}

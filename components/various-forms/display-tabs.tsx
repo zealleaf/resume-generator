@@ -14,7 +14,7 @@ import { IDisplayProps } from "./types"
 
 const DisplayTabs = ({
   store,
-  form,
+  formCpn,
   dataKey,
   dialogTitle,
   tabTitle,
@@ -57,7 +57,7 @@ const DisplayTabs = ({
           {store_snapshot.list.map((values: any) => {
             return (
               <TabsContent key={values._id} value={values._id || "Untitled"}>
-                {typeof form === "function" ? form(values) : null}
+                {typeof formCpn === "function" ? formCpn(values) : null}
               </TabsContent>
             )
           })}

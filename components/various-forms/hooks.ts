@@ -11,7 +11,7 @@ import { IDisplayProps } from "./types"
 export const useDisplay = ({
   store,
   dataKey,
-}: Omit<IDisplayProps, "form" | "dialogTitle" | "tabTitle">) => {
+}: Omit<IDisplayProps, "formCpn" | "dialogTitle" | "tabTitle">) => {
   const store_snapshot = useSnapshot(store)
   const resume_store_snapshot = useSnapshot(Resume.store)
 

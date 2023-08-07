@@ -93,7 +93,7 @@ export const Awards = () => {
   return (
     <DisplayAccordion
       store={award_store}
-      form={function (params: any): JSX.Element {
+      formCpn={function (params: any): JSX.Element {
         return <AwardItem values={params} />
       }}
       dataKey={"awards"}
