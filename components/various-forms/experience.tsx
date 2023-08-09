@@ -136,7 +136,6 @@ export const ExperienceItem = ({
             </FormItem>
           )}
         />
-        <Separator />
         <FormFooter
           store_snapshot={experience_store_snapshot}
           add={add}
@@ -144,6 +143,7 @@ export const ExperienceItem = ({
           maxLimit={5}
           isDirty={formOBJ.formState.isDirty}
         />
+        <Separator />
       </form>
     </Form>
   )

@@ -100,7 +100,6 @@ export const ProjectsItem = ({ values }: { values: TReadonlyProjectItem }) => {
             </FormItem>
           )}
         />
-        <Separator />
         <FormFooter
           store_snapshot={projects_store_snapshot}
           add={add}
@@ -108,6 +107,7 @@ export const ProjectsItem = ({ values }: { values: TReadonlyProjectItem }) => {
           maxLimit={6}
           isDirty={formOBJ.formState.isDirty}
         />
+        <Separator />
       </form>
     </Form>
   )
