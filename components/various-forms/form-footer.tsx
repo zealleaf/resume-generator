@@ -1,6 +1,7 @@
 import React from "react"
 
 import { Button } from "../ui/button"
+import { Separator } from "../ui/separator"
 
 const FormFooter = ({
   store_snapshot,
@@ -14,17 +15,9 @@ const FormFooter = ({
   maxLimit: number
 }) => {
   return (
-    <div className="space-x-2">
+    <div className="flex h-5 items-center space-x-4 text-sm">
       <Button type="submit" variant={"outline"}>
-        Save
-      </Button>
-      <Button
-        type="submit"
-        variant={"outline"}
-        onClick={add}
-        disabled={store_snapshot.list.length === maxLimit}
-      >
-        Add
+        Edit
       </Button>
       <Button
         type="button"
@@ -32,7 +25,16 @@ const FormFooter = ({
         onClick={remove}
         disabled={store_snapshot.list.length === 1}
       >
-        Remove
+        Delete
+      </Button>
+      <Separator orientation="vertical" />
+      <Button
+        type="button"
+        variant={"outline"}
+        onClick={add}
+        disabled={store_snapshot.list.length === maxLimit}
+      >
+        New
       </Button>
     </div>
   )

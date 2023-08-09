@@ -37,9 +37,9 @@ const DisplayAccordion = ({
         </DialogHeader>
 
         <Accordion
+          className="min-h-[360px]"
           type="single"
           collapsible
-          className="min-h-[360px]"
           value={store_snapshot.active_item}
           onValueChange={(value) => {
             store.active_item = value

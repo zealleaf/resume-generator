@@ -29,7 +29,6 @@ type TReadonlySkillsItem = Readonly<z.infer<typeof FormSchema>>
 
 export const skills_store = proxy({
   show: false,
-  new_item_id: "",
   active_item: "",
   list: [] as TSkillsItem[],
 })
@@ -37,7 +36,7 @@ export const skills_store = proxy({
 export const SkillsItem = ({ values }: { values: TReadonlySkillsItem }) => {
   const {
     store_snapshot: skills_store_snapshot,
-    form,
+    formState,
     save,
     add,
     remove,
@@ -48,10 +47,10 @@ export const SkillsItem = ({ values }: { values: TReadonlySkillsItem }) => {
   })
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(save)} className="space-y-6">
+    <Form {...formState}>
+      <form onSubmit={formState.handleSubmit(save)} className="space-y-6">
         <FormField
-          control={form.control}
+          control={formState.control}
           name="skill_kind"
           render={({ field }) => (
             <FormItem>
@@ -66,7 +65,7 @@ export const SkillsItem = ({ values }: { values: TReadonlySkillsItem }) => {
           )}
         />
         <FormField
-          control={form.control}
+          control={formState.control}
           name="skill_content"
           render={({ field }) => (
             <FormItem>
@@ -95,7 +94,7 @@ export const Skills = () => {
   return (
     <DisplayAccordion
       store={skills_store}
-      form={function (params: any): JSX.Element {
+      formCpn={function (params: any): JSX.Element {
         return <SkillsItem values={params} />
       }}
       dataKey={"skills"}

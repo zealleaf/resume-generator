@@ -35,7 +35,6 @@ type TReadonlyExperienceItem = Readonly<z.infer<typeof FormSchema>>
 
 export const experience_store = proxy({
   show: false,
-  new_item_id: "",
   active_item: "",
   list: [] as TExperienceItem[],
 })
@@ -47,7 +46,7 @@ export const ExperienceItem = ({
 }) => {
   const {
     store_snapshot: experience_store_snapshot,
-    form,
+    formState,
     save,
     add,
     remove,
@@ -58,10 +57,10 @@ export const ExperienceItem = ({
   })
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(save)} className="space-y-6">
+    <Form {...formState}>
+      <form onSubmit={formState.handleSubmit(save)} className="space-y-6">
         <FormField
-          control={form.control}
+          control={formState.control}
           name="company_name"
           render={({ field }) => (
             <FormItem>
@@ -75,7 +74,7 @@ export const ExperienceItem = ({
         />
         <div className="flex space-x-2">
           <FormField
-            control={form.control}
+            control={formState.control}
             name="start_date"
             render={({ field }) => (
               <FormItem className="grow">
@@ -88,7 +87,7 @@ export const ExperienceItem = ({
             )}
           />
           <FormField
-            control={form.control}
+            control={formState.control}
             name="end_date"
             render={({ field }) => (
               <FormItem className="grow">
@@ -103,7 +102,7 @@ export const ExperienceItem = ({
         </div>
         <div className="flex space-x-2">
           <FormField
-            control={form.control}
+            control={formState.control}
             name="job_title"
             render={({ field }) => (
               <FormItem className="grow">
@@ -116,7 +115,7 @@ export const ExperienceItem = ({
             )}
           />
           <FormField
-            control={form.control}
+            control={formState.control}
             name="job_location"
             render={({ field }) => (
               <FormItem className="grow">
@@ -130,7 +129,7 @@ export const ExperienceItem = ({
           />
         </div>
         <FormField
-          control={form.control}
+          control={formState.control}
           name="job_responsibilities"
           render={({ field }) => (
             <FormItem className="grow">
@@ -158,7 +157,7 @@ export const Experience = () => {
   return (
     <DisplayTabs
       store={experience_store}
-      form={function (params: any): JSX.Element {
+      formCpn={function (params: any): JSX.Element {
         return <ExperienceItem values={params} />
       }}
       dataKey={"experience"}

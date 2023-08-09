@@ -25,17 +25,22 @@ export const useDisplay = ({
   }, [store_snapshot.list, dataKey, callbackDialogClose])
 
   useEffect(() => {
-    store.active_item = store_snapshot.new_item_id
-  }, [store, store_snapshot.new_item_id])
+    let ignore = false
 
-  useEffect(() => {
+    if (ignore) return
+
     const obj = resume_store_snapshot.user_data[dataKey]
 
     if (obj) {
       store.list = [...obj]
-      if (obj[0]) {
-        store.active_item = obj[0]?._id
-      }
+    } else {
+      const _id = shortid.generate()
+      store.list = [{ _id }]
+      store.active_item = _id
+    }
+
+    return () => {
+      ignore = true
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -58,13 +63,13 @@ export const useContent = <
   values,
 }: T): {
   store_snapshot: T["values"]
-  form: UseFormReturn<T["values"], any, undefined>
+  formState: UseFormReturn<T["values"], any, undefined>
   save: (data: any) => void
   add: () => void
   remove: () => void
 } => {
   const store_snapshot = useSnapshot(store)
-  const form = useForm({
+  const formState = useForm({
     resolver: zodResolver(FormSchema),
     values,
   })
@@ -84,7 +89,7 @@ export const useContent = <
   const add = useCallback(() => {
     const _id = shortid.generate()
     store.list.push({ _id })
-    store.new_item_id = _id
+    store.active_item = _id
   }, [store])
 
   const remove = useCallback(() => {
@@ -99,7 +104,7 @@ export const useContent = <
   }, [store, store_snapshot.active_item, store_snapshot.list])
 
   return useMemo(
-    () => ({ store_snapshot, form, save, add, remove }),
-    [store_snapshot, form, save, add, remove]
+    () => ({ store_snapshot, formState, save, add, remove }),
+    [store_snapshot, formState, save, add, remove]
   )
 }

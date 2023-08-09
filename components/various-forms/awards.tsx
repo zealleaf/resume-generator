@@ -29,7 +29,6 @@ type TReadonlySkillsItem = Readonly<z.infer<typeof FormSchema>>
 
 export const award_store = proxy({
   show: false,
-  new_item_id: "",
   active_item: "",
   list: [] as TSkillsItem[],
 })
@@ -37,7 +36,7 @@ export const award_store = proxy({
 export const AwardItem = ({ values }: { values: TReadonlySkillsItem }) => {
   const {
     store_snapshot: award_store_snapshot,
-    form,
+    formState,
     save,
     add,
     remove,
@@ -48,11 +47,11 @@ export const AwardItem = ({ values }: { values: TReadonlySkillsItem }) => {
   })
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(save)} className="space-y-6">
+    <Form {...formState}>
+      <form onSubmit={formState.handleSubmit(save)} className="space-y-6">
         <div className="flex space-x-2">
           <FormField
-            control={form.control}
+            control={formState.control}
             name="award_name"
             render={({ field }) => (
               <FormItem>
@@ -66,7 +65,7 @@ export const AwardItem = ({ values }: { values: TReadonlySkillsItem }) => {
           />
         </div>
         <FormField
-          control={form.control}
+          control={formState.control}
           name="more_info"
           render={({ field }) => (
             <FormItem>

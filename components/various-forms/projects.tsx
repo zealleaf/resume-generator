@@ -33,7 +33,6 @@ type TReadonlyProjectItem = Readonly<z.infer<typeof FormSchema>>
 
 export const projects_store = proxy({
   show: false,
-  new_item_id: "",
   active_item: "",
   list: [] as TProjectItem[],
 })
@@ -41,7 +40,7 @@ export const projects_store = proxy({
 export const ProjectsItem = ({ values }: { values: TReadonlyProjectItem }) => {
   const {
     store_snapshot: projects_store_snapshot,
-    form,
+    formState,
     save,
     add,
     remove,
@@ -52,10 +51,10 @@ export const ProjectsItem = ({ values }: { values: TReadonlyProjectItem }) => {
   })
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(save)} className="space-y-6">
+    <Form {...formState}>
+      <form onSubmit={formState.handleSubmit(save)} className="space-y-6">
         <FormField
-          control={form.control}
+          control={formState.control}
           name="project_name"
           render={({ field }) => (
             <FormItem>
@@ -68,7 +67,7 @@ export const ProjectsItem = ({ values }: { values: TReadonlyProjectItem }) => {
           )}
         />
         <FormField
-          control={form.control}
+          control={formState.control}
           name="tools_used"
           render={({ field }) => (
             <FormItem className="grow">
@@ -81,7 +80,7 @@ export const ProjectsItem = ({ values }: { values: TReadonlyProjectItem }) => {
           )}
         />
         <FormField
-          control={form.control}
+          control={formState.control}
           name="link"
           render={({ field }) => (
             <FormItem className="grow">
@@ -94,7 +93,7 @@ export const ProjectsItem = ({ values }: { values: TReadonlyProjectItem }) => {
           )}
         />
         <FormField
-          control={form.control}
+          control={formState.control}
           name="project_description"
           render={({ field }) => (
             <FormItem className="grow">
@@ -122,7 +121,7 @@ export const Projects = () => {
   return (
     <DisplayTabs
       store={projects_store}
-      form={function (params: any): JSX.Element {
+      formCpn={function (params: any): JSX.Element {
         return <ProjectsItem values={params} />
       }}
       dataKey={"projects"}

@@ -34,7 +34,6 @@ type TReadonlySkillsItem = Readonly<z.infer<typeof FormSchema>>
 
 export const education_store = proxy({
   show: false,
-  new_item_id: "",
   active_item: "",
   list: [] as TSkillsItem[],
 })
@@ -42,7 +41,7 @@ export const education_store = proxy({
 export const EducationItem = ({ values }: { values: TReadonlySkillsItem }) => {
   const {
     store_snapshot: education_store_snapshot,
-    form,
+    formState,
     save,
     add,
     remove,
@@ -53,10 +52,10 @@ export const EducationItem = ({ values }: { values: TReadonlySkillsItem }) => {
   })
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(save)} className="space-y-6">
+    <Form {...formState}>
+      <form onSubmit={formState.handleSubmit(save)} className="space-y-6">
         <FormField
-          control={form.control}
+          control={formState.control}
           name="school_name"
           render={({ field }) => (
             <FormItem>
@@ -72,7 +71,7 @@ export const EducationItem = ({ values }: { values: TReadonlySkillsItem }) => {
         />
         <div className="flex space-x-2">
           <FormField
-            control={form.control}
+            control={formState.control}
             name="degree"
             render={({ field }) => (
               <FormItem className="grow">
@@ -85,7 +84,7 @@ export const EducationItem = ({ values }: { values: TReadonlySkillsItem }) => {
             )}
           />
           <FormField
-            control={form.control}
+            control={formState.control}
             name="major"
             render={({ field }) => (
               <FormItem className="grow">
@@ -100,7 +99,7 @@ export const EducationItem = ({ values }: { values: TReadonlySkillsItem }) => {
         </div>
         <div className="flex space-x-2">
           <FormField
-            control={form.control}
+            control={formState.control}
             name="start_date"
             render={({ field }) => (
               <FormItem className="grow">
@@ -113,7 +112,7 @@ export const EducationItem = ({ values }: { values: TReadonlySkillsItem }) => {
             )}
           />
           <FormField
-            control={form.control}
+            control={formState.control}
             name="end_date"
             render={({ field }) => (
               <FormItem className="grow">
@@ -127,7 +126,7 @@ export const EducationItem = ({ values }: { values: TReadonlySkillsItem }) => {
           />
         </div>
         <FormField
-          control={form.control}
+          control={formState.control}
           name="additional_information"
           render={({ field }) => (
             <FormItem className="grow">
