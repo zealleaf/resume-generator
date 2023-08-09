@@ -29,10 +29,11 @@ export const useDisplay = ({
 
     if (ignore) return
 
-    const obj = resume_store_snapshot.user_data[dataKey]
+    const arr = resume_store_snapshot.user_data[dataKey]
 
-    if (obj) {
-      store.list = [...obj]
+    if (arr) {
+      store.list = [...arr]
+      store.active_item = arr[0]._id
     } else {
       const _id = shortid.generate()
       store.list = [{ _id }]
@@ -63,13 +64,13 @@ export const useContent = <
   values,
 }: T): {
   store_snapshot: T["values"]
-  formState: UseFormReturn<T["values"], any, undefined>
+  formOBJ: UseFormReturn<T["values"], any, undefined>
   save: (data: any) => void
   add: () => void
   remove: () => void
 } => {
   const store_snapshot = useSnapshot(store)
-  const formState = useForm({
+  const formOBJ = useForm({
     resolver: zodResolver(FormSchema),
     values,
   })
@@ -104,7 +105,7 @@ export const useContent = <
   }, [store, store_snapshot.active_item, store_snapshot.list])
 
   return useMemo(
-    () => ({ store_snapshot, formState, save, add, remove }),
-    [store_snapshot, formState, save, add, remove]
+    () => ({ store_snapshot, formOBJ, save, add, remove }),
+    [store_snapshot, formOBJ, save, add, remove]
   )
 }

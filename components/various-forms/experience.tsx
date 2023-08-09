@@ -18,6 +18,7 @@ import { Textarea } from "../ui/textarea"
 import DisplayTabs from "./display-tabs"
 import FormFooter from "./form-footer"
 import { useContent } from "./hooks"
+import { initialStateFN } from "./utils"
 
 const FormSchema = z.object({
   _id: z.string().nonempty(),
@@ -29,15 +30,9 @@ const FormSchema = z.object({
   job_responsibilities: z.string().optional(),
 })
 
-type TExperienceItem = z.infer<typeof FormSchema>
-
 type TReadonlyExperienceItem = Readonly<z.infer<typeof FormSchema>>
 
-export const experience_store = proxy({
-  show: false,
-  active_item: "",
-  list: [] as TExperienceItem[],
-})
+export const experience_store = proxy(initialStateFN())
 
 export const ExperienceItem = ({
   values,
@@ -46,7 +41,7 @@ export const ExperienceItem = ({
 }) => {
   const {
     store_snapshot: experience_store_snapshot,
-    formState,
+    formOBJ,
     save,
     add,
     remove,
@@ -57,10 +52,10 @@ export const ExperienceItem = ({
   })
 
   return (
-    <Form {...formState}>
-      <form onSubmit={formState.handleSubmit(save)} className="space-y-6">
+    <Form {...formOBJ}>
+      <form onSubmit={formOBJ.handleSubmit(save)} className="space-y-6">
         <FormField
-          control={formState.control}
+          control={formOBJ.control}
           name="company_name"
           render={({ field }) => (
             <FormItem>
@@ -74,7 +69,7 @@ export const ExperienceItem = ({
         />
         <div className="flex space-x-2">
           <FormField
-            control={formState.control}
+            control={formOBJ.control}
             name="start_date"
             render={({ field }) => (
               <FormItem className="grow">
@@ -87,7 +82,7 @@ export const ExperienceItem = ({
             )}
           />
           <FormField
-            control={formState.control}
+            control={formOBJ.control}
             name="end_date"
             render={({ field }) => (
               <FormItem className="grow">
@@ -102,7 +97,7 @@ export const ExperienceItem = ({
         </div>
         <div className="flex space-x-2">
           <FormField
-            control={formState.control}
+            control={formOBJ.control}
             name="job_title"
             render={({ field }) => (
               <FormItem className="grow">
@@ -115,7 +110,7 @@ export const ExperienceItem = ({
             )}
           />
           <FormField
-            control={formState.control}
+            control={formOBJ.control}
             name="job_location"
             render={({ field }) => (
               <FormItem className="grow">
@@ -129,7 +124,7 @@ export const ExperienceItem = ({
           />
         </div>
         <FormField
-          control={formState.control}
+          control={formOBJ.control}
           name="job_responsibilities"
           render={({ field }) => (
             <FormItem className="grow">
@@ -147,6 +142,7 @@ export const ExperienceItem = ({
           add={add}
           remove={remove}
           maxLimit={5}
+          isDirty={formOBJ.formState.isDirty}
         />
       </form>
     </Form>

@@ -16,6 +16,7 @@ import {
 import DisplayAccordion from "./display-accordion"
 import FormFooter from "./form-footer"
 import { useContent } from "./hooks"
+import { initialStateFN } from "./utils"
 
 const FormSchema = z.object({
   _id: z.string().nonempty(),
@@ -23,20 +24,14 @@ const FormSchema = z.object({
   more_info: z.string().optional(),
 })
 
-type TSkillsItem = z.infer<typeof FormSchema>
-
 type TReadonlySkillsItem = Readonly<z.infer<typeof FormSchema>>
 
-export const award_store = proxy({
-  show: false,
-  active_item: "",
-  list: [] as TSkillsItem[],
-})
+export const award_store = proxy(initialStateFN())
 
 export const AwardItem = ({ values }: { values: TReadonlySkillsItem }) => {
   const {
     store_snapshot: award_store_snapshot,
-    formState,
+    formOBJ,
     save,
     add,
     remove,
@@ -47,11 +42,11 @@ export const AwardItem = ({ values }: { values: TReadonlySkillsItem }) => {
   })
 
   return (
-    <Form {...formState}>
-      <form onSubmit={formState.handleSubmit(save)} className="space-y-6">
+    <Form {...formOBJ}>
+      <form onSubmit={formOBJ.handleSubmit(save)} className="space-y-6">
         <div className="flex space-x-2">
           <FormField
-            control={formState.control}
+            control={formOBJ.control}
             name="award_name"
             render={({ field }) => (
               <FormItem>
@@ -65,7 +60,7 @@ export const AwardItem = ({ values }: { values: TReadonlySkillsItem }) => {
           />
         </div>
         <FormField
-          control={formState.control}
+          control={formOBJ.control}
           name="more_info"
           render={({ field }) => (
             <FormItem>
@@ -82,6 +77,7 @@ export const AwardItem = ({ values }: { values: TReadonlySkillsItem }) => {
           add={add}
           remove={remove}
           maxLimit={5}
+          isDirty={formOBJ.formState.isDirty}
         />
       </form>
     </Form>

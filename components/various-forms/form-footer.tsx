@@ -8,16 +8,21 @@ const FormFooter = ({
   add,
   remove,
   maxLimit,
+  isDirty,
 }: {
   store_snapshot: any
   add: () => void
   remove: () => void
   maxLimit: number
+  isDirty: boolean
 }) => {
   return (
     <div className="flex h-5 items-center space-x-4 text-sm">
-      <Button type="submit" variant={"outline"}>
+      <Button type="submit" variant={"outline"} className="relative">
         Edit
+        {isDirty && (
+          <span className="absolute right-[-2px] top-[-2px] h-3 w-3 animate-pulse rounded-full bg-red-500" />
+        )}
       </Button>
       <Button
         type="button"

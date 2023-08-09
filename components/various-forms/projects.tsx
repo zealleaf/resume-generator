@@ -18,6 +18,7 @@ import { Textarea } from "../ui/textarea"
 import DisplayTabs from "./display-tabs"
 import FormFooter from "./form-footer"
 import { useContent } from "./hooks"
+import { initialStateFN } from "./utils"
 
 const FormSchema = z.object({
   _id: z.string().nonempty(),
@@ -27,20 +28,14 @@ const FormSchema = z.object({
   tools_used: z.string().optional(),
 })
 
-type TProjectItem = z.infer<typeof FormSchema>
-
 type TReadonlyProjectItem = Readonly<z.infer<typeof FormSchema>>
 
-export const projects_store = proxy({
-  show: false,
-  active_item: "",
-  list: [] as TProjectItem[],
-})
+export const projects_store = proxy(initialStateFN())
 
 export const ProjectsItem = ({ values }: { values: TReadonlyProjectItem }) => {
   const {
     store_snapshot: projects_store_snapshot,
-    formState,
+    formOBJ,
     save,
     add,
     remove,
@@ -51,10 +46,10 @@ export const ProjectsItem = ({ values }: { values: TReadonlyProjectItem }) => {
   })
 
   return (
-    <Form {...formState}>
-      <form onSubmit={formState.handleSubmit(save)} className="space-y-6">
+    <Form {...formOBJ}>
+      <form onSubmit={formOBJ.handleSubmit(save)} className="space-y-6">
         <FormField
-          control={formState.control}
+          control={formOBJ.control}
           name="project_name"
           render={({ field }) => (
             <FormItem>
@@ -67,7 +62,7 @@ export const ProjectsItem = ({ values }: { values: TReadonlyProjectItem }) => {
           )}
         />
         <FormField
-          control={formState.control}
+          control={formOBJ.control}
           name="tools_used"
           render={({ field }) => (
             <FormItem className="grow">
@@ -80,7 +75,7 @@ export const ProjectsItem = ({ values }: { values: TReadonlyProjectItem }) => {
           )}
         />
         <FormField
-          control={formState.control}
+          control={formOBJ.control}
           name="link"
           render={({ field }) => (
             <FormItem className="grow">
@@ -93,7 +88,7 @@ export const ProjectsItem = ({ values }: { values: TReadonlyProjectItem }) => {
           )}
         />
         <FormField
-          control={formState.control}
+          control={formOBJ.control}
           name="project_description"
           render={({ field }) => (
             <FormItem className="grow">
@@ -111,6 +106,7 @@ export const ProjectsItem = ({ values }: { values: TReadonlyProjectItem }) => {
           add={add}
           remove={remove}
           maxLimit={6}
+          isDirty={formOBJ.formState.isDirty}
         />
       </form>
     </Form>
