@@ -153,9 +153,7 @@ export const Experience = () => {
   return (
     <DisplayTabs
       store={experience_store}
-      formCpn={function (params: any): JSX.Element {
-        return <ExperienceItem values={params} />
-      }}
+      formCpn={(params) => <ExperienceItem values={params} />}
       dataKey={"experience"}
       dialogTitle={"Edit Experience"}
       tabTitle={"company_name"}

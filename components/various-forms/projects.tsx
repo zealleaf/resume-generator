@@ -117,9 +117,7 @@ export const Projects = () => {
   return (
     <DisplayTabs
       store={projects_store}
-      formCpn={function (params: any): JSX.Element {
-        return <ProjectsItem values={params} />
-      }}
+      formCpn={(params) => <ProjectsItem values={params} />}
       dataKey={"projects"}
       dialogTitle={"Edit Projects"}
       tabTitle={"project_name"}

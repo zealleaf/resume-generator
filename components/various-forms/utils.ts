@@ -1,4 +1,4 @@
-export const initialStateFN = (hanleCase?: unknown) => {
+export const initialStateFN = (caseName?: unknown) => {
   return {
     show: false,
     active_item: "",

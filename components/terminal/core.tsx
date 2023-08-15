@@ -1,6 +1,12 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import {
+  ChangeEventHandler,
+  KeyboardEventHandler,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
 
 import { ITerminal, outPutItem } from "./types"
 
@@ -84,7 +90,7 @@ export const Core = ({ commandMap }: ITerminal) => {
     }
   }
 
-  const onInputChange = (e: any) => {
+  const onInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const value = e.target.value.replace(/\s+/g, " ")
 
     setInputValue(value)
@@ -105,11 +111,9 @@ export const Core = ({ commandMap }: ITerminal) => {
     })
   }
 
-  const onInputKeyDown = (e: any) => {
+  const onInputKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.code === "Enter") {
-      const value = e.target.value
-
-      commandHandler(value)
+      commandHandler(inputValue)
     }
   }
 

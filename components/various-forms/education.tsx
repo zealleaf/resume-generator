@@ -149,9 +149,7 @@ export const Education = () => {
   return (
     <DisplayAccordion
       store={education_store}
-      formCpn={function (params: any): JSX.Element {
-        return <EducationItem values={params} />
-      }}
+      formCpn={(params) => <EducationItem values={params} />}
       dataKey={"education"}
       dialogTitle={"Edit Education"}
       accordionTitle={"degree"}

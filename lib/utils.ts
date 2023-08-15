@@ -6,22 +6,25 @@ export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs))
 }
 
-export const resetValtioState = (store: any, initialObj: any) => {
+export const resetValtioState = (
+  store: Record<string, unknown>,
+  initialObj: Record<string, unknown>
+) => {
   const resetObj = cloneDeep(initialObj)
   Object.keys(resetObj).forEach((key) => {
-    ;(store as any)[key] = (resetObj as any)[key]
+    store[key] = resetObj[key]
   })
 }
 
 export const handleLocalStorageForValtioGetItem = <
-  T extends Record<"key" | "data", any>
+  T extends Record<"key" | "data", unknown>
 >({
   key,
   data,
 }: T): T["data"] => {
   if (typeof window !== "undefined") {
     try {
-      return JSON.parse(localStorage.getItem(key) || "") || data
+      return JSON.parse(localStorage.getItem(key as string) || "") || data
     } catch (error) {
       return data
     }

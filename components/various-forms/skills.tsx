@@ -90,9 +90,7 @@ export const Skills = () => {
   return (
     <DisplayAccordion
       store={skills_store}
-      formCpn={function (params: any): JSX.Element {
-        return <SkillsItem values={params} />
-      }}
+      formCpn={(params) => <SkillsItem values={params} />}
       dataKey={"skills"}
       dialogTitle={"Edit Skills"}
       accordionTitle={"skill_kind"}

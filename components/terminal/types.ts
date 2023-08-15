@@ -9,7 +9,7 @@ export interface outPutItem {
 export type TCommand = (params: {
   setOutPutItemList: Dispatch<SetStateAction<outPutItem[]>>
   next: () => void
-}) => any
+}) => void
 
 export type TCommandMap = Record<string, TCommand>
 

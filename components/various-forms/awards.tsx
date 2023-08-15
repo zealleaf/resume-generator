@@ -88,9 +88,7 @@ export const Awards = () => {
   return (
     <DisplayAccordion
       store={award_store}
-      formCpn={function (params: any): JSX.Element {
-        return <AwardItem values={params} />
-      }}
+      formCpn={(params) => <AwardItem values={params} />}
       dataKey={"awards"}
       dialogTitle={"Edit Awards"}
       accordionTitle={"award_name"}
