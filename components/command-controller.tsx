@@ -31,7 +31,9 @@ import { base_info_store } from "./various-forms/base-info"
 import { education_store } from "./various-forms/education"
 import { experience_store } from "./various-forms/experience"
 import { projects_store } from "./various-forms/projects"
+import { record_list_store } from "./various-forms/record-list"
 import { skills_store } from "./various-forms/skills"
+import { template_list_store } from "./various-forms/template-list"
 
 export const command_controller_store = proxy({
   show: true,
@@ -42,11 +44,13 @@ export default function CommandController() {
     command_controller_store
   )
 
-  const callbackFormShow = useCallback(
+  const callbackModalShow = useCallback(
     ({
       which,
     }: {
       which:
+        | "TemplateList"
+        | "RecordList"
         | "BaseInfo"
         | "Experience"
         | "Skills"
@@ -55,6 +59,14 @@ export default function CommandController() {
         | "Award"
     }) => {
       switch (which) {
+        case "TemplateList":
+          template_list_store.show = true
+          break
+
+        case "RecordList":
+          record_list_store.show = true
+          break
+
         case "BaseInfo":
           base_info_store.show = true
           break
@@ -99,27 +111,27 @@ export default function CommandController() {
       if (e.ctrlKey) {
         switch (e.key) {
           case "b":
-            callbackFormShow({ which: "BaseInfo" })
+            callbackModalShow({ which: "BaseInfo" })
             break
 
           case "j":
-            callbackFormShow({ which: "Experience" })
+            callbackModalShow({ which: "Experience" })
             break
 
           case "s":
-            callbackFormShow({ which: "Skills" })
+            callbackModalShow({ which: "Skills" })
             break
 
           case "p":
-            callbackFormShow({ which: "Projects" })
+            callbackModalShow({ which: "Projects" })
             break
 
           case "e":
-            callbackFormShow({ which: "Education" })
+            callbackModalShow({ which: "Education" })
             break
 
           case "a":
-            callbackFormShow({ which: "Award" })
+            callbackModalShow({ which: "Award" })
             break
 
           case "t":
@@ -137,7 +149,8 @@ export default function CommandController() {
     }
     document.addEventListener("keydown", down)
     return () => document.removeEventListener("keydown", down)
-  }, [callbackFormShow, callbackTerminalShow, callbackprint_resume])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // JSX render
 
@@ -151,21 +164,31 @@ export default function CommandController() {
       <CommandList className="max-h-[600px]">
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Starter">
-          <CommandItem className="cursor-pointer" onSelect={() => {}}>
+          <CommandItem
+            className="cursor-pointer"
+            onSelect={() => {
+              callbackModalShow({ which: "TemplateList" })
+            }}
+          >
             <LayoutTemplate className="mr-2 h-4 w-4" />
-            <span>Select a template (coming soon ...)</span>
+            <span>Select a template</span>
           </CommandItem>
 
-          <CommandItem className="cursor-pointer" onSelect={() => {}}>
+          <CommandItem
+            className="cursor-pointer"
+            onSelect={() => {
+              callbackModalShow({ which: "TemplateList" })
+            }}
+          >
             <History className="mr-2 h-4 w-4" />
-            <span>History edit records (coming soon ...)</span>
+            <span>History edit records</span>
           </CommandItem>
         </CommandGroup>
 
         <CommandGroup heading="Forms">
           <CommandItem
             className="cursor-pointer"
-            onSelect={() => callbackFormShow({ which: "BaseInfo" })}
+            onSelect={() => callbackModalShow({ which: "BaseInfo" })}
           >
             <User className="mr-2 h-4 w-4" />
             <span>Base Info</span>
@@ -174,7 +197,7 @@ export default function CommandController() {
 
           <CommandItem
             className="cursor-pointer"
-            onSelect={() => callbackFormShow({ which: "Experience" })}
+            onSelect={() => callbackModalShow({ which: "Experience" })}
           >
             <Briefcase className="mr-2 h-4 w-4" />
             <span>Experience</span>
@@ -183,7 +206,7 @@ export default function CommandController() {
 
           <CommandItem
             className="cursor-pointer"
-            onSelect={() => callbackFormShow({ which: "Skills" })}
+            onSelect={() => callbackModalShow({ which: "Skills" })}
           >
             <Code className="mr-2 h-4 w-4" />
             <span>Skills</span>
@@ -192,7 +215,7 @@ export default function CommandController() {
 
           <CommandItem
             className="cursor-pointer"
-            onSelect={() => callbackFormShow({ which: "Projects" })}
+            onSelect={() => callbackModalShow({ which: "Projects" })}
           >
             <Folder className="mr-2 h-4 w-4" />
             <span>Projects</span>
@@ -201,7 +224,7 @@ export default function CommandController() {
 
           <CommandItem
             className="cursor-pointer"
-            onSelect={() => callbackFormShow({ which: "Education" })}
+            onSelect={() => callbackModalShow({ which: "Education" })}
           >
             <School className="mr-2 h-4 w-4" />
             <span>Education</span>
@@ -210,7 +233,7 @@ export default function CommandController() {
 
           <CommandItem
             className="cursor-pointer"
-            onSelect={() => callbackFormShow({ which: "Award" })}
+            onSelect={() => callbackModalShow({ which: "Award" })}
           >
             <Award className="mr-2 h-4 w-4" />
             <span>Award</span>

@@ -24,6 +24,8 @@ const DisplayTabs = ({
     dataKey,
   })
 
+  if (store_snapshot?.show === false) return null
+
   return (
     <Dialog open={store_snapshot.show} onOpenChange={callbackDialogClose}>
       <DialogContent>

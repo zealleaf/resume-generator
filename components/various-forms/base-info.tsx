@@ -67,6 +67,8 @@ export const BaseInfo = () => {
     })
   }
 
+  if (!base_info_store_snapshot.show) return null
+
   return (
     <Dialog
       open={base_info_store_snapshot.show}
