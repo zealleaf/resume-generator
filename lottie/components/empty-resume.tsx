@@ -20,7 +20,7 @@ function EmptyResume() {
       width={200}
       isClickToPauseDisabled={true}
       style={{
-        cursor: "default",
+        cursor: "pointer",
       }}
     />
   )

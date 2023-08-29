@@ -11,14 +11,16 @@ export const Display = ({ children }: { children: JSX.Element }) => {
 
   if (!store_snapshot.template) {
     return (
-      <div
-        className="flex h-[469px] flex-col items-center space-y-1 rounded-sm border-[1px] border-gray-200 pt-20 dark:border-gray-800 sm:h-[80vh] sm:pt-52"
-        onClick={() => {
-          template_list_store.show = true
-        }}
-      >
-        <EmptyResume />
-        <p>Select a template</p>
+      <div className="flex h-[469px] flex-col items-center space-y-1 rounded-sm border-[1px] border-gray-200 pt-20 dark:border-gray-800 sm:h-[80vh] sm:pt-52">
+        <div
+          className="cursor-pointer"
+          onClick={() => {
+            template_list_store.show = true
+          }}
+        >
+          <EmptyResume />
+          <p className="text-center">Select a template</p>
+        </div>
       </div>
     )
   }

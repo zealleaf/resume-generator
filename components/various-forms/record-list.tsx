@@ -10,6 +10,7 @@ import {
 } from "@/lib/utils"
 
 import { TRecord } from "../resume"
+import { Button } from "../ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog"
 
 const initial_state = {
@@ -52,23 +53,23 @@ export function RecordList() {
           <DialogTitle>Record List</DialogTitle>
         </DialogHeader>
         <div>
-          <div className="flex max-h-[400px] min-h-[300px] flex-col items-center space-y-2 overflow-y-scroll px-2">
+          <div className="flex max-h-[400px] min-h-[300px] flex-col items-center space-y-2 overflow-y-scroll p-2">
             {list.length ? (
               list.map((item) => {
                 return (
-                  <div
-                    className="w-full rounded-lg border py-2 text-center"
-                    style={
+                  <Button
+                    className="w-full"
+                    variant={
                       record_list_store_snapshot.active === item._id
-                        ? {
-                            backgroundColor: "#000",
-                            color: "#fff",
-                          }
-                        : {
-                            backgroundColor: "#fff",
-                            color: "#000",
-                          }
+                        ? "default"
+                        : "outline"
                     }
+                    style={{
+                      fontWeight:
+                        record_list_store_snapshot.active === item._id
+                          ? "bolder"
+                          : "lighter",
+                    }}
                     onClick={() => {
                       record_list_store.active = item._id
                       delay(() => {
@@ -77,17 +78,15 @@ export function RecordList() {
                     }}
                   >
                     {item._id}
-                  </div>
+                  </Button>
                 )
               })
             ) : (
-              <div className="w-full rounded-lg border py-2 text-center">
-                empty
-              </div>
+              <div className="w-full py-20 text-center">empty</div>
             )}
           </div>
-          <div
-            className="btn mt-4 w-full"
+          <Button
+            className="mt-4 w-full"
             onClick={() => {
               record_list_store.list.push({
                 _id: shortid.generate(),
@@ -95,7 +94,7 @@ export function RecordList() {
             }}
           >
             Add a record
-          </div>
+          </Button>
         </div>
       </DialogContent>
     </Dialog>

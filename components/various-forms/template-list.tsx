@@ -9,6 +9,7 @@ import {
 } from "@/lib/utils"
 
 import { TTemplate } from "../resume"
+import { Button } from "../ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog"
 
 const initial_state = {
@@ -61,19 +62,18 @@ export function TemplateList() {
             switch (item) {
               case "one":
                 return (
-                  <div
-                    className="btn"
-                    style={
+                  <Button
+                    variant={
                       template_list_store_snapshot.active === item
-                        ? {
-                            backgroundColor: "#000",
-                            color: "#fff",
-                          }
-                        : {
-                            backgroundColor: "#fff",
-                            color: "#000",
-                          }
+                        ? "default"
+                        : "outline"
                     }
+                    style={{
+                      fontWeight:
+                        template_list_store_snapshot.active === item
+                          ? "bolder"
+                          : "lighter",
+                    }}
                     onClick={() => {
                       template_list_store.active = item
                       delay(() => {
@@ -82,7 +82,7 @@ export function TemplateList() {
                     }}
                   >
                     {item}
-                  </div>
+                  </Button>
                 )
               default:
                 return null
