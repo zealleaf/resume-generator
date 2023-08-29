@@ -23,6 +23,10 @@ export default function Error({
           // Attempt to recover by trying to re-render the segment
           () => {
             // Conditions that can cause errors
+            // localStorage
+            // specified
+            localStorage.removeItem("current_resume")
+            // other
             localStorage.clear()
 
             reset()
