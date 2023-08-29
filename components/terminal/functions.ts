@@ -31,7 +31,7 @@ const help: TCommand = ({ setOutPutItemList, next }) => {
 }
 
 const template: TCommand = ({ setOutPutItemList, next }) => {
-  Resume.store.show = true
+  // TODO
   Resume.store.template = "one"
 
   next()

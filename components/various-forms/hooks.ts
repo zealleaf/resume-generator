@@ -29,7 +29,7 @@ export const useDisplay = ({
 
     if (ignore) return
 
-    const arr = resume_store_snapshot.record[dataKey]
+    const arr = resume_store_snapshot.record[dataKey] as any
 
     if (arr) {
       store.list = [...arr]
