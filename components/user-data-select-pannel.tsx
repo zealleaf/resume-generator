@@ -6,11 +6,11 @@ import {
   handleLocalStorageForValtioSetItem,
 } from "@/lib/utils"
 
-import { TUserData } from "./resume"
+import { TRecord } from "./resume"
 
 type THandleList = (params: {
   option: "add" | "delete" | "update"
-  data?: TUserData
+  data?: TRecord
 }) => void
 
 const initial_state = {

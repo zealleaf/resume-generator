@@ -177,11 +177,11 @@ export default function CommandController() {
           <CommandItem
             className="cursor-pointer"
             onSelect={() => {
-              callbackModalShow({ which: "TemplateList" })
+              callbackModalShow({ which: "RecordList" })
             }}
           >
             <History className="mr-2 h-4 w-4" />
-            <span>History edit records</span>
+            <span>History records</span>
           </CommandItem>
         </CommandGroup>
 

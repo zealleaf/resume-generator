@@ -1,13 +1,13 @@
 import { cn } from "@/lib/utils"
 
-import { TUserData } from "../../types"
+import { TRecord } from "../../types"
 import styles from "./index.module.css"
 
 const style_sort_title = cn(
   "border-b-[3px] border-b-black text-lg font-extrabold uppercase"
 )
 
-export default function One(props: TUserData) {
+export default function One(props: TRecord) {
   return (
     <div className="space-y-5">
       <section className="profile-area space-y-2">

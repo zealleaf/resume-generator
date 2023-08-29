@@ -1,6 +1,7 @@
 export type TTemplate = "one"
 
-export interface TUserData {
+export interface TRecord {
+  _id: string
   profile?: profile
   experience?: experience[]
   projects?: project[]

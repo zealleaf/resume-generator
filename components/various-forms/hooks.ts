@@ -20,7 +20,7 @@ export const useDisplay = ({
   }, [store])
 
   const onSubmit = useCallback(() => {
-    Resume.store.user_data[dataKey] = [...store_snapshot.list] as any
+    Resume.store.record[dataKey] = [...store_snapshot.list] as any
     callbackDialogClose()
   }, [store_snapshot.list, dataKey, callbackDialogClose])
 
@@ -29,7 +29,7 @@ export const useDisplay = ({
 
     if (ignore) return
 
-    const arr = resume_store_snapshot.user_data[dataKey]
+    const arr = resume_store_snapshot.record[dataKey]
 
     if (arr) {
       store.list = [...arr]

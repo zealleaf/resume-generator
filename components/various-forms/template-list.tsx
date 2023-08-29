@@ -1,12 +1,41 @@
 "use client"
 
-import React from "react"
-import { proxy, useSnapshot } from "valtio"
+import { delay } from "lodash"
+import { proxy, subscribe, useSnapshot } from "valtio"
 
+import {
+  handleLocalStorageForValtioGetItem,
+  handleLocalStorageForValtioSetItem,
+} from "@/lib/utils"
+
+import { TTemplate } from "../resume"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog"
 
+const initial_state = {
+  active: "" as TTemplate,
+  list: ["one"],
+}
+
+// TODO
+const templateImgMap = {
+  one: "",
+}
+
 export const template_list_store = proxy({
+  ...handleLocalStorageForValtioGetItem({
+    key: "template_list",
+    data: initial_state,
+  }),
   show: false,
+})
+
+subscribe(template_list_store, () => {
+  const { active, list } = template_list_store
+
+  handleLocalStorageForValtioSetItem({
+    key: "template_list",
+    data: { active, list },
+  })
 })
 
 export function TemplateList() {
@@ -25,6 +54,41 @@ export function TemplateList() {
         <DialogHeader>
           <DialogTitle>Edit Template List</DialogTitle>
         </DialogHeader>
+
+        <div className="min-h-[300px]">
+          {/* Temporary writing */}
+          {template_list_store_snapshot.list.map((item) => {
+            switch (item) {
+              case "one":
+                return (
+                  <div
+                    className="btn"
+                    style={
+                      template_list_store_snapshot.active === item
+                        ? {
+                            backgroundColor: "#000",
+                            color: "#fff",
+                          }
+                        : {
+                            backgroundColor: "#fff",
+                            color: "#000",
+                          }
+                    }
+                    onClick={() => {
+                      template_list_store.active = item
+                      delay(() => {
+                        template_list_store.show = false
+                      }, 334)
+                    }}
+                  >
+                    {item}
+                  </div>
+                )
+              default:
+                return null
+            }
+          })}
+        </div>
       </DialogContent>
     </Dialog>
   )

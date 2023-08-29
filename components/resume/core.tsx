@@ -2,7 +2,9 @@
 
 import { useCallback, useRef } from "react"
 import { useReactToPrint } from "react-to-print"
+import shortid from "shortid"
 import { proxy, subscribe, useSnapshot } from "valtio"
+import { subscribeKey } from "valtio/utils"
 
 import {
   cn,
@@ -10,13 +12,16 @@ import {
   handleLocalStorageForValtioSetItem,
 } from "@/lib/utils"
 
+import { record_list_store } from "../various-forms/record-list"
+import { template_list_store } from "../various-forms/template-list"
 import Templates from "./templates"
-import { TTemplate, TUserData } from "./types"
+import { TRecord, TTemplate } from "./types"
 
 const initial_state = {
-  show: true,
-  user_data: {} as TUserData,
-  template: "one" as TTemplate,
+  template: "" as TTemplate,
+  record: {
+    _id: shortid.generate(),
+  } as TRecord,
   print_resume: () => {},
 }
 
@@ -27,8 +32,25 @@ export const store = proxy(
   })
 )
 
+subscribeKey(template_list_store, "active", (value) => {
+  store.template = value
+})
+
+subscribeKey(record_list_store, "active", (value) => {
+  const findItem = record_list_store.list.find((item) => item._id === value)
+  if (findItem) {
+    store.record = findItem
+  }
+})
+
 subscribe(store, () => {
   handleLocalStorageForValtioSetItem({ key: "current_resume", data: store })
+
+  const index = record_list_store.list.findIndex(
+    (item) => item._id === store.record._id
+  )
+  record_list_store.list.splice(index, 1, store.record)
+  record_list_store.active = store.record._id
 })
 
 export const Core = () => {
@@ -60,7 +82,7 @@ export const Core = () => {
         <div ref={resumeRef} className="p-4">
           <Templates
             template={store_snapshot.template}
-            userData={store_snapshot.user_data as TUserData}
+            record={store_snapshot.record as TRecord}
           />
         </div>
       </div>

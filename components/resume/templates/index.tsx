@@ -1,17 +1,17 @@
-import { TTemplate, TUserData } from "../types"
+import { TRecord, TTemplate } from "../types"
 import One from "./one"
 
-interface ITemplates {
+interface IProps {
   template: TTemplate
-  userData: TUserData
+  record: TRecord
 }
 
 const templateMap = {
-  one: (props: TUserData) => {
+  one: (props: TRecord) => {
     return <One {...props} />
   },
 }
 
-export default function Templates({ template, userData }: ITemplates) {
-  return <div className="select-none">{templateMap[template](userData)}</div>
+export default function Templates({ template, record }: IProps) {
+  return <div className="select-none">{templateMap[template](record)}</div>
 }
