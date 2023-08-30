@@ -34,7 +34,7 @@ const DisplayTabs = ({
         </DialogHeader>
 
         <Tabs
-          className="min-h-[360px]"
+          className="max-h-[400px] min-h-[360px] overflow-y-auto px-3 sm:max-h-[600px]"
           value={store_snapshot.active_item}
           onValueChange={(value) => {
             store.active_item = value
