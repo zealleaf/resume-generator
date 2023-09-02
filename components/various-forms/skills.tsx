@@ -13,6 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form"
+import { Textarea } from "../ui/textarea"
 import DisplayAccordion from "./display-accordion"
 import FormFooter from "./form-footer"
 import { useContent } from "./hooks"
@@ -68,7 +69,7 @@ export const SkillsItem = ({ values }: { values: TReadonlySkillsItem }) => {
                 Skill Content:
               </FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Textarea className="min-h-[8rem]" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

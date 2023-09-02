@@ -19,6 +19,7 @@ export const Display = ({ children }: { children: JSX.Element }) => {
           }}
         >
           <EmptyResume />
+          {/*TODO*/}
           <p className="text-center">Select a template</p>
         </div>
       </div>

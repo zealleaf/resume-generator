@@ -50,7 +50,7 @@ const DisplayAccordion = ({
           {store_snapshot.list.map((values: any) => {
             return (
               <AccordionItem key={values._id} value={values._id || "Untitled"}>
-                <AccordionTrigger className="px-1 font-bold">
+                <AccordionTrigger className="my-1 px-1 font-bold">
                   {values[accordionTitle || ""] || "Untitled"}
                 </AccordionTrigger>
                 <AccordionContent className="px-1">

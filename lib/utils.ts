@@ -38,3 +38,12 @@ export const handleLocalStorageForValtioSetItem = ({ key, data }) => {
     localStorage.setItem(key, JSON.stringify(data))
   }
 }
+
+export async function copyToClipboard(text: string) {
+  try {
+    await navigator.clipboard.writeText(text)
+    alert(text + "已复制到剪贴板")
+  } catch (err) {
+    console.error("无法复制文本到剪贴板:", err)
+  }
+}
