@@ -54,4 +54,6 @@ interface education {
 
 interface award {
   _id: string
+  award_name: string
+  more_info: string
 }

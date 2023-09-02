@@ -213,6 +213,16 @@ export default function One(props: TRecord) {
       </section>
       <section>
         <h3 className={style_sort_title}>awards</h3>
+        <div className="mt-2 text-sm">
+          {props.awards?.map((awardItem) => {
+            return (
+              <div key={awardItem._id} className="space-x-2">
+                <span>{awardItem.award_name}</span>
+                <i className="opacity-80">{awardItem.more_info}</i>
+              </div>
+            )
+          })}
+        </div>
       </section>
     </div>
   )
