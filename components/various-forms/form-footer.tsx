@@ -19,7 +19,7 @@ const FormFooter = ({
   return (
     <div className="flex h-5 items-center space-x-4 text-sm">
       <Button type="submit" variant={"outline"} className="relative">
-        Edit
+        Save
         {isDirty && (
           <span className="absolute right-[-2px] top-[-2px] h-3 w-3 animate-pulse rounded-full bg-red-500" />
         )}
