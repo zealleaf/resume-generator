@@ -61,14 +61,14 @@ export default function One(props: TRecord) {
       </section>
       <section>
         <h3 className={style_sort_title}>experience</h3>
-        <div className="mt-2 space-y-2">
+        <div className="mt-2 space-y-2 text-sm">
           {props.experience?.map((experienceItem) => {
             return (
               <div key={experienceItem._id} className="space-y-1">
                 <section>
                   <div className="flex items-center justify-between">
                     <b>{experienceItem.job_title}</b>
-                    <div className="bg-black px-1 text-sm text-white">
+                    <div className="bg-black px-1 text-white">
                       <span>{experienceItem.start_date}</span>--
                       <span>{experienceItem.end_date}</span>
                     </div>
@@ -138,7 +138,7 @@ export default function One(props: TRecord) {
       </section>
       <section>
         <h3 className={style_sort_title}>projects</h3>
-        <div className="mt-2 space-y-2">
+        <div className="mt-2 space-y-2 text-sm">
           {props.projects?.map((projectItem) => {
             return (
               <div key={projectItem._id} className="space-y-1">
@@ -183,7 +183,7 @@ export default function One(props: TRecord) {
                         <i>{educationItem.degree}</i>
                       </div>
                     </div>
-                    <div className="px-1 text-sm">
+                    <div className="px-1">
                       <span>{educationItem.start_date}</span>--
                       <span>{educationItem.end_date}</span>
                     </div>
