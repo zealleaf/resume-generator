@@ -170,7 +170,11 @@ export function RecordList() {
           </div>
           <div className="mt-4 flex w-full space-x-3 p-2">
             <section className="grow">
-              <Button className="w-full" onClick={addRecord}>
+              <Button
+                className="w-full"
+                variant={"secondary"}
+                onClick={addRecord}
+              >
                 Add a record
               </Button>
             </section>
@@ -178,7 +182,7 @@ export function RecordList() {
               <Button variant={"outline"} onClick={importRecordTrigger}>
                 Import
               </Button>
-              <Button variant={"secondary"} onClick={exportAllRecord}>
+              <Button variant={"outline"} onClick={exportAllRecord}>
                 Export
               </Button>
             </section>
