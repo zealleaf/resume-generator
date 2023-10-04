@@ -145,12 +145,17 @@ export default function One(props: TRecord) {
                 <section>
                   <div
                     className="flex items-center space-x-1"
+                    style={{
+                      cursor: projectItem.link ? "pointer" : "auto",
+                    }}
                     onClick={() => {
-                      window.open(projectItem.link, "_blank")
+                      if (projectItem.link) {
+                        window.open(projectItem.link, "_blank")
+                      }
                     }}
                   >
                     <b>{projectItem.project_name}</b>
-                    <ArrowUpRight size={14} />
+                    {projectItem.link ? <ArrowUpRight size={14} /> : null}
                   </div>
                   <i className="text-sm">{projectItem.tools_used}</i>
                 </section>
