@@ -143,8 +143,14 @@ export default function One(props: TRecord) {
             return (
               <div key={projectItem._id} className="space-y-1">
                 <section>
-                  <div className="flex justify-between">
+                  <div
+                    className="flex items-center space-x-1"
+                    onClick={() => {
+                      window.open(projectItem.link, "_blank")
+                    }}
+                  >
                     <b>{projectItem.project_name}</b>
+                    <ArrowUpRight size={14} />
                   </div>
                   <i className="text-sm">{projectItem.tools_used}</i>
                 </section>
