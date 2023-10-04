@@ -1,6 +1,6 @@
 "use client"
 
-import EmptyResume from "@/lottie/components/empty-resume"
+import EmptyResume from "@/assets/lottie/components/empty-resume"
 import { useSnapshot } from "valtio"
 
 import { template_list_store } from "../various-forms/template-list"
