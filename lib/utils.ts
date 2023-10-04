@@ -21,10 +21,15 @@ export const handleLocalStorageForValtioGetItem = <
 >({
   key,
   data,
-}: T): T["data"] => {
+  isRaw,
+}: T & { isRaw?: boolean }): T["data"] => {
   if (typeof window !== "undefined") {
     try {
-      return JSON.parse(localStorage.getItem(key as string) || "") || data
+      if (isRaw) {
+        return localStorage.getItem(key as string) || "" || data
+      } else {
+        return JSON.parse(localStorage.getItem(key as string) || "") || data
+      }
     } catch (error) {
       return data
     }
