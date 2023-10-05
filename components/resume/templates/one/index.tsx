@@ -90,7 +90,7 @@ export default function One(props: TRecord) {
                           key={item}
                           className="flex items-center space-x-3 text-sm"
                         >
-                          <div className="h-1 w-1 bg-black" />
+                          <div className="mt-2 h-1 w-1 self-start bg-black" />
                           <p>{item}</p>
                         </div>
                       )
@@ -116,7 +116,7 @@ export default function One(props: TRecord) {
                           key={item}
                           className="flex items-center space-x-3 text-sm"
                         >
-                          <div className="h-1 w-1 bg-black" />
+                          <div className="mt-2 h-1 w-1 self-start bg-black" />
                           <p>{item}</p>
                         </div>
                       )
@@ -138,28 +138,30 @@ export default function One(props: TRecord) {
       </section>
       <section>
         <h3 className={style_sort_title}>projects</h3>
-        <div className="mt-2 space-y-2 text-sm">
+        <div className="mt-2 space-y-3 text-sm">
           {props.projects?.map((projectItem) => {
             return (
               <div key={projectItem._id} className="space-y-1">
                 <section>
-                  <div
-                    className="flex items-center space-x-1"
-                    style={{
-                      cursor: projectItem.link ? "pointer" : "auto",
-                    }}
-                    onClick={() => {
-                      if (projectItem.link) {
-                        window.open(projectItem.link, "_blank")
-                      }
-                    }}
-                  >
-                    <b>{projectItem.project_name}</b>
-                    {projectItem.link ? <ArrowUpRight size={14} /> : null}
+                  <div>
+                    {projectItem.link ? (
+                      <div className="flex items-center space-x-1">
+                        <a
+                          href={projectItem.link}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <b>{projectItem.project_name}</b>
+                        </a>
+                        <ArrowUpRight size={14} />
+                      </div>
+                    ) : (
+                      <b>{projectItem.project_name}</b>
+                    )}
                   </div>
                   <i className="text-sm">{projectItem.overview}</i>
                 </section>
-                <section className="ml-3">
+                <section className="ml-3 space-y-1">
                   {projectItem.project_description?.split("\n").map((item) => {
                     if (!item) return null
 
@@ -168,7 +170,7 @@ export default function One(props: TRecord) {
                         key={item}
                         className="flex items-center space-x-3 text-sm"
                       >
-                        <div className="h-1 w-1 bg-black" />
+                        <div className="mt-2 h-1 w-1 self-start bg-black" />
                         <p>{item}</p>
                       </div>
                     )
@@ -211,7 +213,7 @@ export default function One(props: TRecord) {
                           key={item}
                           className="flex items-center space-x-3 text-sm"
                         >
-                          <div className="h-1 w-1 bg-black" />
+                          <div className="mt-2 h-1 w-1 self-start bg-black" />
                           <p>{item}</p>
                         </div>
                       )

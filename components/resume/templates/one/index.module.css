@@ -2,6 +2,8 @@
   color: gray;
   content: "|";
   margin: 0 4px;
+  top: -2px;
+  position: relative;
 }
 
 .separator_container > *:last-child::after {
