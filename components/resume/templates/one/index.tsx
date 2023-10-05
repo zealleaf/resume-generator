@@ -157,7 +157,7 @@ export default function One(props: TRecord) {
                     <b>{projectItem.project_name}</b>
                     {projectItem.link ? <ArrowUpRight size={14} /> : null}
                   </div>
-                  <i className="text-sm">{projectItem.tools_used}</i>
+                  <i className="text-sm">{projectItem.overview}</i>
                 </section>
                 <section className="ml-3">
                   {projectItem.project_description?.split("\n").map((item) => {

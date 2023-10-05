@@ -39,7 +39,7 @@ interface project {
   project_name: string
   project_description: string
   link: string
-  tools_used: string
+  overview: string
 }
 
 interface education {

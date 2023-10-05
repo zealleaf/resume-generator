@@ -23,9 +23,9 @@ import { initialStateFN } from "./utils"
 const FormSchema = z.object({
   _id: z.string().nonempty(),
   project_name: z.string().nonempty(),
-  project_description: z.string().optional(),
+  overview: z.string().optional(),
   link: z.string().optional(),
-  tools_used: z.string().optional(),
+  project_description: z.string().optional(),
 })
 
 type TReadonlyProjectItem = Readonly<z.infer<typeof FormSchema>>
@@ -63,10 +63,10 @@ export const ProjectsItem = ({ values }: { values: TReadonlyProjectItem }) => {
         />
         <FormField
           control={formOBJ.control}
-          name="tools_used"
+          name="overview"
           render={({ field }) => (
             <FormItem className="grow">
-              <FormLabel>Tools Used:</FormLabel>
+              <FormLabel>Overview:</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
