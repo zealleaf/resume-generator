@@ -71,7 +71,7 @@ export const Core = () => {
       <div
         className={cn(
           "box-border bg-white text-black transition-all duration-500",
-          "ml-[calc(-900px/2+100vw/2-28px)] mt-[-375px] h-[1273px] w-[900px] scale-[0.35]",
+          "ml-[calc(-900px/2+100vw/2-28px)] mt-[-375px] min-h-[1273px] w-[900px] scale-[0.35]",
           "sm:mt-[-220px] sm:scale-[0.6]",
           "md:mt-[-155px] md:scale-[0.7]",
           "lg:mt-[-105px] lg:scale-[0.8]",
