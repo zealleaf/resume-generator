@@ -1,6 +1,7 @@
 "use client"
 
 import { useCallback, useRef } from "react"
+import { delay } from "lodash"
 import { useReactToPrint } from "react-to-print"
 import shortid from "shortid"
 import { proxy, subscribe, useSnapshot } from "valtio"
@@ -12,6 +13,7 @@ import {
   handleLocalStorageForValtioSetItem,
 } from "@/lib/utils"
 
+import { confetti_store } from "../confetti"
 import { record_list_store } from "../various-forms/record-list"
 import { template_list_store } from "../various-forms/template-list"
 import Templates from "./templates"
@@ -53,12 +55,25 @@ subscribe(store, () => {
   record_list_store.active = store.record._id
 })
 
+let confettiTimer: any
+
 export const Core = () => {
   const resumeRef = useRef(null)
   const store_snapshot = useSnapshot(store)
 
   const handlePrint = useReactToPrint({
     content: () => resumeRef.current,
+    onAfterPrint: () => {
+      confetti_store.show = true
+
+      if (confettiTimer) {
+        clearTimeout(confettiTimer)
+      }
+
+      confettiTimer = delay(() => {
+        confetti_store.show = false
+      }, 5000)
+    },
   })
 
   store.print_resume = useCallback(() => {

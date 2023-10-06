@@ -1,4 +1,5 @@
 import CommandController from "@/components/command-controller"
+import Confetti from "@/components/confetti"
 import { Resume } from "@/components/resume"
 import { Terminal } from "@/components/terminal"
 import VariousForms from "@/components/various-forms"
@@ -17,9 +18,8 @@ export default function IndexPage() {
           <Resume.Core />
         </Resume.Display>
       </section>
-      <section>
-        <VariousForms />
-      </section>
+      <VariousForms />
+      <Confetti />
     </div>
   )
 }
