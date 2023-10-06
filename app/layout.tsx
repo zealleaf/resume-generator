@@ -7,6 +7,7 @@ import { siteConfig } from "@/config/site"
 import { fontMono } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/toaster"
+import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -43,9 +44,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
-              <div className="container flex-1 pb-8 pt-6 md:py-10">
-                {children}
-              </div>
+              <div className="container grow py-6">{children}</div>
+              <SiteFooter />
             </div>
             <Toaster />
             <TailwindIndicator />
