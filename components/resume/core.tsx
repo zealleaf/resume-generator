@@ -74,7 +74,7 @@ export const Core = () => {
     <div id="resume-core">
       <div
         className={cn(
-          "box-border bg-white text-black transition-all duration-500",
+          "box-content bg-white p-4 text-black transition-all duration-500",
           "ml-[calc(-900px/2+100vw/2-28px)] mt-[-375px] min-h-[1273px] w-[900px] scale-[0.35]",
           "sm:mt-[-220px] sm:scale-[0.6]",
           "md:mt-[-155px] md:scale-[0.7]",
@@ -83,7 +83,7 @@ export const Core = () => {
           "2xl:scale-[1]"
         )}
       >
-        <div ref={resumeRef} className="p-4">
+        <div ref={resumeRef}>
           <Templates
             template={store_snapshot.template}
             record={store_snapshot.record as TRecord}
