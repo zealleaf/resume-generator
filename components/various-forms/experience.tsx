@@ -23,6 +23,7 @@ import { initialStateFN } from "./utils"
 const FormSchema = z.object({
   _id: z.string().nonempty(),
   company_name: z.string().nonempty(),
+  link: z.string().optional(),
   job_title: z.string().optional(),
   job_location: z.string().optional(),
   start_date: z.string().optional(),
@@ -60,6 +61,19 @@ export const ExperienceItem = ({
           render={({ field }) => (
             <FormItem>
               <FormLabel>Company Name:</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={formOBJ.control}
+          name="link"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Company Link:</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>

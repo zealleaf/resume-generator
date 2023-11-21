@@ -21,6 +21,7 @@ interface profile {
 interface experience {
   _id: string
   company_name: string
+  link: string
   start_date: string
   end_date: string
   job_title: string

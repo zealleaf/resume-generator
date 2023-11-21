@@ -13,7 +13,7 @@ export default function One(props: TRecord) {
   return (
     <div className="space-y-5">
       {/* Basic Info */}
-      <section className="profile-area space-y-2">
+      <section className="space-y-2">
         <p className="text-end text-3xl font-bold">{props.profile?.name}</p>
         <div
           className={cn(
@@ -70,7 +70,7 @@ export default function One(props: TRecord) {
                 <section>
                   <div>
                     {projectItem.link ? (
-                      <div className="flex items-center space-x-1">
+                      <div className="flex items-center space-x-1 text-blue-900">
                         <a
                           href={projectItem.link}
                           target="_blank"
@@ -152,13 +152,27 @@ export default function One(props: TRecord) {
                 <section>
                   <div className="flex items-center justify-between">
                     <b>{experienceItem.job_title}</b>
-                    <div className="bg-black px-1 text-white">
-                      <span>{experienceItem.start_date}</span>--
+                    <div className="px-1">
+                      <span>{experienceItem.start_date}</span>
+                      {" ~ "}
                       <span>{experienceItem.end_date}</span>
                     </div>
                   </div>
-                  <i className="text-sm">
-                    {experienceItem.company_name}
+                  <i className="flex items-center text-sm">
+                    {experienceItem.link ? (
+                      <span className="flex items-center space-x-1 text-blue-900">
+                        <a
+                          href={experienceItem.link}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {experienceItem.company_name}
+                        </a>
+                        <ArrowUpRight size={14} />
+                      </span>
+                    ) : (
+                      experienceItem.company_name
+                    )}
                     {experienceItem.company_name ? ", " : null}
                     {experienceItem.job_location}
                   </i>
@@ -202,7 +216,8 @@ export default function One(props: TRecord) {
                       </div>
                     </div>
                     <div className="px-1">
-                      <span>{educationItem.start_date}</span>--
+                      <span>{educationItem.start_date}</span>
+                      {" ~ "}
                       <span>{educationItem.end_date}</span>
                     </div>
                   </div>
