@@ -12,6 +12,7 @@ const style_sort_title = cn(
 export default function One(props: TRecord) {
   return (
     <div className="space-y-5">
+      {/* Basic Info */}
       <section className="profile-area space-y-2">
         <p className="text-end text-3xl font-bold">{props.profile?.name}</p>
         <div
@@ -59,83 +60,7 @@ export default function One(props: TRecord) {
           </span>
         </div>
       </section>
-      <section>
-        <h3 className={style_sort_title}>experience</h3>
-        <div className="mt-2 space-y-2 text-sm">
-          {props.experience?.map((experienceItem) => {
-            return (
-              <div key={experienceItem._id} className="space-y-1">
-                <section>
-                  <div className="flex items-center justify-between">
-                    <b>{experienceItem.job_title}</b>
-                    <div className="bg-black px-1 text-white">
-                      <span>{experienceItem.start_date}</span>--
-                      <span>{experienceItem.end_date}</span>
-                    </div>
-                  </div>
-                  <i className="text-sm">
-                    {experienceItem.company_name}
-                    {experienceItem.company_name ? ", " : null}
-                    {experienceItem.job_location}
-                  </i>
-                </section>
-                <section className="ml-3">
-                  {experienceItem.job_responsibilities
-                    ?.split("\n")
-                    .map((item) => {
-                      if (!item) return null
-
-                      return (
-                        <div
-                          key={item}
-                          className="flex items-center space-x-3 text-sm"
-                        >
-                          <div className="mt-2 h-1 w-1 self-start bg-black" />
-                          <p>{item}</p>
-                        </div>
-                      )
-                    })}
-                </section>
-              </div>
-            )
-          })}
-        </div>
-      </section>
-      <section>
-        <h3 className={style_sort_title}>skills</h3>
-        <div className="mt-2 text-sm">
-          {props.skills?.findIndex((item) => item.skill_kind === "ALL") !== -1
-            ? props.skills?.map((skillItem) => {
-                return (
-                  <div key={skillItem._id} className="space-y-1">
-                    {skillItem.skill_content?.split("\n").map((item) => {
-                      if (!item) return null
-
-                      return (
-                        <div
-                          key={item}
-                          className="flex items-center space-x-3 text-sm"
-                        >
-                          <div className="mt-2 h-1 w-1 self-start bg-black" />
-                          <p>{item}</p>
-                        </div>
-                      )
-                    })}
-                  </div>
-                )
-              })
-            : props.skills?.map((skill) => {
-                return (
-                  <div key={skill._id}>
-                    <div className="flex items-center space-x-6 px-6">
-                      <i>{skill.skill_kind}</i>
-                      <div>{skill.skill_content}</div>
-                    </div>
-                  </div>
-                )
-              })}
-        </div>
-      </section>
+      {/* Projects */}
       <section>
         <h3 className={style_sort_title}>projects</h3>
         <div className="mt-2 space-y-3 text-sm">
@@ -181,6 +106,86 @@ export default function One(props: TRecord) {
           })}
         </div>
       </section>
+      {/* Skills */}
+      <section>
+        <h3 className={style_sort_title}>skills</h3>
+        <div className="mt-2 text-sm">
+          {props.skills?.findIndex((item) => item.skill_kind === "ALL") !== -1
+            ? props.skills?.map((skillItem) => {
+                return (
+                  <div key={skillItem._id} className="space-y-1">
+                    {skillItem.skill_content?.split("\n").map((item) => {
+                      if (!item) return null
+
+                      return (
+                        <div
+                          key={item}
+                          className="flex items-center space-x-3 text-sm"
+                        >
+                          <div className="mt-2 h-1 w-1 self-start bg-black" />
+                          <p>{item}</p>
+                        </div>
+                      )
+                    })}
+                  </div>
+                )
+              })
+            : props.skills?.map((skill) => {
+                return (
+                  <div key={skill._id}>
+                    <div className="flex items-center space-x-6 px-6">
+                      <i>{skill.skill_kind}</i>
+                      <div>{skill.skill_content}</div>
+                    </div>
+                  </div>
+                )
+              })}
+        </div>
+      </section>
+      {/* Experience */}
+      <section>
+        <h3 className={style_sort_title}>experience</h3>
+        <div className="mt-2 space-y-2 text-sm">
+          {props.experience?.map((experienceItem) => {
+            return (
+              <div key={experienceItem._id} className="space-y-1">
+                <section>
+                  <div className="flex items-center justify-between">
+                    <b>{experienceItem.job_title}</b>
+                    <div className="bg-black px-1 text-white">
+                      <span>{experienceItem.start_date}</span>--
+                      <span>{experienceItem.end_date}</span>
+                    </div>
+                  </div>
+                  <i className="text-sm">
+                    {experienceItem.company_name}
+                    {experienceItem.company_name ? ", " : null}
+                    {experienceItem.job_location}
+                  </i>
+                </section>
+                <section className="ml-3">
+                  {experienceItem.job_responsibilities
+                    ?.split("\n")
+                    .map((item) => {
+                      if (!item) return null
+
+                      return (
+                        <div
+                          key={item}
+                          className="flex items-center space-x-3 text-sm"
+                        >
+                          <div className="mt-2 h-1 w-1 self-start bg-black" />
+                          <p>{item}</p>
+                        </div>
+                      )
+                    })}
+                </section>
+              </div>
+            )
+          })}
+        </div>
+      </section>
+      {/* Education */}
       <section>
         <h3 className={style_sort_title}>education</h3>
         <div className="mt-2 text-sm">
@@ -224,6 +229,7 @@ export default function One(props: TRecord) {
           })}
         </div>
       </section>
+      {/* Awards */}
       <section>
         <h3 className={style_sort_title}>awards</h3>
         <div className="mt-2 text-sm">
