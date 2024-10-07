@@ -89,9 +89,15 @@ export const useContent = <
 
   const add = useCallback(() => {
     const _id = shortid.generate()
-    store.list.push({ _id })
+
+    const activeItemIndex = store_snapshot.list.findIndex((item: any) => {
+      return item._id === store_snapshot.active_item
+    })
+
+    store.list.splice(activeItemIndex + 1, 0, { _id })
+
     store.active_item = _id
-  }, [store])
+  }, [store, store_snapshot.active_item, store_snapshot.list])
 
   const remove = useCallback(() => {
     if (store_snapshot.list.length === 1) return

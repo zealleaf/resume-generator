@@ -21,19 +21,21 @@ export default function One(props: TRecord) {
             styles.separator_container
           )}
         >
+          {props.profile?.link ? (
+            <a
+              className={cn(styles.separator)}
+              href={props.profile?.link}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div className="inline-flex items-center space-x-1">
+                <ArrowUpRight size={14} />
+                <span>{props.profile?.link}</span>
+              </div>
+            </a>
+          ) : null}
           <a
-            className={cn(props.profile?.link && styles.separator)}
-            href={props.profile?.link}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <div className="inline-flex items-center space-x-1">
-              <ArrowUpRight size={14} />
-              <span>{props.profile?.link}</span>
-            </div>
-          </a>
-          <a
-            className={cn(props.profile?.email && styles.separator)}
+            className={styles.separator}
             href={"mailto:" + props.profile?.email}
           >
             <div className="inline-flex items-center space-x-1">
@@ -42,7 +44,7 @@ export default function One(props: TRecord) {
             </div>
           </a>
           <span
-            className={cn(props.profile?.phone && styles.separator)}
+            className={styles.separator}
             onClick={() => {
               copyToClipboard(props.profile?.phone || "")
             }}
@@ -52,7 +54,7 @@ export default function One(props: TRecord) {
               <span>{props.profile?.phone}</span>
             </div>
           </span>
-          <span className={cn(props.profile?.location && styles.separator)}>
+          <span className={styles.separator}>
             <div className="inline-flex items-center space-x-1">
               <MapPin size={14} />
               <span>{props.profile?.location}</span>
@@ -245,19 +247,21 @@ export default function One(props: TRecord) {
         </div>
       </section>
       {/* Awards */}
-      <section>
-        <h3 className={style_sort_title}>awards</h3>
-        <div className="mt-2 text-sm">
-          {props.awards?.map((awardItem) => {
-            return (
-              <div key={awardItem._id} className="space-x-2">
-                <span>{awardItem.award_name}</span>
-                <i className="opacity-80">{awardItem.more_info}</i>
-              </div>
-            )
-          })}
-        </div>
-      </section>
+      {props.awards ? (
+        <section>
+          <h3 className={style_sort_title}>awards</h3>
+          <div className="mt-2 text-sm">
+            {props.awards?.map((awardItem) => {
+              return (
+                <div key={awardItem._id} className="space-x-2">
+                  <span>{awardItem.award_name}</span>
+                  <i className="opacity-80">{awardItem.more_info}</i>
+                </div>
+              )
+            })}
+          </div>
+        </section>
+      ) : null}
     </div>
   )
 }
